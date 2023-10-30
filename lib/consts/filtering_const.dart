@@ -1,7 +1,7 @@
 List<String> filterOptionsNames = [
-  "Кондиционер",
-  "Только на бензине",
   "Avto",
+  "Только на бензине",
+  "vto",
   "Old man",
   "Yound man",
   "Кондиционер",

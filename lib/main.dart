@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           child: ElevatedButton(
             child: Text("Next Screen"),
             onPressed: () {
-              Get.to(MyTrips());
+              Get.to(Cards());
             },
           ),
         ),

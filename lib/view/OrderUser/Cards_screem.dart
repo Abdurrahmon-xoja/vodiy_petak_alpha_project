@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
 
 import '../../consts/filtering_const.dart';
+import 'BottomSliderAuto.dart';
 
 class Cards extends StatefulWidget {
   const Cards({super.key});
@@ -14,7 +15,7 @@ class Cards extends StatefulWidget {
 
 class _CardsState extends State<Cards> {
   List<bool> filterOptionsIsChoosed =
-      List.generate(filterOptionsNames.length - 1, (index) => false);
+      List.generate(filterOptionsNames.length, (index) => false);
 
   int _currentIndex = 0;
   List<Widget> body = const [
@@ -299,89 +300,20 @@ class _CardsState extends State<Cards> {
 
   List<Widget> options() {
     List<Widget> result = List.generate(
-        filterOptionsNames.length - 1,
+        filterOptionsNames.length,
         (index) => GestureDetector(
               onTap: () {
                 if (filterOptionsNames[index] == "Avto") {
                   showModalBottomSheet(
                       context: context,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20.0),
+                          topRight: Radius.circular(20.0),
+                        ),
                       ),
                       builder: (BuildContext context) {
-                        return Container(
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Container(
-                                width: 50,
-                                height: 4,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(100.0),
-                                  color: const Color(0xffD9D9D9),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 16,
-                              ),
-                              IntrinsicWidth(
-                                child: Container(
-                                  // width: 50,
-                                  padding: EdgeInsets.all(10.0),
-                                  decoration: BoxDecoration(
-                                    color: Color(0xffE2E2E2),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: const Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "Фильтры",
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                          color: cdarkTextColor,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 4,
-                                      ),
-                                      Icon(
-                                        Icons.tune,
-                                        color: cclueColor,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 16,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Выбор Авто",
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w700,
-                                        color: Color(0xff000000)),
-                                  ),
-                                  SizedBox(
-                                    height: 16,
-                                  ),
-                                  Text("Chevrolet"),
-                                  SizedBox(
-                                    height: 16,
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        );
+                        return BottomSliderAuto();
                       });
                 }
                 setState(() {
@@ -413,7 +345,6 @@ class _CardsState extends State<Cards> {
               ),
             ));
     if (result.isNotEmpty) {
-      print(filterOptionsIsChoosed);
       return result;
     }
     return [];

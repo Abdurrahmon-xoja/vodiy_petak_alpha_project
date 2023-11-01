@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
+import 'package:vodiy_petak_alpha_project/view/OrderUser/BottomSliderPriceAndTime.dart';
 
 import '../../consts/filtering_const.dart';
 import 'BottomSliderAuto.dart';
@@ -75,7 +76,19 @@ class _CardsState extends State<Cards> {
                         ),
                       ),
                       ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            showModalBottomSheet(
+                                context: context,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20.0),
+                                    topRight: Radius.circular(20.0),
+                                  ),
+                                ),
+                                builder: (BuildContext context) {
+                                  return BottomSliderPriceAndTime();
+                                });
+                          },
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
                             primary: Color(0xffE2E2E2),

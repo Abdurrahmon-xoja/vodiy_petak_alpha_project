@@ -37,3 +37,17 @@ List<String> autoOthersOptions = [
   "Chevrolet Captiva",
   "Ravon Gentra"
 ];
+
+List<String> timeOfGoing = [
+  "05:00-12:00",
+  "12:00-16:00",
+  "16:00-23:00",
+  "23:00-05:00",
+];
+
+List<String> timeOfGoName = [
+  "Утром",
+  "Днем",
+  "Вечером",
+  "Ночью",
+];

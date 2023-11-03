@@ -4,6 +4,7 @@ import 'package:vodiy_petak_alpha_project/view/OrderUser/Cards_screem.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/ChoosePlace_screen.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/Places_screen.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/mytrips_screen.dart';
+import 'package:vodiy_petak_alpha_project/view/OrderUser/orderInfo_screen.dart';
 import 'package:vodiy_petak_alpha_project/view/ServisScreens/noInternet.dart';
 import 'package:vodiy_petak_alpha_project/view/driverOrPassenger_screen.dart';
 import 'package:vodiy_petak_alpha_project/view/loginOrRegistration_screen.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
           child: ElevatedButton(
             child: Text("Next Screen"),
             onPressed: () {
-              Get.to(LoginOrRegistration());
+              Get.to(OrderInfo());
             },
           ),
         ),

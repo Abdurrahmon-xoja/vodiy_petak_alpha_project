@@ -4,9 +4,12 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/methods_const.dart';
+import 'package:vodiy_petak_alpha_project/view/OrderUser/Cards_screem.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/Places_screen.dart';
+import 'package:vodiy_petak_alpha_project/view/OrderUser/mytrips_screen.dart';
 
 import '../../consts/castem_widgets_const.dart';
+import '../../consts/global_varibels.dart';
 
 class ChoosePlace extends StatefulWidget {
   const ChoosePlace({super.key});
@@ -343,7 +346,13 @@ class _ChoosePlaceState extends State<ChoosePlace> {
                         height: 24,
                       ),
                       button(
-                          text: "Поиск", color: caccentColor, onPressed: () {}),
+                          text: "Поиск",
+                          color: caccentColor,
+                          onPressed: () {
+                            // here we should write to memoer new order
+                            doesUserWentToCardScreen = true;
+                            Get.to(Cards());
+                          }),
                     ],
                   ),
                 ),
@@ -360,6 +369,9 @@ class _ChoosePlaceState extends State<ChoosePlace> {
         onTap: (newIndex) {
           // here we can chechc a in withe screen we should navigate
           setState(() {
+            if (newIndex == 1) {
+              Get.to(MyTrips());
+            }
             _currentIndex = newIndex;
           });
         },

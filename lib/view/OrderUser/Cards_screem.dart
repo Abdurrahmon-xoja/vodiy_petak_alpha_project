@@ -3,8 +3,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/BottomSliderPriceAndTime.dart';
+import 'package:vodiy_petak_alpha_project/view/OrderUser/ChoosePlace_screen.dart';
+import 'package:vodiy_petak_alpha_project/view/OrderUser/mytrips_screen.dart';
 
 import '../../consts/filtering_const.dart';
+import '../../consts/global_varibels.dart';
 import 'BottomSliderAuto.dart';
 
 class Cards extends StatefulWidget {
@@ -44,12 +47,20 @@ class _CardsState extends State<Cards> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        child: const Row(
+                        child: Row(
                           children: [
-                            Icon(
-                              Icons.arrow_back_ios,
-                              size: 24.0,
-                              color: cworkingHintColor,
+                            GestureDetector(
+                              onTap: () {
+                                Get.to(ChoosePlace());
+                                doesUserWentToCardScreen = false;
+                              },
+                              child: Container(
+                                child: Icon(
+                                  Icons.arrow_back_ios,
+                                  size: 24.0,
+                                  color: cworkingHintColor,
+                                ),
+                              ),
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -291,6 +302,15 @@ class _CardsState extends State<Cards> {
           // here we can chechc a in withe screen we should navigate
           setState(() {
             _currentIndex = newIndex;
+            if (newIndex == 1) {
+              Get.to(MyTrips());
+            } else if (newIndex == 0) {
+              if (doesUserWentToCardScreen == false) {
+                Get.to(ChoosePlace());
+              } else {
+                Get.to(Cards());
+              }
+            }
           });
         },
         items: const [

@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
+
+import '../../consts/global_varibels.dart';
+import 'Cards_screem.dart';
+import 'ChoosePlace_screen.dart';
 
 class MyTrips extends StatefulWidget {
   MyTrips({super.key});
@@ -10,7 +16,7 @@ class MyTrips extends StatefulWidget {
 }
 
 class _MyTripsState extends State<MyTrips> {
-  int _currentIndex = 0;
+  int _currentIndex = 1;
 
   List<Widget> body = const [
     Icon(Icons.home),
@@ -260,6 +266,15 @@ class _MyTripsState extends State<MyTrips> {
           // here we can chechc a in withe screen we should navigate
           setState(() {
             _currentIndex = newIndex;
+            if (newIndex == 1) {
+              Get.to(MyTrips());
+            } else if (newIndex == 0) {
+              if (doesUserWentToCardScreen == false) {
+                Get.to(ChoosePlace());
+              } else {
+                Get.to(Cards());
+              }
+            }
           });
         },
         items: const [

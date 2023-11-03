@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/methods_const.dart';
+import 'package:vodiy_petak_alpha_project/view/OrderUser/ChoosePlace_screen.dart';
 
 import '../../consts/colors_const.dart';
 
@@ -185,7 +186,9 @@ class _RegistrationSexState extends State<RegistrationSex> {
                                     button(
                                         text: "Продолжить",
                                         color: caccentColor,
-                                        onPressed: () {})
+                                        onPressed: () {
+                                          Get.to(ChoosePlace());
+                                        })
                                   ],
                                 ),
                               ));

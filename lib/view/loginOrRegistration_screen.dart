@@ -57,12 +57,12 @@ class LoginOrRegistration extends StatelessWidget {
                     button(
                       text: "Войти ",
                       color: caccentColor,
-                      onPressed: () {
-                        Get.to(RegistrationPhone());
-                      },
+                      onPressed: () {},
                     ),
                     SizedBox(height: 15.0),
-                    buttonBorder("Зарегистрироваться", () {}),
+                    buttonBorder("Зарегистрироваться", () {
+                      Get.to(RegistrationPhone());
+                    }),
                   ],
                 ),
               ),

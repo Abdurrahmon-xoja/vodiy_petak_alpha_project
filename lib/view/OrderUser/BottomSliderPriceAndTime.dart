@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
 
 import '../../consts/colors_const.dart';
@@ -23,6 +24,11 @@ class _BottomSliderPriceAndTimeState extends State<BottomSliderPriceAndTime> {
 
   @override
   Widget build(BuildContext context) {
+    var startPriceFormatter = NumberFormat('###,###', 'en_US')
+        .format(startPrice)
+        .replaceAll(',', ' ');
+    var endPriceFormatter =
+        NumberFormat('###,###', 'en_US').format(endPrice).replaceAll(',', ' ');
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -115,9 +121,7 @@ class _BottomSliderPriceAndTimeState extends State<BottomSliderPriceAndTime> {
                                 width: 8,
                               ),
                               Text(
-                                startPrice.toStringAsFixed(0).substring(0, 2) +
-                                    " " +
-                                    startPrice.toStringAsFixed(0).substring(2),
+                                startPriceFormatter,
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w400,
@@ -162,9 +166,7 @@ class _BottomSliderPriceAndTimeState extends State<BottomSliderPriceAndTime> {
                                 width: 8,
                               ),
                               Text(
-                                endPrice.toStringAsFixed(0).substring(0, 2) +
-                                    " " +
-                                    endPrice.toStringAsFixed(0).substring(2),
+                                endPriceFormatter,
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w400,

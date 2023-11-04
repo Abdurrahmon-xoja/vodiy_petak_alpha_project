@@ -51,3 +51,13 @@ List<String> timeOfGoName = [
   "Вечером",
   "Ночью",
 ];
+
+// will chage is it taken then show
+List<String> sitsePlcaeName = [
+  "Место спереди",
+  "Место справа",
+  "Место слева",
+  "Место посередине",
+];
+
+int additionSitsePlcaeNum = 0;

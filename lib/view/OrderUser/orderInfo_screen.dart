@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
 
+import 'BottomSliderPlacecs.dart';
+
 class OrderInfo extends StatefulWidget {
   const OrderInfo({super.key});
 
@@ -289,7 +291,19 @@ class _OrderInfoState extends State<OrderInfo> {
               button(
                   text: "Позвонить и забронировать место",
                   color: caccentColor,
-                  onPressed: () {}),
+                  onPressed: () {
+                    showModalBottomSheet(
+                        context: context,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20.0),
+                            topRight: Radius.circular(20.0),
+                          ),
+                        ),
+                        builder: (BuildContext context) {
+                          return BottomSliderPlaces();
+                        });
+                  }),
             ],
           ),
         ),

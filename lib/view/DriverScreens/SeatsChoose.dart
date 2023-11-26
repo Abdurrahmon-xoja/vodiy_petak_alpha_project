@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/methods_const.dart';
+import 'package:vodiy_petak_alpha_project/view/DriverScreens/BottomSliderNumberOfSeats.dart';
 
 import '../../consts/filtering_const.dart';
+import 'BottomSliderPriceChoose.dart';
 
 class SeatsChoose extends StatefulWidget {
   const SeatsChoose({super.key});
@@ -13,8 +17,11 @@ class SeatsChoose extends StatefulWidget {
 
 class _SeatsChooseState extends State<SeatsChoose> {
   List<bool> seatsBool = List.generate(sitsePlcaeName.length, (index) => false);
-  int some = 0;
+  List<double> seatsPrice = List.generate(sitsePlcaeName.length, (index) => 0);
+
+  int numOfAddSeats = 0;
   List<bool> additionalSeatsBool = List.generate(0, (index) => false);
+  List<double> additionalSeatsPrice = List.generate(0, (index) => 0);
 
   @override
   Widget build(BuildContext context) {
@@ -45,11 +52,48 @@ class _SeatsChooseState extends State<SeatsChoose> {
                   height: 8.0,
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showModalBottomSheet(
+                        isScrollControlled: true,
+                        context: context,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20.0),
+                            topRight: Radius.circular(20.0),
+                          ),
+                        ),
+                        builder: (BuildContext context) {
+                          return BottomSliderNumberOfSeats(
+                            getValue: (val) {
+                              setState(() {
+                                numOfAddSeats = val;
+                                additionalSeatsBool = List.generate(
+                                    numOfAddSeats, (index) => false);
+                                additionalSeatsPrice =
+                                    List.generate(numOfAddSeats, (index) => 0);
+                              });
+                            },
+                          );
+                        });
+                  },
                   child: Text("Add a places"),
                 ),
                 SizedBox(
                   height: 16.0,
+                ),
+                Column(
+                  children: addSeats(),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                button(
+                  text: "Next",
+                  color: caccentColor,
+                  onPressed: () {},
+                ),
+                SizedBox(
+                  height: 10,
                 ),
               ],
             ),
@@ -66,6 +110,30 @@ class _SeatsChooseState extends State<SeatsChoose> {
       (index) => GestureDetector(
         onTap: () {
           setState(() {
+            showModalBottomSheet(
+                isScrollControlled: true,
+                context: context,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20.0),
+                    topRight: Radius.circular(20.0),
+                  ),
+                ),
+                builder: (BuildContext context) {
+                  return BottomSliderPriceChooser(
+                    getValue: (val) {
+                      setState(() {
+                        if (val == 0) {
+                          seatsBool[index] = false;
+                          seatsPrice[index] = 0;
+                        } else {
+                          seatsBool[index] = true;
+                          seatsPrice[index] = val;
+                        }
+                      });
+                    },
+                  );
+                });
             seatsBool[index] = !seatsBool[index];
           });
         },
@@ -92,12 +160,95 @@ class _SeatsChooseState extends State<SeatsChoose> {
                 ),
               ),
               Text(
-                " ",
+                seatsPrice[index] > 0
+                    ? NumberFormat('###,###', 'en_US')
+                        .format(seatsPrice[index])
+                        .replaceAll(',', ' ')
+                    : " ",
                 textAlign: TextAlign.start,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
                   color: seatsBool[index] ? caccentColor : cclueColor,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    return result;
+  }
+
+  List<Widget> addSeats() {
+    print(additionalSeatsBool);
+    List<Widget> result = List.generate(
+      numOfAddSeats,
+      (index) => GestureDetector(
+        onTap: () {
+          showModalBottomSheet(
+              isScrollControlled: true,
+              context: context,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.0),
+                  topRight: Radius.circular(20.0),
+                ),
+              ),
+              builder: (BuildContext context) {
+                return BottomSliderPriceChooser(
+                  getValue: (val) {
+                    setState(() {
+                      if (val == 0) {
+                        additionalSeatsBool[index] = false;
+                        additionalSeatsPrice[index] = 0;
+                      } else {
+                        additionalSeatsBool[index] = true;
+                        additionalSeatsPrice[index] = val;
+                      }
+                    });
+                  },
+                );
+              });
+          setState(() {
+            additionalSeatsBool[index] = !additionalSeatsBool[index];
+          });
+        },
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+          margin: EdgeInsets.only(bottom: 16.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.0),
+            border: additionalSeatsBool[index]
+                ? Border.all(color: caccentColor, width: 1)
+                : Border.all(color: cworkingHintColor, width: 1),
+            color:
+                additionalSeatsBool[index] ? caccentBackingColor : cinputColor,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "plca " + (index + 1).toString(),
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                  color: additionalSeatsBool[index] ? caccentColor : cclueColor,
+                ),
+              ),
+              Text(
+                additionalSeatsPrice[index] > 0
+                    ? NumberFormat('###,###', 'en_US')
+                        .format(additionalSeatsPrice[index])
+                        .replaceAll(',', ' ')
+                    : " ",
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                  color: additionalSeatsBool[index] ? caccentColor : cclueColor,
                 ),
               ),
             ],

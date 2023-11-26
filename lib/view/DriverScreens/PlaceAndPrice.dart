@@ -100,7 +100,6 @@ class _PlaceAndPriceState extends State<PlaceAndPrice> {
           setState(() {
             seatsBool[index] = !seatsBool[index];
           });
-          print(getResult);
         },
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),

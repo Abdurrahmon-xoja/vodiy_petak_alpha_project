@@ -47,7 +47,7 @@ class _PlaceAndPriceState extends State<PlaceAndPrice> {
                 height: 16.0,
               ),
               Column(
-                children: reasons(),
+                children: goodsSize(),
               ),
               SizedBox(
                 height: 16.0,
@@ -66,7 +66,7 @@ class _PlaceAndPriceState extends State<PlaceAndPrice> {
     );
   }
 
-  List<Widget> reasons() {
+  List<Widget> goodsSize() {
     double getResult = 0.0;
     // BottomSliderPriceChooser priceChooser = ;
     List<Widget> result = List.generate(

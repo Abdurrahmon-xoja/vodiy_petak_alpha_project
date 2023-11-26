@@ -4,7 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/methods_const.dart';
-import 'package:vodiy_petak_alpha_project/view/registration/registrationAge_screen.dart';
+import 'package:vodiy_petak_alpha_project/view/RegistrationScreens/registrationAge_screen.dart';
 
 class RegistrationNameAndEmail extends StatelessWidget {
   const RegistrationNameAndEmail({super.key});

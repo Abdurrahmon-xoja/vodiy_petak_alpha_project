@@ -20,6 +20,7 @@ class _BottomSliderAutoState extends State<BottomSliderAuto> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
             height: 5,

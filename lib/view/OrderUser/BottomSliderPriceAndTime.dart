@@ -31,6 +31,7 @@ class _BottomSliderPriceAndTimeState extends State<BottomSliderPriceAndTime> {
         NumberFormat('###,###', 'en_US').format(endPrice).replaceAll(',', ' ');
     return SingleChildScrollView(
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
             height: 5,

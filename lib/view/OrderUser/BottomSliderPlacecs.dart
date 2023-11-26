@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
+import 'package:vodiy_petak_alpha_project/view/OrderUser/reasonCanceling.dart';
 
 import '../../consts/filtering_const.dart';
+import 'ChoosePlace_screen.dart';
 
 class BottomSliderPlaces extends StatefulWidget {
   const BottomSliderPlaces({super.key});
@@ -19,6 +27,7 @@ class _BottomSliderPlacesState extends State<BottomSliderPlaces> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
             height: 5,
@@ -101,7 +110,166 @@ class _BottomSliderPlacesState extends State<BottomSliderPlaces> {
                   button(
                     text: "Позвонить и забронировать место",
                     color: caccentColor,
-                    onPressed: () {},
+                    onPressed: () {
+                      //ToDo defaultDialog is here
+                      Get.defaultDialog(
+                          title: "",
+                          content: Container(
+                            width: MediaQuery.of(context).size.width + 100,
+                            padding: EdgeInsets.symmetric(horizontal: 10.0),
+                            // width: double.infinity,
+                            child: Column(
+                              children: [
+                                Text(
+                                  textAlign: TextAlign.center,
+                                  "Вы только что говорили с водителем",
+                                  style: TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.w700,
+                                      color: cdarkTextColor),
+                                ),
+                                SizedBox(
+                                  height: 16,
+                                ),
+                                Text(
+                                  textAlign: TextAlign.center,
+                                  "Если вы договорились о поездке нажмите подтвердить поездку если нет нажмите вернуться назад",
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: cworkingHintColor),
+                                ),
+                                SizedBox(
+                                  height: 24,
+                                ),
+                                button(
+                                  text: "Продолжить",
+                                  color: caccentColor,
+                                  onPressed: () {
+                                    FlutterPhoneDirectCaller.callNumber(
+                                        '+993911538881');
+                                    launch('tel+998911638881');
+
+                                    // Get.defaultDialog(
+                                    //   title: "",
+                                    //   content: alert(
+                                    //     text1: 'Поездка активирована!',
+                                    //     text2:
+                                    //         'Если вы передумали отмените поездку, но перед этим позвоните водителю',
+                                    //     imageName: 'images/ptichka.svg',
+                                    //     buttonTExt: 'Отменить поездку',
+                                    //     onClick: () {},
+                                    //   ),
+                                    // );
+                                    Get.defaultDialog(
+                                      title: "",
+                                      content: SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              "Поездка завершена",
+                                              style: TextStyle(
+                                                fontSize: 22,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 24,
+                                            ),
+                                            RatingBar(
+                                              minRating: 1,
+                                              maxRating: 5,
+                                              initialRating: 3,
+                                              ratingWidget: RatingWidget(
+                                                full: Icon(
+                                                  Icons.star,
+                                                  color: Colors.yellow,
+                                                  size: 22,
+                                                ),
+                                                empty: Icon(
+                                                  Icons.star,
+                                                  color: cclueColor,
+                                                  size: 22,
+                                                ),
+                                                half: Icon(
+                                                  Icons.star,
+                                                  color: cclueColor,
+                                                  size: 22,
+                                                ),
+                                              ),
+                                              onRatingUpdate: (double value) {},
+                                            ),
+                                            SizedBox(
+                                              height: 24,
+                                            ),
+                                            Text(
+                                              "Напишите комментарий",
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                                color: Color(0xff898989),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 24,
+                                            ),
+                                            TextFormField(
+                                              // controller: _dateController,
+                                              decoration: InputDecoration(
+                                                // fillColor: fmaleInputColor,
+                                                filled: true,
+                                                hintText: 'Ваш комментарий',
+                                                hintStyle: TextStyle(
+                                                    color: cclueColor),
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                  borderSide: BorderSide(
+                                                      color: cinputColor),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: cinputColor),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 24,
+                                            ),
+                                            button(
+                                                text: "Готово",
+                                                color: caccentColor,
+                                                onPressed: () {})
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                buttonBorder(
+                                  "Мы не смогли договориться",
+                                  () {
+                                    Get.to(ReasonCanceling());
+                                  },
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                              ],
+                            ),
+                          ));
+                    },
                   ),
                   SizedBox(
                     height: 16,

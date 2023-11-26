@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
+import 'package:vodiy_petak_alpha_project/view/DriverScreens/DriverTakesFrom_screen.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/BottomSliderPriceAndTime.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/ChoosePlace_screen.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/mytrips_screen.dart';
@@ -9,16 +10,17 @@ import 'package:vodiy_petak_alpha_project/view/OrderUser/orderInfo_screen.dart';
 
 import '../../consts/filtering_const.dart';
 import '../../consts/global_varibels.dart';
-import 'BottomSliderAuto.dart';
+import '../OrderUser/BottomSliderAuto.dart';
+// import 'BottomSliderAuto.dart';
 
-class Cards extends StatefulWidget {
-  const Cards({super.key});
+class DriverCards extends StatefulWidget {
+  const DriverCards({super.key});
 
   @override
-  State<Cards> createState() => _CardsState();
+  State<DriverCards> createState() => _DriverCardsState();
 }
 
-class _CardsState extends State<Cards> {
+class _DriverCardsState extends State<DriverCards> {
   List<bool> filterOptionsIsChoosed =
       List.generate(filterOptionsNames.length, (index) => false);
 
@@ -239,11 +241,13 @@ class _CardsState extends State<Cards> {
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SizedBox(
                                   height: 10,
                                 ),
-                                const Text(
+                                Text(
+                                  // textAlign: TextAlign.start,
                                   "Адрес отправки: Сергели ипподром (18:00)",
                                   style: TextStyle(
                                     color: Color(0xFF2A2A2A),
@@ -251,7 +255,6 @@ class _CardsState extends State<Cards> {
                                     fontFamily: 'Poppins',
                                     fontWeight: FontWeight.w400,
                                   ),
-                                  textAlign: TextAlign.center,
                                 ),
                                 SizedBox(
                                   height: 10,
@@ -273,7 +276,7 @@ class _CardsState extends State<Cards> {
                                       ),
                                     ),
                                     onPressed: () {
-                                      Get.to(OrderInfo());
+                                      // Get.to(OrderInfo());
                                     },
                                     child: const Text(
                                       " Name +998 99 999 99 99",
@@ -297,6 +300,30 @@ class _CardsState extends State<Cards> {
           ),
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Container(
+        width: MediaQuery.of(context).size.width / 2,
+        height: MediaQuery.of(context).size.height / 18,
+        decoration: BoxDecoration(
+            color: caccentColor, borderRadius: BorderRadius.circular(16.0)),
+        child: FloatingActionButton(
+          onPressed: () {
+            Get.to(DriverTakesFrom());
+            // Add your button onPressed logic here
+          },
+          child: Text(
+            "Начать свою поездку",
+            style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w400),
+          ),
+          backgroundColor: caccentColor,
+          foregroundColor: Colors.white,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          tooltip: 'Start Trip',
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: cmenuBackgroundColor,
         selectedItemColor: caccentColor,
@@ -312,7 +339,7 @@ class _CardsState extends State<Cards> {
               if (doesUserWentToCardScreen == false) {
                 Get.to(ChoosePlace());
               } else {
-                Get.to(Cards());
+                Get.to(DriverCards());
               }
             }
           });

@@ -3,7 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
-import 'package:vodiy_petak_alpha_project/view/registration/registrationPhone_screen.dart';
+
+import 'RegistrationScreens/registrationPhone_screen.dart';
 
 class LoginOrRegistration extends StatelessWidget {
   const LoginOrRegistration({super.key});

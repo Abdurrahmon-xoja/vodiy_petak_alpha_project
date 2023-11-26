@@ -10,6 +10,7 @@ import 'package:vodiy_petak_alpha_project/view/OrderUser/mytrips_screen.dart';
 
 import '../../consts/castem_widgets_const.dart';
 import '../../consts/global_varibels.dart';
+import '../DriverScreens/DriverCards_screem.dart';
 
 class ChoosePlace extends StatefulWidget {
   const ChoosePlace({super.key});
@@ -55,68 +56,66 @@ class _ChoosePlaceState extends State<ChoosePlace> {
         child: Container(
           child: Stack(
             children: <Widget>[
-              Container(
-                child: Column(
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Container(
-                        color: caccent2Color,
-                        width: double.infinity,
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        alignment: Alignment.center,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 10,
+              Column(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      color: caccent2Color,
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      alignment: Alignment.center,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "Здравствуйте,",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: cwhiteColor,
+                              fontSize: 24,
+                              fontWeight: FontWeight.w700,
                             ),
-                            Text(
-                              "Здравствуйте,",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: cwhiteColor,
-                                fontSize: 24,
-                                fontWeight: FontWeight.w700,
-                              ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "Ирода Омонова",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: cwhiteColor,
+                              fontSize: 24,
+                              fontWeight: FontWeight.w700,
                             ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "Ирода Омонова",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: cwhiteColor,
-                                fontSize: 24,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 12,
-                            ),
-                            SvgPicture.asset(
-                              'images/ChoosePlace.svg',
-                            ),
-                          ],
-                        ),
+                          ),
+                          SizedBox(
+                            height: 12,
+                          ),
+                          SvgPicture.asset(
+                            'images/ChoosePlace.svg',
+                          ),
+                        ],
                       ),
                     ),
-                    SizedBox(
-                      height: 10.0,
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 20.0),
+                      color: cwhiteColor,
+                      child: null,
                     ),
-                    Expanded(
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 20.0),
-                        color: cwhiteColor,
-                        child: null,
-                      ),
-                    )
-                  ],
-                ),
+                  )
+                ],
               ),
               Positioned(
-                top: MediaQuery.of(context).size.height / 2 - 90, // 72
+                top: MediaQuery.of(context).size.height / 2 - 120, // 72
                 left: 16,
                 child: Container(
                   width: MediaQuery.of(context).size.width - 31,
@@ -351,6 +350,10 @@ class _ChoosePlaceState extends State<ChoosePlace> {
                           onPressed: () {
                             // here we should write to memoer new order
                             doesUserWentToCardScreen = true;
+                            if (isDriver = true) {
+                              // will write
+                              Get.to(DriverCards());
+                            }
                             Get.to(Cards());
                           }),
                     ],

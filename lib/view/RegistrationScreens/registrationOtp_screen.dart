@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/methods_const.dart';
-import 'package:vodiy_petak_alpha_project/view/registration/registrationNameAndEmail_screen.dart';
+import 'package:vodiy_petak_alpha_project/view/RegistrationScreens/registrationNameAndEmail_screen.dart';
 
 class RegistrationOtp extends StatefulWidget {
   const RegistrationOtp({super.key});

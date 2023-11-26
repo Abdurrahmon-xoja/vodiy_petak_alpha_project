@@ -155,8 +155,10 @@ class _RegistrationSexState extends State<RegistrationSex> {
                         onPressed: () {
                           Get.defaultDialog(
                               title: "",
-                              content: Container(
+                              content: SizedBox(
                                 // margin: EdgeInsets.symmetric(horizontal: 100),
+                                width: MediaQuery.of(context).size.width,
+                                // width: double.infinity,
                                 child: Column(
                                   children: [
                                     SvgPicture.asset('images/ptichka.svg'),

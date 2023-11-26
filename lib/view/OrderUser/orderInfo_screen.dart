@@ -294,6 +294,7 @@ class _OrderInfoState extends State<OrderInfo> {
                   onPressed: () {
                     showModalBottomSheet(
                         context: context,
+                        isScrollControlled: true,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(20.0),

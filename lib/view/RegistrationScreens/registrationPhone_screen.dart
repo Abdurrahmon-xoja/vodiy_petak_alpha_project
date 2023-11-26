@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
-import 'package:vodiy_petak_alpha_project/view/registration/registrationOtp_screen.dart';
+import 'package:vodiy_petak_alpha_project/view/RegistrationScreens/registrationOtp_screen.dart';
 
 import '../../consts/methods_const.dart';
 

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/methods_const.dart';
-import 'package:vodiy_petak_alpha_project/view/registration/registrationSex_screen.dart';
+import 'package:vodiy_petak_alpha_project/view/RegistrationScreens/registrationSex_screen.dart';
 
 import '../../consts/colors_const.dart';
 

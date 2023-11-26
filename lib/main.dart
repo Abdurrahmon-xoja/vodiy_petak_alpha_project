@@ -6,6 +6,7 @@ import 'package:vodiy_petak_alpha_project/view/DriverScreens/DriverCards_screem.
 import 'package:vodiy_petak_alpha_project/view/DriverScreens/DriverTakesFrom_screen.dart';
 import 'package:vodiy_petak_alpha_project/view/DriverScreens/PlaceAndPrice.dart';
 import 'package:vodiy_petak_alpha_project/view/DriverScreens/WillTakeDelivary.dart';
+import 'package:vodiy_petak_alpha_project/view/DriverScreens/WillTakePassangers.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/ChoosePlace_screen.dart';
 
 import 'package:vodiy_petak_alpha_project/view/loginOrRegistration_screen.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
           child: ElevatedButton(
             child: Text("Next Screen"),
             onPressed: () {
-              Get.to(PlaceAndPrice());
+              Get.to(WillTakePassangers());
             },
           ),
         ),

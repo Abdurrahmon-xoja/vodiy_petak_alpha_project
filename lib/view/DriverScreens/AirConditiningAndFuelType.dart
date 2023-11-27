@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/methods_const.dart';
+import 'package:vodiy_petak_alpha_project/view/DriverScreens/DriverCards_screem.dart';
+
+import '../../consts/global_varibels.dart';
+import '../OrderUser/Cards_screem.dart';
 
 class AirConditingAndFuelType extends StatefulWidget {
   const AirConditingAndFuelType({super.key});
@@ -157,7 +163,25 @@ class _AirConditingAndFuelTypeState extends State<AirConditingAndFuelType> {
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: button(
-                      text: "Далее", color: caccentColor, onPressed: () {}),
+                    text: "Далее",
+                    color: caccentColor,
+                    onPressed: () {
+                      Get.defaultDialog(
+                        title: "",
+                        content: alert(
+                          text1: 'активирована',
+                          text2:
+                              'Ваша поездка добавилась в общую страницу, ждите звонков пассажиров и следите за статусом поездки ',
+                          imageName: 'images/ptichka.svg',
+                          buttonTExt: 'Отследить статус вашей поездки',
+                          onClick: () {
+                            Get.to(DriverCards());
+                            isOrderStartes = true;
+                          },
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
               SizedBox(

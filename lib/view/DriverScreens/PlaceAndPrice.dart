@@ -52,12 +52,15 @@ class _PlaceAndPriceState extends State<PlaceAndPrice> {
               SizedBox(
                 height: 16.0,
               ),
-              button(
-                text: "Next",
-                color: caccentColor,
-                onPressed: () {
-                  //here to memory save and to next screen
-                },
+              Expanded(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: button(
+                      text: "Далее", color: caccentColor, onPressed: () {}),
+                ),
+              ),
+              SizedBox(
+                height: 16,
               ),
             ],
           ),

@@ -4,6 +4,8 @@ import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/methods_const.dart';
 
+import 'BottomSliderNumberOfSeats.dart';
+
 class DriverOrderScreen extends StatefulWidget {
   const DriverOrderScreen({super.key});
 
@@ -296,7 +298,116 @@ class _DriverOrderScreenState extends State<DriverOrderScreen> {
               ),
               buttonBorder(
                 "Завершить поездку",
-                () {},
+                () {
+                  showModalBottomSheet(
+                      isScrollControlled: true,
+                      context: context,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20.0),
+                          topRight: Radius.circular(20.0),
+                        ),
+                      ),
+                      builder: (BuildContext context) {
+                        return Container(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Container(
+                                width: 50,
+                                height: 4,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100.0),
+                                  color: const Color(0xffD9D9D9),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 16,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Завершить поездку",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w700,
+                                          color: cdarkTextColor)),
+                                  SizedBox(
+                                    height: 8,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text("Куда:  ",
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w700,
+                                            color: Color(0xff262626),
+                                          )),
+                                      Text(
+                                        "Ташкент",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400,
+                                            color: cdarkTextColor),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 8,
+                                  ),
+                                  Text(
+                                    "У вас 1 доставка",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w700,
+                                      color: Color(0xff262626),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 8,
+                                  ),
+                                  Text(
+                                    "У вас 2 пассажир",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w700,
+                                      color: Color(0xff262626),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 40,
+                              ),
+                              Text(
+                                textAlign: TextAlign.center,
+                                "Внимание! Не завершайте поездку пока не отвезете всех пассажиров и не отдадите все доставки!",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xff898989),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 16,
+                              ),
+                              button(
+                                text: "Завершить поездку",
+                                color: caccentColor,
+                                onPressed: () {},
+                              ),
+                              SizedBox(
+                                height: 30,
+                              )
+                            ],
+                          ),
+                        );
+                      });
+                },
               ),
             ],
           ),

@@ -4,6 +4,7 @@ import 'package:vodiy_petak_alpha_project/view/DriverScreens/AirConditiningAndFu
 import 'package:vodiy_petak_alpha_project/view/DriverScreens/CarRegistration_screen.dart';
 import 'package:vodiy_petak_alpha_project/view/DriverScreens/DRiverTime.dart';
 import 'package:vodiy_petak_alpha_project/view/DriverScreens/DriverCards_screem.dart';
+import 'package:vodiy_petak_alpha_project/view/DriverScreens/DriverOrderScreen.dart';
 import 'package:vodiy_petak_alpha_project/view/DriverScreens/DriverTakesFrom_screen.dart';
 import 'package:vodiy_petak_alpha_project/view/DriverScreens/PlaceAndPrice.dart';
 import 'package:vodiy_petak_alpha_project/view/DriverScreens/SeatsChoose.dart';
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
           child: ElevatedButton(
             child: Text("Next Screen"),
             onPressed: () {
-              Get.to(AirConditingAndFuelType());
+              Get.to(DriverOrderScreen());
             },
           ),
         ),

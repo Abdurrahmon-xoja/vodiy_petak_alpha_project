@@ -302,17 +302,26 @@ class _DriverCardsState extends State<DriverCards> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Container(
+        // padding: EdgeInsets.all(5.0),
         width: MediaQuery.of(context).size.width / 2,
         height: MediaQuery.of(context).size.height / 18,
         decoration: BoxDecoration(
             color: caccentColor, borderRadius: BorderRadius.circular(16.0)),
         child: FloatingActionButton(
           onPressed: () {
-            Get.to(DriverTakesFrom());
+            if (isOrderStartes == false) {
+              Get.to(DriverTakesFrom());
+            } else {
+              // screen of order
+            }
+
             // Add your button onPressed logic here
           },
           child: Text(
-            "Начать свою поездку",
+            textAlign: TextAlign.center,
+            isOrderStartes
+                ? "Следить за статусом своей поездки"
+                : "Начать свою поездку",
             style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w400),
           ),
           backgroundColor: caccentColor,

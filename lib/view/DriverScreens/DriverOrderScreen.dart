@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/methods_const.dart';
@@ -398,7 +400,20 @@ class _DriverOrderScreenState extends State<DriverOrderScreen> {
                               button(
                                 text: "Завершить поездку",
                                 color: caccentColor,
-                                onPressed: () {},
+                                onPressed: () {
+                                  Get.defaultDialog(
+                                    title: "",
+                                    content: alert(
+                                      text1: 'активирована',
+                                      text2:
+                                          'Ваша поездка добавилась в общую страницу, ждите звонков пассажиров и следите за статусом поездки ',
+                                      imageName: 'images/ptichka.svg',
+                                      buttonTExt:
+                                          'Отследить статус вашей поездки',
+                                      onClick: () {},
+                                    ),
+                                  );
+                                },
                               ),
                               SizedBox(
                                 height: 30,

@@ -6,11 +6,13 @@ import 'package:vodiy_petak_alpha_project/view/DriverScreens/DRiverTime.dart';
 import 'package:vodiy_petak_alpha_project/view/DriverScreens/DriverCards_screem.dart';
 import 'package:vodiy_petak_alpha_project/view/DriverScreens/DriverOrderScreen.dart';
 import 'package:vodiy_petak_alpha_project/view/DriverScreens/DriverTakesFrom_screen.dart';
+import 'package:vodiy_petak_alpha_project/view/DriverScreens/DriversTrips.dart';
 import 'package:vodiy_petak_alpha_project/view/DriverScreens/PlaceAndPrice.dart';
 import 'package:vodiy_petak_alpha_project/view/DriverScreens/SeatsChoose.dart';
 import 'package:vodiy_petak_alpha_project/view/DriverScreens/WillTakeDelivary.dart';
 import 'package:vodiy_petak_alpha_project/view/DriverScreens/WillTakePassangers.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/ChoosePlace_screen.dart';
+import 'package:vodiy_petak_alpha_project/view/OrderUser/mytrips_screen.dart';
 
 import 'package:vodiy_petak_alpha_project/view/loginOrRegistration_screen.dart';
 
@@ -31,7 +33,7 @@ class MyApp extends StatelessWidget {
           child: ElevatedButton(
             child: Text("Next Screen"),
             onPressed: () {
-              Get.to(DriverOrderScreen());
+              Get.to(DriversTrips());
             },
           ),
         ),

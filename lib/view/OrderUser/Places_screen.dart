@@ -6,6 +6,7 @@ import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
 class Places extends StatelessWidget {
   // const Places({super.key});
 
+  // from here add additinal placec
   final List<String> citys = ["Ташкент", "Андижан"];
 
   @override

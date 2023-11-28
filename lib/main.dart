@@ -12,6 +12,7 @@ import 'package:vodiy_petak_alpha_project/view/DriverScreens/SeatsChoose.dart';
 import 'package:vodiy_petak_alpha_project/view/DriverScreens/WillTakeDelivary.dart';
 import 'package:vodiy_petak_alpha_project/view/DriverScreens/WillTakePassangers.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/ChoosePlace_screen.dart';
+import 'package:vodiy_petak_alpha_project/view/OrderUser/DelivaryCard_screen.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/mytrips_screen.dart';
 
 import 'package:vodiy_petak_alpha_project/view/loginOrRegistration_screen.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
           child: ElevatedButton(
             child: Text("Next Screen"),
             onPressed: () {
-              Get.to(ChoosePlace());
+              Get.to(DelivaryCar());
             },
           ),
         ),

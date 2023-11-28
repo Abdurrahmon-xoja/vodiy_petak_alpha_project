@@ -1,34 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
-import 'package:vodiy_petak_alpha_project/view/OrderUser/BottomSliderPriceAndTime.dart';
-import 'package:vodiy_petak_alpha_project/view/OrderUser/ChoosePlace_screen.dart';
-import 'package:vodiy_petak_alpha_project/view/OrderUser/mytrips_screen.dart';
-import 'package:vodiy_petak_alpha_project/view/OrderUser/orderInfo_screen.dart';
+import 'package:get/get_core/src/get_main.dart';
 
-import '../../consts/filtering_const.dart';
+import '../../consts/colors_const.dart';
 import '../../consts/global_varibels.dart';
-import 'BottomSliderAuto.dart';
+import 'BottomSliderPriceAndTime.dart';
+import 'Cards_screem.dart';
+import 'ChoosePlace_screen.dart';
+import 'mytrips_screen.dart';
+import 'orderInfo_screen.dart';
 
-class Cards extends StatefulWidget {
-  const Cards({super.key});
+class DelivaryCar extends StatefulWidget {
+  const DelivaryCar({super.key});
 
   @override
-  State<Cards> createState() => _CardsState();
+  State<DelivaryCar> createState() => _DelivaryCarState();
 }
 
-class _CardsState extends State<Cards> {
-  List<bool> filterOptionsIsChoosed =
-      List.generate(filterOptionsNames.length, (index) => false);
-
+class _DelivaryCarState extends State<DelivaryCar> {
   int _currentIndex = 0;
   List<Widget> body = const [
     Icon(Icons.home),
     Icon(Icons.directions_car_filled),
     Icon(Icons.person),
   ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,71 +84,59 @@ class _CardsState extends State<Cards> {
                         ),
                       ),
                       ElevatedButton(
-                          onPressed: () {
-                            showModalBottomSheet(
-                                isScrollControlled: true,
-                                context: context,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20.0),
-                                    topRight: Radius.circular(20.0),
-                                  ),
+                        onPressed: () {
+                          showModalBottomSheet(
+                              isScrollControlled: true,
+                              context: context,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20.0),
+                                  topRight: Radius.circular(20.0),
                                 ),
-                                builder: (BuildContext context) {
-                                  return BottomSliderPriceAndTime();
-                                });
-                          },
-                          style: ElevatedButton.styleFrom(
-                            elevation: 0,
-                            primary: Color(0xffE2E2E2),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
+                              ),
+                              builder: (BuildContext context) {
+                                return BottomSliderPriceAndTime();
+                              });
+                        },
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          primary: Color(0xffE2E2E2),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Фильтры",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  color: cdarkTextColor,
-                                ),
+                        ),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Фильтры",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: cdarkTextColor,
                               ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Icon(
-                                Icons.tune,
-                                color: cclueColor,
-                              ),
-                            ],
-                          ))
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Icon(
+                              Icons.tune,
+                              color: cclueColor,
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(left: 20),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: options(),
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
                       Container(
-                        padding: EdgeInsets.all(8),
+                        padding: EdgeInsets.symmetric(horizontal: 8),
                         decoration: BoxDecoration(
                             color: cinputColor,
                             borderRadius: BorderRadius.circular(10)),
@@ -201,31 +185,6 @@ class _CardsState extends State<Cards> {
                             const Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  "❄️ Кондиционер   | ⛽️ Бензин   | 🚛 Кофр",
-                                  style: TextStyle(
-                                    color: Color(0xFFB8B8B8),
-                                    fontSize: 15,
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w600,
-                                    height: 0.12,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  "⏰ Занято мест: 2 из 4",
-                                  style: TextStyle(
-                                    color: Color(0xFFB8B8B8),
-                                    fontSize: 15,
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
                                 Text(
                                   "от 25 000 сум",
                                   style: TextStyle(
@@ -333,58 +292,5 @@ class _CardsState extends State<Cards> {
         ],
       ),
     );
-  }
-
-  List<Widget> options() {
-    List<Widget> result = List.generate(
-        filterOptionsNames.length,
-        (index) => GestureDetector(
-              onTap: () {
-                if (filterOptionsNames[index] == "Avto") {
-                  showModalBottomSheet(
-                      isScrollControlled: true,
-                      context: context,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20.0),
-                          topRight: Radius.circular(20.0),
-                        ),
-                      ),
-                      builder: (BuildContext context) {
-                        return BottomSliderAuto();
-                      });
-                }
-                setState(() {
-                  filterOptionsIsChoosed[index] =
-                      filterOptionsIsChoosed[index] == true ? false : true;
-                  // when it clicks a avto it will open slider
-                });
-              },
-              child: Container(
-                margin: EdgeInsets.only(right: 8.0),
-                padding: EdgeInsets.symmetric(vertical: 6.0, horizontal: 5.0),
-                decoration: BoxDecoration(
-                  color: filterOptionsIsChoosed[index] == true
-                      ? caccentColor
-                      : cinputColor,
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: Center(
-                  child: Text(
-                    filterOptionsNames[index],
-                    style: TextStyle(
-                      color: filterOptionsIsChoosed[index] == true
-                          ? cwhiteColor
-                          : cworkingHintColor,
-                      fontSize: 12.0,
-                    ),
-                  ),
-                ),
-              ),
-            ));
-    if (result.isNotEmpty) {
-      return result;
-    }
-    return [];
   }
 }

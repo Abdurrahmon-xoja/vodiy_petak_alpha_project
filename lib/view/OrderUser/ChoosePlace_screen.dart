@@ -11,6 +11,7 @@ import 'package:vodiy_petak_alpha_project/view/OrderUser/mytrips_screen.dart';
 import '../../consts/castem_widgets_const.dart';
 import '../../consts/global_varibels.dart';
 import '../DriverScreens/DriverCards_screem.dart';
+import 'dart:io' show Platform;
 
 class ChoosePlace extends StatefulWidget {
   const ChoosePlace({super.key});
@@ -52,316 +53,316 @@ class _ChoosePlaceState extends State<ChoosePlace> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          child: Stack(
-            children: <Widget>[
-              Column(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                      color: caccent2Color,
-                      width: double.infinity,
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      alignment: Alignment.center,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 10,
+      body: Container(
+        child: Stack(
+          children: <Widget>[
+            Column(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    color: caccent2Color,
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    alignment: Alignment.center,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 50,
+                        ),
+                        Text(
+                          "Здравствуйте,",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: cwhiteColor,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w700,
                           ),
-                          Text(
-                            "Здравствуйте,",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: cwhiteColor,
-                              fontSize: 24,
-                              fontWeight: FontWeight.w700,
-                            ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "Ирода Омонова",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: cwhiteColor,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w700,
                           ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            "Ирода Омонова",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: cwhiteColor,
-                              fontSize: 24,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 12,
-                          ),
-                          SvgPicture.asset(
-                            'images/ChoosePlace.svg',
-                          ),
-                        ],
-                      ),
+                        ),
+                        SizedBox(
+                          height: 12,
+                        ),
+                        SvgPicture.asset(
+                          'images/ChoosePlace.svg',
+                        ),
+                      ],
                     ),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0),
-                      color: cwhiteColor,
-                      child: null,
-                    ),
-                  )
-                ],
-              ),
-              Positioned(
-                top: MediaQuery.of(context).size.height / 2 - 120, // 72
-                left: 16,
-                child: Container(
-                  width: MediaQuery.of(context).size.width - 31,
-                  height: MediaQuery.of(context).size.height - 497, //497
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    color: ccover3,
-                  ),
-                  padding: EdgeInsets.symmetric(vertical: 4, horizontal: 10),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      primary: ccover3,
-                                      elevation: 0,
-                                    ),
-                                    onPressed: () async {
-                                      fromWhere = await Get.to(Places());
-                                      setState(() {
-                                        fromWhere;
-                                      });
-                                    },
-                                    child: const Row(
-                                      children: [
-                                        Icon(
-                                          Icons.radio_button_checked,
-                                          color: cdarkTextColor,
-                                        ),
-                                        SizedBox(
-                                          width: 16,
-                                        ),
-                                        Text(
-                                          "Откуда",
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w700,
-                                            color: cdarkTextColor,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Text(fromWhere),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Container(
-                                height: 1,
-                                width: 180,
-                                color: cclueColor,
-                                margin: EdgeInsets.only(left: 90),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Row(
-                                children: [
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      primary: ccover3,
-                                      elevation: 0,
-                                    ),
-                                    onPressed: () async {
-                                      toWhere = await Get.to(Places());
-                                      setState(() {
-                                        toWhere;
-                                      });
-                                    },
-                                    child: const Row(
-                                      children: [
-                                        Icon(
-                                          Icons.radio_button_checked,
-                                          color: cdarkTextColor,
-                                        ),
-                                        SizedBox(
-                                          width: 16,
-                                        ),
-                                        Text(
-                                          "Куда",
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w700,
-                                            color: cdarkTextColor,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Text(toWhere),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Container(
-                                height: 1,
-                                width: 180,
-                                color: cclueColor,
-                                margin: EdgeInsets.only(left: 90),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                            ],
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                // margin: EdgeInsets.only(left: 15.0),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  color: cnonWorkingColor,
-                                ),
-                                child: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        String middleVaribel = fromWhere;
-                                        fromWhere = toWhere;
-                                        toWhere = middleVaribel;
-                                      });
-                                    },
-                                    icon: Icon(
-                                      Icons.swap_vert,
-                                      color: cdarkTextColor,
-                                    )),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 18,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(left: 10.0),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  color: cnonWorkingColor,
-                                ),
-                                child: IconButton(
-                                  onPressed: () {
-                                    _selectDate();
-                                  },
-                                  icon: Icon(
-                                    Icons.calendar_month,
-                                    color: cclueColor,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                date,
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                    color: cdarkTextColor),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            // margin: EdgeInsets.only(right: 10.0),
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            decoration: BoxDecoration(
-                              color: cnonWorkingColor,
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Icon(
-                                  Icons.person_outline,
-                                  color: cclueColor,
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    int passangerNumber =
-                                        int.parse(numberOfPeople);
-                                    passangerNumber += 1;
-                                    if (passangerNumber < 7) {
-                                      setState(() {
-                                        numberOfPeople =
-                                            passangerNumber.toString();
-                                      });
-                                    }
-                                  },
-                                  icon: Icon(Icons.add),
-                                ),
-                                Text(numberOfPeople),
-                                IconButton(
-                                  onPressed: () {
-                                    int passangerNumber =
-                                        int.parse(numberOfPeople);
-                                    passangerNumber -= 1;
-                                    if (passangerNumber > 0) {
-                                      setState(() {
-                                        numberOfPeople =
-                                            passangerNumber.toString();
-                                      });
-                                    }
-                                  },
-                                  icon: Icon(Icons.remove),
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 24,
-                      ),
-                      button(
-                          text: "Поиск",
-                          color: caccentColor,
-                          onPressed: () {
-                            // here we should write to memoer new order
-                            doesUserWentToCardScreen = true;
-                            if (isDriver = true) {
-                              // will write
-                              Get.to(DriverCards());
-                            }
-                            Get.to(Cards());
-                          }),
-                    ],
                   ),
                 ),
-              )
-            ],
-          ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    color: cwhiteColor,
+                    child: null,
+                  ),
+                )
+              ],
+            ),
+            Positioned(
+              top: Platform.isIOS
+                  ? MediaQuery.of(context).size.height / 2 - 72
+                  : MediaQuery.of(context).size.height / 2 - 50, // 72
+              left: 16,
+              child: Container(
+                width: MediaQuery.of(context).size.width - 31,
+                height: MediaQuery.of(context).size.height - 497, //497
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  color: ccover3,
+                ),
+                padding: EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    primary: ccover3,
+                                    elevation: 0,
+                                  ),
+                                  onPressed: () async {
+                                    fromWhere = await Get.to(Places());
+                                    setState(() {
+                                      fromWhere;
+                                    });
+                                  },
+                                  child: const Row(
+                                    children: [
+                                      Icon(
+                                        Icons.radio_button_checked,
+                                        color: cdarkTextColor,
+                                      ),
+                                      SizedBox(
+                                        width: 16,
+                                      ),
+                                      Text(
+                                        "Откуда",
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                          color: cdarkTextColor,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Text(fromWhere),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Container(
+                              height: 1,
+                              width: 180,
+                              color: cclueColor,
+                              margin: EdgeInsets.only(left: 90),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              children: [
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    primary: ccover3,
+                                    elevation: 0,
+                                  ),
+                                  onPressed: () async {
+                                    toWhere = await Get.to(Places());
+                                    setState(() {
+                                      toWhere;
+                                    });
+                                  },
+                                  child: const Row(
+                                    children: [
+                                      Icon(
+                                        Icons.radio_button_checked,
+                                        color: cdarkTextColor,
+                                      ),
+                                      SizedBox(
+                                        width: 16,
+                                      ),
+                                      Text(
+                                        "Куда",
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                          color: cdarkTextColor,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Text(toWhere),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Container(
+                              height: 1,
+                              width: 180,
+                              color: cclueColor,
+                              margin: EdgeInsets.only(left: 90),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              // margin: EdgeInsets.only(left: 15.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                color: cnonWorkingColor,
+                              ),
+                              child: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      String middleVaribel = fromWhere;
+                                      fromWhere = toWhere;
+                                      toWhere = middleVaribel;
+                                    });
+                                  },
+                                  icon: Icon(
+                                    Icons.swap_vert,
+                                    color: cdarkTextColor,
+                                  )),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 18,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(left: 10.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                color: cnonWorkingColor,
+                              ),
+                              child: IconButton(
+                                onPressed: () {
+                                  _selectDate();
+                                },
+                                icon: Icon(
+                                  Icons.calendar_month,
+                                  color: cclueColor,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              date,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                  color: cdarkTextColor),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          // margin: EdgeInsets.only(right: 10.0),
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          decoration: BoxDecoration(
+                            color: cnonWorkingColor,
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Icon(
+                                Icons.person_outline,
+                                color: cclueColor,
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  int passangerNumber =
+                                      int.parse(numberOfPeople);
+                                  passangerNumber += 1;
+                                  if (passangerNumber < 7) {
+                                    setState(() {
+                                      numberOfPeople =
+                                          passangerNumber.toString();
+                                    });
+                                  }
+                                },
+                                icon: Icon(Icons.add),
+                              ),
+                              Text(numberOfPeople),
+                              IconButton(
+                                onPressed: () {
+                                  int passangerNumber =
+                                      int.parse(numberOfPeople);
+                                  passangerNumber -= 1;
+                                  if (passangerNumber > 0) {
+                                    setState(() {
+                                      numberOfPeople =
+                                          passangerNumber.toString();
+                                    });
+                                  }
+                                },
+                                icon: Icon(Icons.remove),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 24,
+                    ),
+                    button(
+                        text: "Поиск",
+                        color: caccentColor,
+                        onPressed: () {
+                          // here we should write to memoer new order
+                          doesUserWentToCardScreen = true;
+                          if (isDriver = true) {
+                            // will write
+                            Get.to(DriverCards());
+                          }
+                          Get.to(Cards());
+                        }),
+                  ],
+                ),
+              ),
+            )
+          ],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(

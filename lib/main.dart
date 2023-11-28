@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           child: ElevatedButton(
             child: Text("Next Screen"),
             onPressed: () {
-              Get.to(DriversTrips());
+              Get.to(ChoosePlace());
             },
           ),
         ),

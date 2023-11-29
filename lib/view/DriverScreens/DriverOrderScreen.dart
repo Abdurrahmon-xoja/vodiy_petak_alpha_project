@@ -157,135 +157,135 @@ class _DriverOrderScreenState extends State<DriverOrderScreen> {
                 height: 16,
               ),
               // delivery card
-              // Container(
-              //   child: Column(
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              //       Container(
-              //         padding:
-              //             EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-              //         decoration: BoxDecoration(
-              //           color: caccentBackingColor,
-              //           borderRadius: BorderRadius.circular(10.0),
-              //           border: Border.all(
-              //             color: caccentColor,
-              //             width: 1,
-              //           ),
-              //         ),
-              //         child: Row(
-              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //           children: [
-              //             Text(
-              //               "Малые габариты",
-              //               style: TextStyle(
-              //                 fontSize: 14,
-              //                 fontWeight: FontWeight.w500,
-              //                 color: caccentColor,
-              //               ),
-              //             ),
-              //             Row(
-              //               children: [
-              //                 Container(
-              //                   width: 100,
-              //                   child: Text(
-              //                     textAlign: TextAlign.end,
-              //                     "не займет пасадочное место",
-              //                     style: TextStyle(
-              //                       fontSize: 10,
-              //                       fontWeight: FontWeight.w500,
-              //                       color: caccentColor,
-              //                     ),
-              //                   ),
-              //                 ),
-              //                 SizedBox(
-              //                   width: 9,
-              //                 ),
-              //                 Container(
-              //                   width: 22.0,
-              //                   height: 22.0,
-              //                   decoration: BoxDecoration(
-              //                     shape: BoxShape.circle,
-              //                     color: caccentColor,
-              //                   ),
-              //                 )
-              //               ],
-              //             )
-              //           ],
-              //         ),
-              //       ),
-              //       SizedBox(
-              //         height: 12,
-              //       ),
-              //       Text(
-              //         "Контакты",
-              //         style: TextStyle(
-              //             fontSize: 16,
-              //             fontWeight: FontWeight.w700,
-              //             color: cdarkTextColor),
-              //       ),
-              //       SizedBox(
-              //         height: 12,
-              //       ),
-              //       Row(
-              //         children: [
-              //           Text(
-              //             "ЗАКАЗЧИК:",
-              //             style: TextStyle(
-              //               fontSize: 16,
-              //               fontWeight: FontWeight.w400,
-              //               color: Color(0xff262626),
-              //             ),
-              //           ),
-              //           Container(
-              //             padding: EdgeInsets.all(4),
-              //             decoration: BoxDecoration(
-              //               color: caccentBackingColor,
-              //               borderRadius: BorderRadius.circular(10.0),
-              //             ),
-              //             child: Text(
-              //               "+998 99 999 99 99",
-              //               style: TextStyle(
-              //                 color: caccentColor,
-              //                 fontSize: 14,
-              //                 fontWeight: FontWeight.w500,
-              //               ),
-              //             ),
-              //           )
-              //         ],
-              //       ),
-              //       SizedBox(
-              //         height: 12,
-              //       ),
-              //       Row(
-              //         children: [
-              //           Text(
-              //             "ПОЛУЧАТЕЛЬ :",
-              //             style: TextStyle(
-              //               fontSize: 16,
-              //               fontWeight: FontWeight.w400,
-              //               color: Color(0xff262626),
-              //             ),
-              //           ),
-              //           Container(
-              //             padding: EdgeInsets.all(4),
-              //             decoration: BoxDecoration(
-              //               color: caccentBackingColor,
-              //               borderRadius: BorderRadius.circular(10.0),
-              //             ),
-              //             child: Text(
-              //               "+998 99 999 99 99",
-              //               style: TextStyle(
-              //                 color: caccentColor,
-              //                 fontSize: 14,
-              //                 fontWeight: FontWeight.w500,
-              //               ),
-              //             ),
-              //           )
-              //         ],
-              //       )
-              //     ],
-              //   ),
-              // ),
+              Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                      decoration: BoxDecoration(
+                        color: caccentBackingColor,
+                        borderRadius: BorderRadius.circular(10.0),
+                        border: Border.all(
+                          color: caccentColor,
+                          width: 1,
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Малые габариты",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: caccentColor,
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                width: 100,
+                                child: Text(
+                                  textAlign: TextAlign.end,
+                                  "не займет пасадочное место",
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w500,
+                                    color: caccentColor,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 9,
+                              ),
+                              Container(
+                                width: 22.0,
+                                height: 22.0,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: caccentColor,
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Text(
+                      "Контакты",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: cdarkTextColor),
+                    ),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "ЗАКАЗЧИК:",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xff262626),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            color: caccentBackingColor,
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Text(
+                            "+998 99 999 99 99",
+                            style: TextStyle(
+                              color: caccentColor,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "ПОЛУЧАТЕЛЬ :",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xff262626),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            color: caccentBackingColor,
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Text(
+                            "+998 99 999 99 99",
+                            style: TextStyle(
+                              color: caccentColor,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 50.1),
                 child: Center(

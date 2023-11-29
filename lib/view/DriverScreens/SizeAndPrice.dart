@@ -11,14 +11,14 @@ import '../../consts/filtering_const.dart';
 import '../OrderUser/BottomSliderPriceAndTime.dart';
 import 'BottomSliderPriceChoose.dart';
 
-class PlaceAndPrice extends StatefulWidget {
-  const PlaceAndPrice({super.key});
+class SizeAndPrice extends StatefulWidget {
+  const SizeAndPrice({super.key});
 
   @override
-  State<PlaceAndPrice> createState() => _PlaceAndPriceState();
+  State<SizeAndPrice> createState() => _SizeAndPriceState();
 }
 
-class _PlaceAndPriceState extends State<PlaceAndPrice> {
+class _SizeAndPriceState extends State<SizeAndPrice> {
   List<bool> seatsBool = List.generate(goodsSizedName.length, (index) => false);
   List<double> seatsPrice =
       List.generate(goodsSizedName.length, (index) => 0.0);

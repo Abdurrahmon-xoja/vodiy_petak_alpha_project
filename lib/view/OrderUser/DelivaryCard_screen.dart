@@ -5,20 +5,21 @@ import 'package:get/get_core/src/get_main.dart';
 
 import '../../consts/colors_const.dart';
 import '../../consts/global_varibels.dart';
+import 'BottomSliderDelivary.dart';
 import 'BottomSliderPriceAndTime.dart';
 import 'Cards_screem.dart';
 import 'ChoosePlace_screen.dart';
 import 'mytrips_screen.dart';
 import 'orderInfo_screen.dart';
 
-class DelivaryCar extends StatefulWidget {
-  const DelivaryCar({super.key});
+class DelivaryCard extends StatefulWidget {
+  const DelivaryCard({super.key});
 
   @override
-  State<DelivaryCar> createState() => _DelivaryCarState();
+  State<DelivaryCard> createState() => _DelivaryCardState();
 }
 
-class _DelivaryCarState extends State<DelivaryCar> {
+class _DelivaryCardState extends State<DelivaryCard> {
   int _currentIndex = 0;
   List<Widget> body = const [
     Icon(Icons.home),
@@ -86,7 +87,7 @@ class _DelivaryCarState extends State<DelivaryCar> {
                       ElevatedButton(
                         onPressed: () {
                           showModalBottomSheet(
-                              isScrollControlled: true,
+                              // isScrollControlled: true,
                               context: context,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
@@ -95,7 +96,7 @@ class _DelivaryCarState extends State<DelivaryCar> {
                                 ),
                               ),
                               builder: (BuildContext context) {
-                                return BottomSliderPriceAndTime();
+                                return BottomSliderDelivary();
                               });
                         },
                         style: ElevatedButton.styleFrom(

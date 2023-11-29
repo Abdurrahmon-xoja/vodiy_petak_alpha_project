@@ -10,7 +10,7 @@ import 'BottomSliderPriceAndTime.dart';
 import 'Cards_screem.dart';
 import 'ChoosePlace_screen.dart';
 import 'mytrips_screen.dart';
-import 'orderInfo_screen.dart';
+import 'PassengerOrderInfo_screen.dart';
 
 class DelivaryCard extends StatefulWidget {
   const DelivaryCard({super.key});
@@ -233,7 +233,7 @@ class _DelivaryCardState extends State<DelivaryCard> {
                                       ),
                                     ),
                                     onPressed: () {
-                                      Get.to(OrderInfo());
+                                      Get.to(PassengerOrderInfo());
                                     },
                                     child: const Text(
                                       " Name +998 99 999 99 99",

@@ -6,7 +6,7 @@ import 'package:vodiy_petak_alpha_project/view/DriverScreens/DriverTakesFrom_scr
 import 'package:vodiy_petak_alpha_project/view/OrderUser/BottomSliderPriceAndTime.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/ChoosePlace_screen.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/mytrips_screen.dart';
-import 'package:vodiy_petak_alpha_project/view/OrderUser/orderInfo_screen.dart';
+import 'package:vodiy_petak_alpha_project/view/OrderUser/PassengerOrderInfo_screen.dart';
 
 import '../../consts/filtering_const.dart';
 import '../../consts/global_varibels.dart';

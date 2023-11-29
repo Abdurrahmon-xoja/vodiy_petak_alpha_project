@@ -5,7 +5,7 @@ import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/BottomSliderPriceAndTime.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/ChoosePlace_screen.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/mytrips_screen.dart';
-import 'package:vodiy_petak_alpha_project/view/OrderUser/orderInfo_screen.dart';
+import 'package:vodiy_petak_alpha_project/view/OrderUser/PassengerOrderInfo_screen.dart';
 
 import '../../consts/filtering_const.dart';
 import '../../consts/global_varibels.dart';
@@ -273,7 +273,7 @@ class _CardsState extends State<Cards> {
                                       ),
                                     ),
                                     onPressed: () {
-                                      Get.to(OrderInfo());
+                                      Get.to(PassengerOrderInfo());
                                     },
                                     child: const Text(
                                       " Name +998 99 999 99 99",

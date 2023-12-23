@@ -6,6 +6,7 @@ import 'package:vodiy_petak_alpha_project/consts/methods_const.dart';
 import 'package:vodiy_petak_alpha_project/view/RegistrationScreens/registrationSex_screen.dart';
 
 import '../../consts/colors_const.dart';
+import '../../controller/LocalMemory.dart';
 
 class RegistrationAge extends StatefulWidget {
   const RegistrationAge({super.key});
@@ -87,8 +88,10 @@ class _RegistrationAgeState extends State<RegistrationAge> {
                   button(
                       text: "Далее",
                       color: caccentColor,
-                      onPressed: () {
-                        Get.to(RegistrationSex());
+                      onPressed: () async {
+                        await LocalMemory.saveDataString(
+                            "dateOfBirth", _dateController.text);
+                        Get.to(() => RegistrationSex());
                       }),
                 ],
               ))

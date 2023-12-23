@@ -4,6 +4,8 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/methods_const.dart';
+import 'package:vodiy_petak_alpha_project/controller/LocalMemory.dart';
+import 'package:vodiy_petak_alpha_project/controller/ServerControler.dart';
 import 'package:vodiy_petak_alpha_project/view/DriverScreens/DriverCards_screem.dart';
 
 import '../../consts/global_varibels.dart';
@@ -165,7 +167,11 @@ class _AirConditingAndFuelTypeState extends State<AirConditingAndFuelType> {
                   child: button(
                     text: "Далее",
                     color: caccentColor,
-                    onPressed: () {
+                    onPressed: () async {
+                      await LocalMemory.saveDataString(
+                          "fuelType", gaz ? "gaz" : "oil");
+                      await LocalMemory.saveDataString(
+                          "airCond", airConController ? "true" : "false");
                       Get.defaultDialog(
                         title: "",
                         content: alert(
@@ -175,8 +181,11 @@ class _AirConditingAndFuelTypeState extends State<AirConditingAndFuelType> {
                           imageName: 'images/ptichka.svg',
                           buttonTExt: 'Отследить статус вашей поездки',
                           onClick: () {
-                            Get.to(DriverCards());
-                            isOrderStartes = true;
+                            // Get.to(DriverCards());
+                            // here I need to send to server
+                            // chack and send order for passanger and delivary
+                            ServerController.sendingOrder();
+                            // isOrderStartes = true;
                           },
                         ),
                       );

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
 
@@ -5,7 +7,9 @@ import '../../consts/colors_const.dart';
 import '../../consts/filtering_const.dart';
 
 class BottomSliderAuto extends StatefulWidget {
-  const BottomSliderAuto({super.key});
+  final Function(Map) getValue;
+
+  const BottomSliderAuto({required this.getValue});
 
   @override
   State<BottomSliderAuto> createState() => _BottomSliderAutoState();
@@ -121,6 +125,29 @@ class _BottomSliderAutoState extends State<BottomSliderAuto> {
                       color: caccentColor,
                       onPressed: () {
                         // here we going to ask backen for cars
+                        List<String> auto = [];
+                        List<String> autoAdd = [];
+
+                        for (int i = 0;
+                            i < autoChevroletOptionsBool.length;
+                            i++) {
+                          if (autoChevroletOptionsBool[i] == true) {
+                            auto.add(autoChevroletOptions[i]);
+                          }
+                        }
+
+                        for (int i = 0; i < autoOthersOptionsBool.length; i++) {
+                          if (autoOthersOptionsBool[i] == true) {
+                            autoAdd.add(autoChevroletOptions[i]);
+                          }
+                        }
+
+                        Map<String, List> data = {
+                          "auto": auto,
+                          "autoAdd": autoAdd,
+                        };
+
+                        widget.getValue(data);
 
                         Navigator.pop(context);
                       }),

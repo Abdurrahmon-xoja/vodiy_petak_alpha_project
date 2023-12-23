@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/methods_const.dart';
+import 'package:vodiy_petak_alpha_project/controller/LocalMemory.dart';
+import 'package:vodiy_petak_alpha_project/view/DriverScreens/DriverGoesTo.dart';
 
 import '../../consts/filtering_const.dart';
 
@@ -14,15 +17,15 @@ class DriverTakesFrom extends StatefulWidget {
 }
 
 class _DriverTakesFromState extends State<DriverTakesFrom> {
-  String some = " ";
+  String from = " ";
 
   @override
   Widget build(BuildContext context) {
     DropdownSearchCastom dropdownSearchPlacdeFrom = DropdownSearchCastom(
       getValue: (v) {
-        some = v;
+        from = v;
       },
-      items: autoChevroletOptions,
+      items: placesOrder,
       icon: Icons.home_outlined,
       height: 300,
     );
@@ -65,8 +68,21 @@ class _DriverTakesFromState extends State<DriverTakesFrom> {
                 child: Container(),
               ),
               Expanded(
-                child: SvgPicture.asset('images/DriverTakseFrom.svg'),
-              )
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: button(
+                    text: "Next",
+                    color: caccentColor,
+                    onPressed: () async {
+                      await LocalMemory.saveDataString("order_from", from);
+                      Get.to(() => DriverGoesTo());
+                    },
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 16,
+              ),
             ],
           ),
         ),

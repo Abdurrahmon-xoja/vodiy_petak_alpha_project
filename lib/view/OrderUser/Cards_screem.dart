@@ -1,14 +1,20 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/BottomSliderPriceAndTime.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/ChoosePlace_screen.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/mytrips_screen.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/PassengerOrderInfo_screen.dart';
 
+import '../../Server/Api.dart';
 import '../../consts/filtering_const.dart';
 import '../../consts/global_varibels.dart';
+import '../../models/OrderPassengerInfo.dart';
 import 'BottomSliderAuto.dart';
 
 class Cards extends StatefulWidget {
@@ -19,6 +25,26 @@ class Cards extends StatefulWidget {
 }
 
 class _CardsState extends State<Cards> {
+  // late Stream<List<OrderPassengerInfo>> _dataStream;
+  late Map<String, String> dataOfRight;
+  late Future<List<OrderPassengerInfo>> _someInfo;
+  // StreamController<List<OrderPassengerInfo>> _controller =
+  //     StreamController<List<OrderPassengerInfo>>.broadcast();
+  // late Future<List<OrderPassengerInfo>> _myFuture;
+
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    dataOfRight = Get.arguments;
+    _someInfo = getData(dataOfRight);
+  }
+
+  Future<List<OrderPassengerInfo>> getData(Map data) async {
+    return Api.getOrdersPassenger(data);
+  }
+
   List<bool> filterOptionsIsChoosed =
       List.generate(filterOptionsNames.length, (index) => false);
 
@@ -99,7 +125,14 @@ class _CardsState extends State<Cards> {
                                   ),
                                 ),
                                 builder: (BuildContext context) {
-                                  return BottomSliderPriceAndTime();
+                                  return BottomSliderPriceAndTime(
+                                    getVale: (val) {
+                                      setState(() {
+                                        _someInfo =
+                                            Api.getFilterTimeAndPrice(val);
+                                      });
+                                    },
+                                  );
                                 });
                           },
                           style: ElevatedButton.styleFrom(
@@ -146,153 +179,275 @@ class _CardsState extends State<Cards> {
                   ),
                 ),
               ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            color: cinputColor,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Белый Chevrolet Cobalt",
-                                        style: TextStyle(
-                                          color: Color(0xFF262626),
-                                          fontSize: 16,
-                                          fontFamily: 'Poppins',
-                                          fontWeight: FontWeight.w400,
-                                          height: 0,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 8,
-                                      ),
-                                      Text(
-                                        "01V743JB",
-                                        style: TextStyle(
-                                          color: Color(0xFF262626),
-                                          fontSize: 16,
-                                          fontFamily: 'Poppins',
-                                          fontWeight: FontWeight.w400,
-                                          height: 0,
-                                        ),
-                                      ),
-                                    ]),
-                                SvgPicture.asset(
-                                  'images/car.svg',
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            const Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "❄️ Кондиционер   | ⛽️ Бензин   | 🚛 Кофр",
-                                  style: TextStyle(
-                                    color: Color(0xFFB8B8B8),
-                                    fontSize: 15,
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w600,
-                                    height: 0.12,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  "⏰ Занято мест: 2 из 4",
-                                  style: TextStyle(
-                                    color: Color(0xFFB8B8B8),
-                                    fontSize: 15,
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  "от 25 000 сум",
-                                  style: TextStyle(
-                                    color: Color(0xFF2A2A2A),
-                                    fontSize: 20,
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                const Text(
-                                  "Адрес отправки: Сергели ипподром (18:00)",
-                                  style: TextStyle(
-                                    color: Color(0xFF2A2A2A),
-                                    fontSize: 16,
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                  textAlign: TextAlign.left,
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                SizedBox(
-                                  width: double.infinity,
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      elevation: 0,
-                                      backgroundColor: Colors.transparent,
-                                      padding: EdgeInsets.all(15.0),
-                                      textStyle: TextStyle(fontSize: 16),
-                                      side: BorderSide(
-                                        color: caccentColor,
-                                        width: 1,
-                                      ),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      Get.to(PassengerOrderInfo());
-                                    },
-                                    child: const Text(
-                                      " Name +998 99 999 99 99",
-                                      style: TextStyle(color: caccentColor),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                )
-                              ],
-                            )
-                          ],
+              SizedBox(
+                height: 16,
+              ),
+              FutureBuilder(
+                  future: _someInfo,
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Expanded(
+                        child: Center(
+                          child: CircularProgressIndicator(
+                              backgroundColor: Colors.black,
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.red)),
                         ),
-                      )
-                    ],
-                  ),
-                ),
-              )
+                      );
+                    } else {
+                      List<OrderPassengerInfo> data = snapshot.data;
+                      print(snapshot.data);
+                      if (data.length == 0) {
+                        return Expanded(
+                          child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 35,
+                                  ),
+                                  const Text(
+                                    "There not shuche car the you serch",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w700,
+                                      color: Color(0xff262626),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 35,
+                                  ),
+                                  SvgPicture.asset("images/transperentCar.svg"),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  const Text(
+                                    "Try filter it try again",
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                        color: Color(0xff898989)),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      } else {
+                        return Expanded(
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: data.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 20.0, vertical: 15.0),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.all(8),
+                                        decoration: BoxDecoration(
+                                            color: cinputColor,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        "OQ ${data[index].carModel}",
+                                                        style: TextStyle(
+                                                          color:
+                                                              Color(0xFF262626),
+                                                          fontSize: 16,
+                                                          fontFamily: 'Poppins',
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          height: 0,
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 8,
+                                                      ),
+                                                      Text(
+                                                        data[index].carNumber,
+                                                        style: TextStyle(
+                                                          color:
+                                                              Color(0xFF262626),
+                                                          fontSize: 16,
+                                                          fontFamily: 'Poppins',
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          height: 0,
+                                                        ),
+                                                      ),
+                                                    ]),
+                                                SvgPicture.asset(
+                                                  'images/car.svg',
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "${data[index].airConditinar == "true" ? "❄️ Кондиционер | " : ""}${data[index].fuel == "oil" ? "⛽️ Бензин " : "⛽️ Бензин "} ",
+                                                  style: TextStyle(
+                                                    color: Color(0xFFB8B8B8),
+                                                    fontSize: 15,
+                                                    fontFamily: 'Poppins',
+                                                    fontWeight: FontWeight.w600,
+                                                    height: 0.12,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Text(
+                                                  // i nedd to add how many plasas avalibel for now will how many was exsisted
+                                                  "⏰ Занято мест: ?? из ${data[index].numberOfPassangers}",
+                                                  style: TextStyle(
+                                                    color: Color(0xFFB8B8B8),
+                                                    fontSize: 15,
+                                                    fontFamily: 'Poppins',
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Text(
+                                                  // make lowest price point
+                                                  "${NumberFormat('###,###', 'en_US').format(int.parse(data[index].priceLowest)).replaceAll(",", " ")} Som Dan",
+                                                  // data[index].priceLowest,
+                                                  style: TextStyle(
+                                                    color: Color(0xFF2A2A2A),
+                                                    fontSize: 20,
+                                                    fontFamily: 'Poppins',
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Text(
+                                                  "Boradi: ${data[index].to} (${data[index].time})",
+                                                  style: TextStyle(
+                                                    color: Color(0xFF2A2A2A),
+                                                    fontSize: 16,
+                                                    fontFamily: 'Poppins',
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                  textAlign: TextAlign.left,
+                                                ),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Text(
+                                                  "Haydovchini ismi: ${data[index].name}",
+                                                  style: TextStyle(
+                                                    color: Color(0xFF2A2A2A),
+                                                    fontSize: 16,
+                                                    fontFamily: 'Poppins',
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                  textAlign: TextAlign.left,
+                                                ),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                SizedBox(
+                                                  width: double.infinity,
+                                                  child: ElevatedButton(
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      elevation: 0,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      padding:
+                                                          EdgeInsets.all(15.0),
+                                                      textStyle: TextStyle(
+                                                          fontSize: 16),
+                                                      side: BorderSide(
+                                                        color: caccentColor,
+                                                        width: 1,
+                                                      ),
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                      ),
+                                                    ),
+                                                    onPressed: () {
+                                                      print(data[index].name);
+                                                      Get.to(
+                                                          PassengerOrderInfo(),
+                                                          arguments:
+                                                              data[index]);
+                                                    },
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.phone_outlined,
+                                                          color: caccentColor,
+                                                          size: 20,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        Text(
+                                                          data[index]
+                                                              .phoneNumber,
+                                                          style: TextStyle(
+                                                              color:
+                                                                  caccentColor),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 10,
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                );
+                              }),
+                        );
+                      }
+                    }
+                  })
             ],
           ),
         ),
@@ -351,7 +506,37 @@ class _CardsState extends State<Cards> {
                         ),
                       ),
                       builder: (BuildContext context) {
-                        return BottomSliderAuto();
+                        return BottomSliderAuto(
+                          getValue: (val) {
+                            String auto = jsonEncode(val['auto']);
+                            String autoAdd = jsonEncode(val['autoAdd']);
+                            Map<String, String> data = {
+                              'auto': auto,
+                              'autoAdd': autoAdd,
+                              'from': dataOfRight['from']!,
+                              'to': dataOfRight['to']!,
+                              'date': dataOfRight['date']!,
+                              'numberOfpeopel': dataOfRight['numberOfpeopel']!
+                            };
+
+                            void changeStream() async {
+                              setState(() {
+                                isLoading = true;
+                              });
+
+                              setState(() {
+                                _someInfo = Api.getFilterForCars(data);
+                              });
+
+                              setState(() {
+                                isLoading = false;
+                              });
+                            }
+
+                            changeStream();
+                            // Navigator.of(context).pop();
+                          },
+                        );
                       });
                 }
                 setState(() {

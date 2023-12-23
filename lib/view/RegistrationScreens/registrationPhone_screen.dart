@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
 import 'package:vodiy_petak_alpha_project/view/RegistrationScreens/registrationOtp_screen.dart';
 
 import '../../consts/methods_const.dart';
+import '../../controller/LocalMemory.dart';
 
 class RegistrationPhone extends StatefulWidget {
   RegistrationPhone({super.key});
@@ -116,10 +118,13 @@ class _RegistrationPhoneState extends State<RegistrationPhone> {
                       button(
                         text: "Далее",
                         color: buttonColor,
-                        onPressed: () {
+                        onPressed: () async {
                           if (isButtonAvalible) {
-                            //TODO: need to go otp screen and get number
-                            Get.to(RegistrationOtp(), arguments: [phoneNumber]);
+                            // //TODO: need to go otp screen and get number
+                            await LocalMemory.saveDataString(
+                                "phoneNumber", "+998" + phoneNumber);
+                            Get.to(() => RegistrationOtp(),
+                                arguments: [phoneNumber]);
                           }
                         },
                       ),

@@ -5,6 +5,7 @@ import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
 import 'package:vodiy_petak_alpha_project/view/loginOrRegistration_screen.dart';
 
 import '../consts/castem_widgets_const.dart';
+import '../controller/LocalMemory.dart';
 
 class DriverOrPassenger extends StatelessWidget {
   const DriverOrPassenger({super.key});
@@ -42,13 +43,16 @@ class DriverOrPassenger extends StatelessWidget {
               button(
                 text: "💺 Я Пассажир",
                 color: caccentColor,
-                onPressed: () {},
+                onPressed: () async {
+                  await LocalMemory.saveDataString("user", "passenger");
+                },
               ),
               SizedBox(
                 height: 15.0,
               ),
-              buttonBorder("🚕 Я Водитель", () {
-                Get.to(LoginOrRegistration());
+              buttonBorder("🚕 Я Водитель", () async {
+                await LocalMemory.saveDataString("user", "driver");
+                Get.to(() => LoginOrRegistration());
               }),
             ],
           ),

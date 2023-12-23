@@ -87,3 +87,15 @@ List<String> goodsSizedDefinition = [
   "займет весь багажник",
   "займет весь кофр",
 ];
+
+List<String> placesOrder = [
+  "Toshkent panelni",
+  "Toshkent olmozor",
+  "Toshkent chilanzor",
+  "Toshketn chorsu",
+  "Toshkent debug",
+  "Toshkent lalla",
+  "Fergana rom",
+  "Fergana some",
+  "Fergana"
+];

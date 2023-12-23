@@ -4,12 +4,15 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/methods_const.dart';
+import 'package:vodiy_petak_alpha_project/controller/LocalMemory.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/Cards_screem.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/Places_screen.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/mytrips_screen.dart';
 
+import '../../Server/Api.dart';
 import '../../consts/castem_widgets_const.dart';
 import '../../consts/global_varibels.dart';
+import '../../models/OrderPassengerInfo.dart';
 import '../DriverScreens/DriverCards_screem.dart';
 import 'dart:io' show Platform;
 
@@ -23,6 +26,7 @@ class ChoosePlace extends StatefulWidget {
 class _ChoosePlaceState extends State<ChoosePlace>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
+  String name = LocalMemory.getValue("name");
 
   @override
   void initState() {
@@ -93,7 +97,7 @@ class _ChoosePlaceState extends State<ChoosePlace>
                           height: 5,
                         ),
                         Text(
-                          "Ирода Омонова",
+                          name == " " ? " " : name,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: cwhiteColor,
@@ -470,14 +474,23 @@ class _OrderForPassengerState extends State<OrderForPassenger> {
         button(
             text: "Поиск",
             color: caccentColor,
-            onPressed: () {
+            onPressed: () async {
               // here we should write to memoer new order
-              doesUserWentToCardScreen = true;
-              if (isDriver = true) {
-                // will write
-                Get.to(DriverCards());
-              }
-              Get.to(Cards());
+              // if (LocalMemory.getValue("user") == "driver") {
+              //   // will write
+              //   Get.to(() => const DriverCards());
+              // } else {
+              //   Get.to(() => const Cards());
+              // }
+              // doesUserWentToCardScreen = true;
+              Map<String, String> data = {
+                'from': fromWhere,
+                'to': toWhere,
+                'date': date,
+                'numberOfpeopel': numberOfPeople,
+              };
+
+              Get.to(Cards(), arguments: data);
             }),
         SizedBox(
           height: 10,
@@ -753,11 +766,14 @@ class _OrderForDeliveryState extends State<OrderForDelivery> {
             onPressed: () {
               // here we should write to memoer new order
               doesUserWentToCardScreen = true;
-              if (isDriver = true) {
+              print(LocalMemory.getValue("user"));
+              if (LocalMemory.getValue("user") == "driver") {
+                print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
                 // will write
-                Get.to(DriverCards());
+                Get.to(() => const DriverCards());
+              } else {
+                Get.to(() => const Cards());
               }
-              Get.to(Cards());
             }),
         SizedBox(
           height: 10,

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
@@ -6,7 +8,9 @@ import '../../consts/colors_const.dart';
 import '../../consts/filtering_const.dart';
 
 class BottomSliderPriceAndTime extends StatefulWidget {
-  const BottomSliderPriceAndTime({super.key});
+  final Function(Map) getVale;
+
+  const BottomSliderPriceAndTime({required this.getVale});
 
   @override
   State<BottomSliderPriceAndTime> createState() =>
@@ -196,10 +200,10 @@ class _BottomSliderPriceAndTimeState extends State<BottomSliderPriceAndTime> {
                       activeColor: caccentColor,
                       inactiveColor: cinputColor,
                       values: values,
-                      divisions: 15,
+                      divisions: ((300000 - 10000) ~/ 5000),
                       // here we going to change thing for defolt
                       min: 10000,
-                      max: 100000,
+                      max: 300000,
                       onChanged: (nvalue) {
                         setState(() {
                           startPrice = nvalue.start;
@@ -228,6 +232,31 @@ class _BottomSliderPriceAndTimeState extends State<BottomSliderPriceAndTime> {
                       color: caccentColor,
                       onPressed: () {
                         // here we going to ask backen for cars
+                        // Navigator.pop(context);
+
+                        List<Map> timeData = [];
+
+                        for (int i = 0; i < timeOfGoingBool.length; i++) {
+                          if (timeOfGoingBool[i]) {
+                            List<String> times = timeOfGoing[i].split('-');
+                            Map<String, String> data = {
+                              'timeFrom': times[0],
+                              'timeTo': times[1],
+                            };
+
+                            timeData.add(data);
+                          } else {
+                            continue;
+                          }
+                        }
+
+                        Map<String, String> dataSend = {
+                          'priceFrom': startPrice.toInt().toString(),
+                          'priceTo': endPrice.toInt().toString(),
+                          'timeArray': jsonEncode(timeData),
+                        };
+
+                        widget.getVale(dataSend);
                         Navigator.pop(context);
                       }),
                   SizedBox(

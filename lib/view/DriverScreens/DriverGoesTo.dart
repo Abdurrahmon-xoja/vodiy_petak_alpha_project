@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/methods_const.dart';
+import 'package:vodiy_petak_alpha_project/controller/LocalMemory.dart';
+import 'package:vodiy_petak_alpha_project/view/DriverScreens/DRiverTime.dart';
 
 import '../../consts/filtering_const.dart';
 
@@ -14,15 +18,15 @@ class DriverGoesTo extends StatefulWidget {
 }
 
 class _DriverGoesToState extends State<DriverGoesTo> {
-  String some = " ";
+  String to = " ";
 
   @override
   Widget build(BuildContext context) {
     DropdownSearchCastom dropdownSearchPlacdeFrom = DropdownSearchCastom(
       getValue: (v) {
-        some = v;
+        to = v;
       },
-      items: autoChevroletOptions,
+      items: placesOrder,
       icon: Icons.home_outlined,
       height: 300,
     );
@@ -65,8 +69,21 @@ class _DriverGoesToState extends State<DriverGoesTo> {
                 child: Container(),
               ),
               Expanded(
-                child: SvgPicture.asset('images/DriverGoesTo.svg'),
-              )
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: button(
+                    text: "Next",
+                    color: caccentColor,
+                    onPressed: () async {
+                      await LocalMemory.saveDataString("order_to", to);
+                      Get.to(() => DriverTime());
+                    },
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 16,
+              ),
             ],
           ),
         ),

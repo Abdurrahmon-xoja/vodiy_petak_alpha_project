@@ -5,8 +5,10 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/methods_const.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/ChoosePlace_screen.dart';
-
+import 'package:vodiy_petak_alpha_project/view/RegistrationScreens/CarRegistration_screen.dart';
+import '../../Server/Api.dart';
 import '../../consts/colors_const.dart';
+import '../../controller/LocalMemory.dart';
 
 class RegistrationSex extends StatefulWidget {
   const RegistrationSex({super.key});
@@ -152,49 +154,62 @@ class _RegistrationSexState extends State<RegistrationSex> {
                     button(
                         text: "Далее",
                         color: caccentColor,
-                        onPressed: () {
-                          Get.defaultDialog(
-                              title: "",
-                              content: SizedBox(
-                                // margin: EdgeInsets.symmetric(horizontal: 100),
-                                width: MediaQuery.of(context).size.width,
-                                // width: double.infinity,
-                                child: Column(
-                                  children: [
-                                    SvgPicture.asset('images/ptichka.svg'),
-                                    SizedBox(
-                                      height: 24,
-                                    ),
-                                    Text(
-                                      "Поздравляем!",
-                                      style: TextStyle(
-                                          fontSize: 22,
-                                          fontWeight: FontWeight.w700,
-                                          color: cdarkTextColor),
-                                    ),
-                                    SizedBox(
-                                      height: 8,
-                                    ),
-                                    Text(
-                                      "Вы успешно зарегистрировались",
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                          color: cworkingHintColor),
-                                    ),
-                                    SizedBox(
-                                      height: 24,
-                                    ),
-                                    button(
-                                        text: "Продолжить",
-                                        color: caccentColor,
-                                        onPressed: () {
-                                          Get.to(ChoosePlace());
-                                        })
-                                  ],
-                                ),
-                              ));
-                          print("its working");
+                        onPressed: () async {
+                          if (maleInputCliced) {
+                            await LocalMemory.saveDataString("sex", "male");
+                          } else {
+                            await LocalMemory.saveDataString("sex", "female");
+                          }
+
+                          if (LocalMemory.getValue("user") != "driver") {
+                            Get.defaultDialog(
+                                title: "",
+                                content: SizedBox(
+                                  // margin: EdgeInsets.symmetric(horizontal: 100),
+                                  width: MediaQuery.of(context).size.width,
+                                  // width: double.infinity,
+                                  child: Column(
+                                    children: [
+                                      SvgPicture.asset('images/ptichka.svg'),
+                                      SizedBox(
+                                        height: 24,
+                                      ),
+                                      Text(
+                                        "Поздравляем!",
+                                        style: TextStyle(
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.w700,
+                                            color: cdarkTextColor),
+                                      ),
+                                      SizedBox(
+                                        height: 8,
+                                      ),
+                                      Text(
+                                        "Вы успешно зарегистрировались",
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500,
+                                            color: cworkingHintColor),
+                                      ),
+                                      SizedBox(
+                                        height: 24,
+                                      ),
+                                      button(
+                                          text: "Продолжить",
+                                          color: caccentColor,
+                                          onPressed: () async {
+                                            Map driverInfo = await LocalMemory
+                                                .getDriverRegisterInfo();
+                                            print(driverInfo);
+                                            Api.addDriver(driverInfo);
+                                            Get.to(() => ChoosePlace());
+                                          })
+                                    ],
+                                  ),
+                                ));
+                          } else {
+                            Get.to(() => CarRegistration());
+                          }
                         }),
                   ],
                 ))

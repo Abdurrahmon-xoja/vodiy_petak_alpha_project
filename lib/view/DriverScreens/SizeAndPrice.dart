@@ -5,6 +5,8 @@ import 'package:intl/intl.dart';
 import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/methods_const.dart';
+import 'package:vodiy_petak_alpha_project/controller/LocalMemory.dart';
+import 'package:vodiy_petak_alpha_project/view/DriverScreens/WillTakePassangers.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/Cards_screem.dart';
 
 import '../../consts/filtering_const.dart';
@@ -56,7 +58,15 @@ class _SizeAndPriceState extends State<SizeAndPrice> {
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: button(
-                      text: "Далее", color: caccentColor, onPressed: () {}),
+                      text: "Далее",
+                      color: caccentColor,
+                      onPressed: () async {
+                        LocalMemory.setDeliveryPriceAndSeats(
+                          seatsBool,
+                          seatsPrice,
+                        );
+                        Get.to(() => WillTakePassangers());
+                      }),
                 ),
               ),
               SizedBox(

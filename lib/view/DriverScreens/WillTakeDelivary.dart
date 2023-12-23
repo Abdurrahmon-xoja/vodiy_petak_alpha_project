@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/methods_const.dart';
+import 'package:vodiy_petak_alpha_project/controller/LocalMemory.dart';
+import 'package:vodiy_petak_alpha_project/view/DriverScreens/SizeAndPrice.dart';
+import 'package:vodiy_petak_alpha_project/view/DriverScreens/WillTakePassangers.dart';
 
 class WillTakeDelivary extends StatelessWidget {
   const WillTakeDelivary({super.key});
@@ -48,14 +53,22 @@ class WillTakeDelivary extends StatelessWidget {
                   button(
                     text: "Да я могу взять доставку",
                     color: caccentColor,
-                    onPressed: () {},
+                    onPressed: () async {
+                      await LocalMemory.saveDataString(
+                          "order_takesDelivary", "true");
+                      Get.to(() => SizeAndPrice());
+                    },
                   ),
                   SizedBox(
                     height: 16,
                   ),
                   buttonBorder(
                     "Нет я не могу",
-                    () {},
+                    () async {
+                      await LocalMemory.saveDataString(
+                          "order_takesDelivary", "false");
+                      Get.to(() => WillTakePassangers());
+                    },
                   ),
                 ],
               ),

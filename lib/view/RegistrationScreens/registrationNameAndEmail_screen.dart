@@ -6,11 +6,14 @@ import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/methods_const.dart';
 import 'package:vodiy_petak_alpha_project/view/RegistrationScreens/registrationAge_screen.dart';
 
+import '../../controller/LocalMemory.dart';
+
 class RegistrationNameAndEmail extends StatelessWidget {
   const RegistrationNameAndEmail({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final nameController = TextEditingController();
     return Scaffold(
       appBar: cDefoltAppBar(),
       body: SafeArea(
@@ -21,7 +24,7 @@ class RegistrationNameAndEmail extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Заполните профиль (optional)",
+                  "Заполните профиль",
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w700,
@@ -35,7 +38,7 @@ class RegistrationNameAndEmail extends StatelessWidget {
                   child: Column(
                     children: [
                       TextFormField(
-                        // controller: nameController,
+                        controller: nameController,
                         decoration: InputDecoration(
                             fillColor: cinputColor,
                             filled: true,
@@ -83,9 +86,12 @@ class RegistrationNameAndEmail extends StatelessWidget {
                       button(
                           text: "Далее",
                           color: caccentColor,
-                          onPressed: () {
+                          onPressed: () async {
                             //TODO: add validation for email ana chake for empty and aother staff
-                            Get.to(RegistrationAge());
+                            // saveDataString("name", nameController.text);
+                            await LocalMemory.saveDataString(
+                                "name", nameController.text);
+                            Get.to(() => RegistrationAge());
                           }),
                     ],
                   ),

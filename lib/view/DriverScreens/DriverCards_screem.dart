@@ -101,7 +101,11 @@ class _DriverCardsState extends State<DriverCards> {
                                   ),
                                 ),
                                 builder: (BuildContext context) {
-                                  return BottomSliderPriceAndTime();
+                                  return BottomSliderPriceAndTime(
+                                    getVale: (val) {
+                                      print(val);
+                                    },
+                                  );
                                 });
                           },
                           style: ElevatedButton.styleFrom(
@@ -387,7 +391,11 @@ class _DriverCardsState extends State<DriverCards> {
                         ),
                       ),
                       builder: (BuildContext context) {
-                        return BottomSliderAuto();
+                        return BottomSliderAuto(
+                          getValue: (val) {
+                            print(val);
+                          },
+                        );
                       });
                 }
                 setState(() {

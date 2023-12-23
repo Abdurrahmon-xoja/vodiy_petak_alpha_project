@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/methods_const.dart';
+import 'package:vodiy_petak_alpha_project/controller/LocalMemory.dart';
+import 'package:vodiy_petak_alpha_project/view/DriverScreens/AirConditiningAndFuelType.dart';
 import 'package:vodiy_petak_alpha_project/view/DriverScreens/BottomSliderNumberOfSeats.dart';
 
 import '../../consts/filtering_const.dart';
@@ -90,7 +93,13 @@ class _SeatsChooseState extends State<SeatsChoose> {
                 button(
                   text: "Next",
                   color: caccentColor,
-                  onPressed: () {},
+                  onPressed: () {
+                    LocalMemory.setPassengerPriceAndSeats(
+                        seatsBool, seatsPrice);
+                    LocalMemory.setAddPassengerPriceAndSeats(
+                        additionalSeatsBool, additionalSeatsPrice);
+                    Get.to(() => AirConditingAndFuelType());
+                  },
                 ),
                 SizedBox(
                   height: 10,

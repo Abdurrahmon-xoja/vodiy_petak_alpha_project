@@ -3,11 +3,13 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
 
+import '../../consts/filtering_const.dart';
+
 class Places extends StatelessWidget {
   // const Places({super.key});
 
   // from here add additinal placec
-  final List<String> citys = ["Ташкент", "Андижан"];
+  final List<String> plcaeName = placesOrder;
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +25,13 @@ class Places extends StatelessWidget {
 
   ListView _buildListView() {
     return ListView.builder(
-      itemCount: 2,
+      itemCount: plcaeName.length,
       itemBuilder: (_, index) {
         return Column(
           children: [
             ListTile(
               title: Text(
-                citys[index],
+                plcaeName[index],
                 style: const TextStyle(
                   color: cworkingHintColor,
                   fontSize: 16,
@@ -50,7 +52,7 @@ class Places extends StatelessWidget {
                 color: cclueColor,
               ),
               onTap: () {
-                Get.back(result: citys[index]);
+                Get.back(result: plcaeName[index]);
               },
             ),
             Container(

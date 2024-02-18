@@ -4,11 +4,30 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
+import 'package:vodiy_petak_alpha_project/view/OrderUser/Cards_screem.dart';
+import 'package:vodiy_petak_alpha_project/view/OrderUser/ChoosePlace_screen.dart';
+import 'package:vodiy_petak_alpha_project/view/driverOrPassenger_screen.dart';
+import 'package:vodiy_petak_alpha_project/view/loginOrRegistration_screen.dart';
 
+import '../../Server/Api.dart';
+import '../../controller/LocalMemory.dart';
+import '../OrderUser/mytrips_screen.dart';
 import 'client_edit_screen.dart';
 
-class Client extends StatelessWidget {
-  const Client({super.key});
+class ClientAccount extends StatefulWidget {
+  const ClientAccount({super.key});
+
+  @override
+  State<ClientAccount> createState() => _ClientAccountState();
+}
+
+class _ClientAccountState extends State<ClientAccount> {
+  int _currentIndex = 2;
+  List<Widget> body = const [
+    Icon(Icons.home),
+    Icon(Icons.directions_car_filled),
+    Icon(Icons.person),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +62,7 @@ class Client extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      "Ирода Омонова",
+                      LocalMemory.getValue("name"),
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.w700,
@@ -55,7 +74,7 @@ class Client extends StatelessWidget {
                     children: [
                       IconButton(
                         onPressed: () {
-                          Get.to(ClientEdit());
+                          Get.to(ClienAccountEdit());
                         },
                         icon: Icon(
                           Icons.edit_note,
@@ -92,7 +111,7 @@ class Client extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: Text(
-                      "+998 99 999 99 99",
+                      LocalMemory.getValue("phoneNumber"),
                       style: TextStyle(
                         color: caccentColor,
                         fontSize: 14,
@@ -116,10 +135,49 @@ class Client extends StatelessWidget {
               button(
                   text: "🚕  Стать водителем",
                   color: caccentColor,
-                  onPressed: () {}),
+                  onPressed: () {
+                    LocalMemory.clearAll();
+                    Get.to(DriverOrPassenger());
+                  }),
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: cmenuBackgroundColor,
+        selectedItemColor: caccentColor,
+        unselectedItemColor: cclueColor,
+        currentIndex: _currentIndex,
+        onTap: (newIndex) {
+          // here we can chechc a in withe screen we should navigate
+          setState(() {
+            _currentIndex = newIndex;
+            if (newIndex == 0) {
+              if (LocalMemory.getValue("didGoToCards") == "true") {
+                //some
+                Get.to(ChoosePlace());
+              } else {
+                Get.to(ChoosePlace());
+              }
+            } else if (newIndex == 1) {
+              Get.to(MyTrips());
+            }
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            label: "Асосий",
+            icon: Icon(Icons.home),
+          ),
+          BottomNavigationBarItem(
+            label: "Сафарлар",
+            icon: Icon(Icons.directions_car_filled),
+          ),
+          BottomNavigationBarItem(
+            label: "Кабинет",
+            icon: Icon(Icons.person),
+          ),
+        ],
       ),
     );
   }

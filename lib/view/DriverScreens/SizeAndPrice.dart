@@ -28,7 +28,9 @@ class _SizeAndPriceState extends State<SizeAndPrice> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: cDefoltAppBar(),
+      appBar: cDefoltAppBar(() {
+        Get.back();
+      }),
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -39,7 +41,7 @@ class _SizeAndPriceState extends State<SizeAndPrice> {
                 height: 16,
               ),
               Text(
-                "Какие габариты доставки сможете взять?",
+                "Қандай йетказма ўлчамларини олишингиз мумкин?",
                 style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w700,
@@ -58,14 +60,24 @@ class _SizeAndPriceState extends State<SizeAndPrice> {
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: button(
-                      text: "Далее",
+                      text: "Кейингиси",
                       color: caccentColor,
                       onPressed: () async {
-                        LocalMemory.setDeliveryPriceAndSeats(
-                          seatsBool,
-                          seatsPrice,
-                        );
-                        Get.to(() => WillTakePassangers());
+                        if (seatsBool.every((element) => element == false)) {
+                          Get.snackbar(
+                            "Bittasini tanla",
+                            "Iltimos",
+                            snackPosition: SnackPosition.BOTTOM,
+                            backgroundColor: cerrorColor,
+                            colorText: cwhiteColor,
+                          );
+                        } else {
+                          LocalMemory.setDeliveryPriceAndSeats(
+                            seatsBool,
+                            seatsPrice,
+                          );
+                          Get.to(() => WillTakePassangers());
+                        }
                       }),
                 ),
               ),
@@ -110,9 +122,9 @@ class _SizeAndPriceState extends State<SizeAndPrice> {
                   },
                 );
               });
-          setState(() {
-            seatsBool[index] = !seatsBool[index];
-          });
+          // setState(() {
+          //   seatsBool[index] = !seatsBool[index];
+          // });
         },
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),

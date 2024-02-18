@@ -1,9 +1,6 @@
-import 'dart:ffi';
-
-class OrderPassengerInfo {
+class OrderDeliveryInfo {
   late final String id;
   late final String name;
-  late final String age;
   late final String phoneNumber;
   late final String sex;
   late final String carModel;
@@ -13,19 +10,14 @@ class OrderPassengerInfo {
   late final String date;
   late final String from;
   late final String to;
-  late final String airConditinar;
-  late final String fuel;
   late final String priceLowest;
   late final String priceHighest;
-  late final String numberOfPassangers;
-  late final List<PassengerSetsInfo> passengerInfo;
-  late final List<PassengerSetsInfo> addPassengerInfo;
-  late final List<OrderTakenFrom> orderTakenFrom;
+  late final List<DeliveryInfoSize> deliverySizeInfo;
+  late final List<OrderTakenDelivary> orderTakenFrom;
 
-  OrderPassengerInfo(
+  OrderDeliveryInfo(
     this.id,
     this.name,
-    this.age,
     this.phoneNumber,
     this.sex,
     this.carModel,
@@ -35,21 +27,15 @@ class OrderPassengerInfo {
     this.date,
     this.from,
     this.to,
-    this.airConditinar,
-    this.fuel,
     this.priceLowest,
     this.priceHighest,
-    this.numberOfPassangers,
-    this.passengerInfo,
-    this.addPassengerInfo,
+    this.deliverySizeInfo,
     this.orderTakenFrom,
   );
-
-  Map<String, String> getMapOfPassengerOrderInfo() {
+  Map<String, String> getMapOfDelivaryOrderInfo() {
     return {
       'id': id,
       'name': name,
-      'age': age,
       'phoneNumber': phoneNumber,
       'sex': sex,
       'carModel': carModel,
@@ -59,25 +45,23 @@ class OrderPassengerInfo {
       'date': date,
       'from': from,
       'to': to,
-      'airConditinar': airConditinar,
-      'fuel': fuel,
       'priceLowest': priceLowest,
       'priceHighest': priceHighest,
-      'numberOfPassangers': numberOfPassangers,
     };
   }
 }
 
-class PassengerSetsInfo {
+class DeliveryInfoSize {
   late final String name;
   late final String price;
 
-  PassengerSetsInfo(this.name, this.price);
+  DeliveryInfoSize(this.name, this.price);
 }
 
-class OrderTakenFrom {
-  late final String seatName;
-  late final String phoneNumber;
+class OrderTakenDelivary {
+  late final String name;
+  late final String phonenumberGiver;
+  late final String phonenumberTaker;
 
-  OrderTakenFrom(this.seatName, this.phoneNumber);
+  OrderTakenDelivary(this.name, this.phonenumberGiver, this.phonenumberTaker);
 }

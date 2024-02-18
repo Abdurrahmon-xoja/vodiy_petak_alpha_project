@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -10,6 +12,7 @@ import 'package:vodiy_petak_alpha_project/view/DriverScreens/DriverCards_screem.
 
 import '../../consts/global_varibels.dart';
 import '../OrderUser/Cards_screem.dart';
+import 'DriverDelivaryCards.dart';
 
 class AirConditingAndFuelType extends StatefulWidget {
   const AirConditingAndFuelType({super.key});
@@ -25,7 +28,9 @@ class _AirConditingAndFuelTypeState extends State<AirConditingAndFuelType> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: cDefoltAppBar(),
+      appBar: cDefoltAppBar(() {
+        Get.back();
+      }),
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 16),
@@ -33,7 +38,7 @@ class _AirConditingAndFuelTypeState extends State<AirConditingAndFuelType> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Последний шаг",
+                "Охирги иш",
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w700,
@@ -44,7 +49,7 @@ class _AirConditingAndFuelTypeState extends State<AirConditingAndFuelType> {
                 height: 16,
               ),
               Text(
-                "У вас есть кондиционер ? ",
+                "Сизда кондиционер борми?",
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
@@ -75,7 +80,7 @@ class _AirConditingAndFuelTypeState extends State<AirConditingAndFuelType> {
                               });
                             },
                           ),
-                          Text('ЕСТЬ'),
+                          Text('Бор'),
                         ],
                       ),
                     ),
@@ -92,7 +97,7 @@ class _AirConditingAndFuelTypeState extends State<AirConditingAndFuelType> {
                               });
                             },
                           ),
-                          Text('НЕТ'),
+                          Text('Йўқ'),
                         ],
                       ),
                     ),
@@ -103,7 +108,7 @@ class _AirConditingAndFuelTypeState extends State<AirConditingAndFuelType> {
                 height: 16,
               ),
               Text(
-                "У вас газ или бензин?",
+                "Сизда газми ёки бензинми?",
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
@@ -134,7 +139,7 @@ class _AirConditingAndFuelTypeState extends State<AirConditingAndFuelType> {
                               });
                             },
                           ),
-                          Text('ГАЗ'),
+                          Text('Газ'),
                         ],
                       ),
                     ),
@@ -151,7 +156,7 @@ class _AirConditingAndFuelTypeState extends State<AirConditingAndFuelType> {
                               });
                             },
                           ),
-                          Text('БЕНЗИН'),
+                          Text('Бензин'),
                         ],
                       ),
                     ),
@@ -165,7 +170,7 @@ class _AirConditingAndFuelTypeState extends State<AirConditingAndFuelType> {
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: button(
-                    text: "Далее",
+                    text: "Кейингиси",
                     color: caccentColor,
                     onPressed: () async {
                       await LocalMemory.saveDataString(
@@ -175,17 +180,35 @@ class _AirConditingAndFuelTypeState extends State<AirConditingAndFuelType> {
                       Get.defaultDialog(
                         title: "",
                         content: alert(
-                          text1: 'активирована',
+                          text1: 'Сафар фаоллаштирилди!',
                           text2:
-                              'Ваша поездка добавилась в общую страницу, ждите звонков пассажиров и следите за статусом поездки ',
+                              'Сизнинг сафарингиз умумий саҳифага қўшилди, йўловчиларнинг қўнғироқларини кутинг ва сафат ҳолатини кузатиб боринг',
                           imageName: 'images/ptichka.svg',
-                          buttonTExt: 'Отследить статус вашей поездки',
+                          buttonTExt: 'Сафарингиз ҳолатини кузатиш',
                           onClick: () {
-                            // Get.to(DriverCards());
-                            // here I need to send to server
-                            // chack and send order for passanger and delivary
                             ServerController.sendingOrder();
-                            // isOrderStartes = true;
+                            LocalMemory.saveDataString(
+                                "doesDriverHaveOrder", "true");
+                            if (LocalMemory.getValue("didGoToCards") ==
+                                "true") {
+                              if (LocalMemory.getValue("driverSeorchs") ==
+                                  "passengers") {
+                                Map<String, dynamic> tempData = jsonDecode(
+                                    LocalMemory.getValue("passengerOrderInfo"));
+                                Map<String, String> data = tempData.map(
+                                    (key, value) =>
+                                        MapEntry(key, value.toString()));
+                                Get.offAll(DriverCards(), arguments: data);
+                              } else {
+                                Map<String, dynamic> tempData = jsonDecode(
+                                    LocalMemory.getValue("delivaryOrderInfo"));
+                                Map<String, String> data = tempData.map(
+                                    (key, value) =>
+                                        MapEntry(key, value.toString()));
+                                Get.offAll(DriverDelivaryCard(),
+                                    arguments: data);
+                              }
+                            }
                           },
                         ),
                       );

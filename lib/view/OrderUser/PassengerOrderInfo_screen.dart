@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
@@ -8,8 +9,13 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
+import 'package:vodiy_petak_alpha_project/controller/LocalMemory.dart';
+import 'package:vodiy_petak_alpha_project/view/OrderUser/ChoosePlace_screen.dart';
+import 'package:vodiy_petak_alpha_project/view/OrderUser/OrderScreenPassenger.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/reasonCanceling.dart';
 
+import '../../Server/Api.dart';
+import '../../models/Convertion.dart';
 import '../../models/OrderPassengerInfo.dart';
 import 'BottomSliderPlacecs.dart';
 
@@ -21,17 +27,17 @@ class PassengerOrderInfo extends StatefulWidget {
 }
 
 class _PassengerOrderInfoState extends State<PassengerOrderInfo> {
-  late OrderPassengerInfo _dataRebdering;
+  late OrderPassengerInfo _dataRendering;
   late List newList;
   late List newListBool;
 
   @override
   void initState() {
     super.initState();
-    _dataRebdering = Get.arguments;
+    _dataRendering = Get.arguments;
     newList = [
-      ..._dataRebdering.passengerInfo,
-      ..._dataRebdering.addPassengerInfo
+      ..._dataRendering.passengerInfo,
+      ..._dataRendering.addPassengerInfo
     ];
 
     newListBool = List.generate(newList.length, (index) => false);
@@ -87,7 +93,7 @@ class _PassengerOrderInfoState extends State<PassengerOrderInfo> {
                               width: 8,
                             ),
                             Text(
-                              "${NumberFormat('###,###', 'en_US').format(int.parse(_dataRebdering.priceHighest)).replaceAll(",", " ")}",
+                              "${NumberFormat('###,###', 'en_US').format(int.parse(_dataRendering.priceHighest)).replaceAll(",", " ")}",
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w400,
@@ -113,7 +119,7 @@ class _PassengerOrderInfoState extends State<PassengerOrderInfo> {
                   height: 13,
                 ),
                 Text(
-                  "OQ ${_dataRebdering.carModel}",
+                  "${_dataRendering.carColor} ${_dataRendering.carModel}",
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -124,7 +130,7 @@ class _PassengerOrderInfoState extends State<PassengerOrderInfo> {
                   height: 13,
                 ),
                 Text(
-                  _dataRebdering.carNumber,
+                  _dataRendering.carNumber,
                   style: TextStyle(
                     fontSize: 24,
                     color: cdarkTextColor,
@@ -153,21 +159,21 @@ class _PassengerOrderInfoState extends State<PassengerOrderInfo> {
                 ),
                 RichText(
                   text: TextSpan(
-                      text: "${_dataRebdering.date}   ",
+                      text: "${_dataRendering.date}   ",
                       style: TextStyle(
                           fontSize: 16,
                           color: Color(0xff2A2A2A),
                           fontWeight: FontWeight.w700),
                       children: <TextSpan>[
                         TextSpan(
-                          text: "Ташкент-Андижан",
+                          text: "${_dataRendering.from}-${_dataRendering.to} ",
                           style: TextStyle(
                               color: Color(0xff2A2A2A),
                               fontSize: 16,
                               fontWeight: FontWeight.w700),
                         ),
                         TextSpan(
-                          text: "(${_dataRebdering.time})",
+                          text: "(${_dataRendering.time})",
                           style: TextStyle(
                               color: Color(0xff2A2A2A),
                               fontSize: 16,
@@ -197,7 +203,7 @@ class _PassengerOrderInfoState extends State<PassengerOrderInfo> {
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       child: Text(
-                        _dataRebdering.phoneNumber,
+                        _dataRendering.phoneNumber,
                         style: TextStyle(
                           color: caccentColor,
                           fontSize: 14,
@@ -211,7 +217,7 @@ class _PassengerOrderInfoState extends State<PassengerOrderInfo> {
                   height: 13,
                 ),
                 Text(
-                  _dataRebdering.name,
+                  _dataRendering.name,
                   style: TextStyle(
                     fontSize: 20,
                     color: Color(0xff2A2A2A),
@@ -271,7 +277,7 @@ class _PassengerOrderInfoState extends State<PassengerOrderInfo> {
                       ),
                     ),
                     child: Text(
-                      _dataRebdering.airConditinar == "true"
+                      _dataRendering.airConditinar == "true"
                           ? "Konditsiyaner"
                           : "netu kanditsiyanera",
                       style: TextStyle(
@@ -299,7 +305,7 @@ class _PassengerOrderInfoState extends State<PassengerOrderInfo> {
                       ),
                     ),
                     child: Text(
-                      _dataRebdering.fuel,
+                      _dataRendering.fuel,
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -315,171 +321,149 @@ class _PassengerOrderInfoState extends State<PassengerOrderInfo> {
                     text: "Позвонить и забронировать место",
                     color: caccentColor,
                     onPressed: () async {
-                      final Uri url = Uri(
-                        scheme: 'tel',
-                        path: _dataRebdering.phoneNumber,
-                      );
-
-                      if (await canLaunchUrl(url)) {
-                        await launchUrl(url);
+                      bool allFalse =
+                          newListBool.every((element) => element == false);
+                      if (allFalse) {
+                        Get.snackbar("Bittasini tanlashkere", "Iltimos",
+                            snackPosition: SnackPosition.BOTTOM,
+                            backgroundColor: cerrorColor,
+                            colorText: cwhiteColor);
                       } else {
-                        print("CouldNot launche this");
-                      }
+                        final Uri url = Uri(
+                          scheme: 'tel',
+                          path: _dataRendering.phoneNumber,
+                        );
 
-                      //--------------------widget
-                      Get.defaultDialog(
-                          title: "",
-                          content: Container(
-                            width: MediaQuery.of(context).size.width + 100,
-                            padding: EdgeInsets.symmetric(horizontal: 10.0),
-                            // width: double.infinity,
-                            child: Column(
-                              children: [
-                                Text(
-                                  textAlign: TextAlign.center,
-                                  "Вы только что говорили с водителем",
-                                  style: TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.w700,
-                                      color: cdarkTextColor),
-                                ),
-                                SizedBox(
-                                  height: 16,
-                                ),
-                                Text(
-                                  textAlign: TextAlign.center,
-                                  "Если вы договорились о поездке нажмите подтвердить поездку если нет нажмите вернуться назад",
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      color: cworkingHintColor),
-                                ),
-                                SizedBox(
-                                  height: 24,
-                                ),
-                                button(
-                                  text: "Продолжить",
-                                  color: caccentColor,
-                                  onPressed: () {
-                                    // Get.defaultDialog(
-                                    //   title: "",
-                                    //   content: alert(
-                                    //     text1: 'Поездка активирована!',
-                                    //     text2:
-                                    //         'Если вы передумали отмените поездку, но перед этим позвоните водителю',
-                                    //     imageName: 'images/ptichka.svg',
-                                    //     buttonTExt: 'Отменить поездку',
-                                    //     onClick: () {},
-                                    //   ),
-                                    // );
-                                    Get.defaultDialog(
-                                      title: "",
-                                      content: SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                              "Поездка завершена",
-                                              style: TextStyle(
-                                                fontSize: 22,
-                                                fontWeight: FontWeight.w700,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 24,
-                                            ),
-                                            RatingBar(
-                                              minRating: 1,
-                                              maxRating: 5,
-                                              initialRating: 3,
-                                              ratingWidget: RatingWidget(
-                                                full: Icon(
-                                                  Icons.star,
-                                                  color: Colors.yellow,
-                                                  size: 22,
-                                                ),
-                                                empty: Icon(
-                                                  Icons.star,
-                                                  color: cclueColor,
-                                                  size: 22,
-                                                ),
-                                                half: Icon(
-                                                  Icons.star,
-                                                  color: cclueColor,
-                                                  size: 22,
-                                                ),
-                                              ),
-                                              onRatingUpdate: (double value) {},
-                                            ),
-                                            SizedBox(
-                                              height: 24,
-                                            ),
-                                            Text(
-                                              "Напишите комментарий",
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w500,
-                                                color: Color(0xff898989),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 24,
-                                            ),
-                                            TextFormField(
-                                              // controller: _dateController,
-                                              decoration: InputDecoration(
-                                                // fillColor: fmaleInputColor,
-                                                filled: true,
-                                                hintText: 'Ваш комментарий',
-                                                hintStyle: TextStyle(
-                                                    color: cclueColor),
-                                                enabledBorder:
-                                                    OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
-                                                  borderSide: BorderSide(
-                                                      color: cinputColor),
-                                                ),
-                                                focusedBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: cinputColor),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 24,
-                                            ),
-                                            button(
-                                                text: "Готово",
-                                                color: caccentColor,
-                                                onPressed: () {})
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                buttonBorder(
-                                  "Мы не смогли договориться",
-                                  () {
-                                    Get.to(ReasonCanceling());
-                                  },
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                              ],
-                            ),
-                          ));
+                        if (await canLaunchUrl(url)) {
+                          await launchUrl(url);
+                        } else {
+                          print("CouldNot launche this");
+                        }
+
+                        //--------------------widget
+                        Get.defaultDialog(
+                            title: "",
+                            content: Container(
+                              width: MediaQuery.of(context).size.width + 100,
+                              padding: EdgeInsets.symmetric(horizontal: 10.0),
+                              // width: double.infinity,
+                              child: Column(
+                                children: [
+                                  Text(
+                                    textAlign: TextAlign.center,
+                                    "Вы только что говорили с водителем",
+                                    style: TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.w700,
+                                        color: cdarkTextColor),
+                                  ),
+                                  SizedBox(
+                                    height: 16,
+                                  ),
+                                  Text(
+                                    textAlign: TextAlign.center,
+                                    "Если вы договорились о поездке нажмите подтвердить поездку если нет нажмите вернуться назад",
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                        color: cworkingHintColor),
+                                  ),
+                                  SizedBox(
+                                    height: 24,
+                                  ),
+                                  button(
+                                    text: "Продолжить",
+                                    color: caccentColor,
+                                    onPressed: () {
+                                      List<Map> oldRegistration =
+                                          convertFromInstOfOrderToMap(
+                                              _dataRendering.orderTakenFrom);
+                                      List orderTaken = [...oldRegistration];
+                                      List<Map> passangerInfo =
+                                          convertFromInstToMap(
+                                              _dataRendering.passengerInfo);
+                                      List<Map> passangerInfoAdd =
+                                          convertFromInstToMap(
+                                              _dataRendering.addPassengerInfo);
+
+                                      print(passangerInfo[0]['price']);
+                                      for (int i = 0;
+                                          i < newListBool.length;
+                                          i++) {
+                                        if (newListBool[i] == true) {
+                                          if (i <
+                                              _dataRendering
+                                                  .passengerInfo.length) {
+                                            orderTaken.add({
+                                              "seatName": passangerInfo[i]
+                                                  ['name'],
+                                              "price": passangerInfo[i]
+                                                  ['price'],
+                                              "phoneNumber":
+                                                  LocalMemory.getValue(
+                                                      "phoneNumber"),
+                                            });
+                                            passangerInfo.removeAt(i);
+                                          } else {
+                                            orderTaken.add({
+                                              "seatName": passangerInfo[i -
+                                                  passangerInfo.length]["name"],
+                                              "price": passangerInfo[
+                                                      i - passangerInfo.length]
+                                                  ["price"],
+                                              "phoneNumber":
+                                                  LocalMemory.getValue(
+                                                      "phoneNumber"),
+                                            });
+                                            passangerInfoAdd.removeAt(
+                                                i - passangerInfo.length);
+                                          }
+                                        }
+                                      }
+
+                                      Map<String, String> updateData = {
+                                        "id": _dataRendering.id,
+                                        "passengerInfo":
+                                            jsonEncode(passangerInfo)
+                                                .toString(),
+                                        "addPassengerInfo":
+                                            jsonEncode(passangerInfoAdd)
+                                                .toString(),
+                                        "orderTaken":
+                                            jsonEncode(orderTaken).toString(),
+                                      };
+                                      //important
+                                      Api.sendNewOrderPassangerInfo(updateData);
+
+                                      LocalMemory.saveDataString(
+                                          "useOrderInsideInfoPassenger",
+                                          jsonEncode(_dataRendering
+                                              .getMapOfPassengerOrderInfo()));
+
+                                      LocalMemory.saveDataString(
+                                          "doesUserHasOrderPassenger", "true");
+
+                                      Get.offAll(OrderScreenPassenger());
+                                    },
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  buttonBorder(
+                                    "Мы не смогли договориться",
+                                    () {
+                                      // Get.to(ChoosePlace());
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                ],
+                              ),
+                            ));
+                      }
                     }),
                 SizedBox(
                   height: 10,

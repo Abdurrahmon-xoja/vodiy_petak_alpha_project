@@ -251,6 +251,8 @@ class _BottomSliderPriceAndTimeState extends State<BottomSliderPriceAndTime> {
                         }
 
                         Map<String, String> dataSend = {
+                          // should add from to
+                          //TO:DO
                           'priceFrom': startPrice.toInt().toString(),
                           'priceTo': endPrice.toInt().toString(),
                           'timeArray': jsonEncode(timeData),

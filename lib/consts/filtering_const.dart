@@ -26,6 +26,14 @@ List<String> autoChevroletOptions = [
   "Ravon Gentra",
 ];
 
+List<String> carColors = [
+  "Oq",
+  "Qora",
+  "Kok",
+  "Saru",
+  "Temi rang",
+];
+
 List<String> autoOthersOptions = [
   "Ravon Nexia",
   "Chevrolet Malibu 2",

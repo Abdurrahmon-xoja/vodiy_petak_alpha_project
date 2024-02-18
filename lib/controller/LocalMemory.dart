@@ -17,6 +17,10 @@ class LocalMemory {
     await _preferences?.setString(name, val);
   }
 
+  static clearAll() async {
+    await _preferences?.clear();
+  }
+
   static String getValue(String _key) {
     return _preferences!.getString(_key).toString();
   }
@@ -28,11 +32,9 @@ class LocalMemory {
     // chake all things here
     var passengerInfo =
         _preferences!.getString("order_passengerInfo").toString();
-    var parsedInfo = jsonDecode(passengerInfo);
 
     var addPassengerInfo =
         _preferences!.getString("order_addPassengerInfo").toString();
-    var addParsedInfo = jsonDecode(addPassengerInfo);
 
     Map data = {
       'name': _preferences!.getString("name").toString(),
@@ -50,6 +52,7 @@ class LocalMemory {
       "fuel": _preferences!.getString("fuelType").toString(),
       "passengerInfo": passengerInfo.toString(),
       'addPassengerInfo': addPassengerInfo.toString(),
+      'ordersTaken': [].toString(),
     };
 
     return data;
@@ -59,10 +62,11 @@ class LocalMemory {
     //order_passengerInfo"
     var order_deliveryInfo =
         _preferences!.getString("order_deliveryInfo").toString();
-    var parsedInfo = jsonDecode(order_deliveryInfo);
 
     Map data = {
       'name': _preferences!.getString("name").toString(),
+      'age': _preferences!.getString("dateOfBirth").toString(),
+      'sex': _preferences!.getString("sex").toString(),
       'phoneNumber': _preferences!.getString("phoneNumber").toString(),
       "carModel": _preferences!.getString("carModel").toString(),
       "carColor": _preferences!.getString("carColor").toString(),
@@ -77,9 +81,22 @@ class LocalMemory {
     return data;
   }
 
+  static Map getUserRegistrationInfo() {
+    Map<String, String> data = {
+      'name': _preferences!.getString("name").toString(),
+      'password': _preferences!.getString("password").toString(),
+      'age': _preferences!.getString("dateOfBirth").toString(),
+      'phoneNumber': _preferences!.getString("phoneNumber").toString(),
+      'sex': _preferences!.getString("sex").toString(),
+    };
+
+    return data;
+  }
+
   static Map getDriverRegisterInfo() {
     Map<String, String> data = {
       'name': _preferences!.getString("name").toString(),
+      'password': _preferences!.getString("password").toString(),
       'age': _preferences!.getString("dateOfBirth").toString(),
       'phoneNumber': _preferences!.getString("phoneNumber").toString(),
       'sex': _preferences!.getString("sex").toString(),
@@ -102,7 +119,7 @@ class LocalMemory {
     for (int i = 0; i < boolList.length; i++) {
       DeliveryMemory info = DeliveryMemory(
         price: doubleList[i].toString(),
-        name: i.toString(),
+        name: goodsSizedName[i],
       );
       if (boolList[i] == true) {
         some.add(
@@ -111,9 +128,16 @@ class LocalMemory {
       }
     }
 
-    var jsonString = jsonEncode(some);
+    double min = double.parse(some[0]['price']!);
+    for (int i = 0; i < some.length; i++) {
+      if (double.parse(some[i]['price']!) < min) {
+        min = double.parse(some[0]['price']!);
+      }
+    }
 
-    print(jsonString);
+    LocalMemory.saveDataString(
+        "driverOrderInfoDelivaryLowestPrice", min.toString());
+    var jsonString = jsonEncode(some);
 
     await _preferences?.setString("order_deliveryInfo", jsonString);
   }
@@ -133,6 +157,19 @@ class LocalMemory {
         );
       }
     }
+
+    double min = double.parse(some[0]['price']);
+    for (int i = 0; i < some.length; i++) {
+      if (double.parse(some[i]['price']) < min) {
+        min = double.parse(some[0]['price']);
+      }
+    }
+
+    LocalMemory.saveDataString(
+        "driverOrderInfoPassengerLowestPrice", min.toString());
+
+    LocalMemory.saveDataString(
+        "driverOrderInfoPassengerHowManySeats", some.length.toString());
 
     var jsonString = jsonEncode(some);
 
@@ -154,7 +191,23 @@ class LocalMemory {
         );
       }
     }
+    double min = double.parse(
+        LocalMemory.getValue("driverOrderInfoPassengerLowestPrice"));
+    for (int i = 0; i < some.length; i++) {
+      if (double.parse(some[i]['price']) < min) {
+        min = double.parse(some[0]['price']);
+      }
+    }
 
+    LocalMemory.saveDataString(
+        "driverOrderInfoPassengerLowestPrice", min.toString());
+    // i am getting amount of seats to render order first
+    int seatsAmount =
+        int.parse(LocalMemory.getValue("driverOrderInfoPassengerHowManySeats"));
+    seatsAmount += some.length;
+    LocalMemory.saveDataString(
+        "driverOrderInfoPassengerHowManySeats", seatsAmount.toString());
+    LocalMemory.saveDataString("driverOrderInfoPassengerHowOrdersTaken", "0");
     var jsonString = jsonEncode(some);
 
     await _preferences?.setString("order_addPassengerInfo", jsonString);

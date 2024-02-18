@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
+import 'package:vodiy_petak_alpha_project/controller/LocalMemory.dart';
 
 import 'RegistrationScreens/registrationPhone_screen.dart';
 
@@ -35,7 +36,7 @@ class LoginOrRegistration extends StatelessWidget {
                       height: 10,
                     ),
                     Text(
-                      "Междугородние поездки с максимальным удобством для вас",
+                      "Сиз учун максимал қулайлик билан шаҳарлараро саёҳат ",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: cwhiteColor,
@@ -56,12 +57,16 @@ class LoginOrRegistration extends StatelessWidget {
                 child: Column(
                   children: [
                     button(
-                      text: "Войти ",
+                      text: "Кириш",
                       color: caccentColor,
-                      onPressed: () {},
+                      onPressed: () {
+                        LocalMemory.saveDataString("entariPoint", "login");
+                        Get.to(RegistrationPhone());
+                      },
                     ),
                     SizedBox(height: 15.0),
-                    buttonBorder("Зарегистрироваться", () {
+                    buttonBorder("Рўйхатдан ўтиш", () {
+                      LocalMemory.saveDataString("entariPoint", "registration");
                       Get.to(RegistrationPhone());
                     }),
                   ],

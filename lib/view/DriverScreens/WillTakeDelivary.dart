@@ -15,7 +15,9 @@ class WillTakeDelivary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: cDefoltAppBar(),
+      appBar: cDefoltAppBar(() {
+        Get.back();
+      }),
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.all(16),
@@ -40,7 +42,7 @@ class WillTakeDelivary extends StatelessWidget {
                     height: 16,
                   ),
                   Text(
-                    "Вы готовы брать доставку?",
+                    "Йетказмага тайёрмисиз?",
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w700,
@@ -51,7 +53,7 @@ class WillTakeDelivary extends StatelessWidget {
                     height: 16,
                   ),
                   button(
-                    text: "Да я могу взять доставку",
+                    text: "Ҳа, мен йетказиб бера оламан",
                     color: caccentColor,
                     onPressed: () async {
                       await LocalMemory.saveDataString(
@@ -63,7 +65,7 @@ class WillTakeDelivary extends StatelessWidget {
                     height: 16,
                   ),
                   buttonBorder(
-                    "Нет я не могу",
+                    "Йўқ мен йетказиб бера олмайман",
                     () async {
                       await LocalMemory.saveDataString(
                           "order_takesDelivary", "false");

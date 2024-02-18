@@ -23,7 +23,7 @@ class DriverOrPassenger extends StatelessWidget {
                 height: 50.0,
               ),
               Text(
-                "Вы кто?",
+                "Сиз кимсиз?",
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w700,
@@ -41,16 +41,17 @@ class DriverOrPassenger extends StatelessWidget {
                 height: 15.0,
               ),
               button(
-                text: "💺 Я Пассажир",
+                text: "💺 Мен йўловчиман",
                 color: caccentColor,
                 onPressed: () async {
                   await LocalMemory.saveDataString("user", "passenger");
+                  Get.to(() => LoginOrRegistration());
                 },
               ),
               SizedBox(
                 height: 15.0,
               ),
-              buttonBorder("🚕 Я Водитель", () async {
+              buttonBorder("🚕 Мен ҳайдовчиман", () async {
                 await LocalMemory.saveDataString("user", "driver");
                 Get.to(() => LoginOrRegistration());
               }),

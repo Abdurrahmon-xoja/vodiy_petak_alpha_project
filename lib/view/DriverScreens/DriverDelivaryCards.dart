@@ -1,30 +1,35 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
-import 'package:vodiy_petak_alpha_project/models/OrderDeliveryInfo.dart';
+import 'package:vodiy_petak_alpha_project/view/DriverScreens/DriverCards_screem.dart';
+import 'package:vodiy_petak_alpha_project/view/DriverScreens/DriversTrips.dart';
 
 import '../../Server/Api.dart';
 import '../../consts/colors_const.dart';
 import '../../consts/global_varibels.dart';
-import '../../models/OrderPassengerInfo.dart';
-import 'BottomSliderDelivary.dart';
-import 'BottomSliderPriceAndTime.dart';
-import 'Cards_screem.dart';
-import 'ChoosePlace_screen.dart';
-import 'DeliveryOrderInfo_screen.dart';
-import 'mytrips_screen.dart';
-import 'PassengerOrderInfo_screen.dart';
+import '../../consts/methods_const.dart';
+import '../../controller/LocalMemory.dart';
+import '../../models/OrderDeliveryInfo.dart';
+import '../OrderUser/BottomSliderDelivary.dart';
+import '../OrderUser/Cards_screem.dart';
+import '../OrderUser/ChoosePlace_screen.dart';
+import '../OrderUser/mytrips_screen.dart';
+import '../ProfailScreens/driver_screen.dart';
+import 'DriverOrderScreen.dart';
+import 'DriverTakesFrom_screen.dart';
 
-class DelivaryCard extends StatefulWidget {
-  const DelivaryCard({super.key});
+class DriverDelivaryCard extends StatefulWidget {
+  const DriverDelivaryCard({super.key});
 
   @override
-  State<DelivaryCard> createState() => _DelivaryCardState();
+  State<DriverDelivaryCard> createState() => _DriverDelivaryCardState();
 }
 
-class _DelivaryCardState extends State<DelivaryCard> {
+class _DriverDelivaryCardState extends State<DriverDelivaryCard> {
   late Map<String, String> dataOfRendering;
   late Future<List<OrderDeliveryInfo>> _someInfo;
 
@@ -120,7 +125,9 @@ class _DelivaryCardState extends State<DelivaryCard> {
                                   getVale: (val) {
                                     // some kind of api request
                                     print(val);
-                                    Api.getFilterForDelivary(val);
+                                    setState(() {
+                                      _someInfo = Api.getFilterForDelivary(val);
+                                    });
                                   },
                                 );
                               });
@@ -171,7 +178,35 @@ class _DelivaryCardState extends State<DelivaryCard> {
                       );
                     } else {
                       List<OrderDeliveryInfo> data = snapshot.data;
-                      if (data.length == 0) {
+                      if (data.length == 0 &&
+                          LocalMemory.getValue("order_willTakePassenger") ==
+                              "true" &&
+                          LocalMemory.getValue("doesDriverHaveOrder") ==
+                              "true" &&
+                          LocalMemory.getValue("order_takesDelivary") ==
+                              "true") {
+                        return Column(
+                          children: [
+                            cDriverOrderPassanger(),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            cDriverOrderPassanger(),
+                          ],
+                        );
+                      } else if (data.length == 0 &&
+                          LocalMemory.getValue("order_willTakePassenger") ==
+                              "true" &&
+                          LocalMemory.getValue("doesDriverHaveOrder") ==
+                              "true") {
+                        return cDriverOrderPassanger();
+                      } else if (data.length == 0 &&
+                          LocalMemory.getValue("order_takesDelivary") ==
+                              "true" &&
+                          LocalMemory.getValue("doesDriverHaveOrder") ==
+                              "true") {
+                        return cDriverOrderDelivary();
+                      } else if (data.length == 0) {
                         return Expanded(
                           child: Align(
                             alignment: Alignment.bottomCenter,
@@ -215,6 +250,37 @@ class _DelivaryCardState extends State<DelivaryCard> {
                           shrinkWrap: true,
                           itemCount: data.length,
                           itemBuilder: (BuildContext context, int index) {
+                            if (index == 0 &&
+                                LocalMemory.getValue(
+                                        "order_willTakePassenger") ==
+                                    "true" &&
+                                LocalMemory.getValue("doesDriverHaveOrder") ==
+                                    "true" &&
+                                LocalMemory.getValue("order_takesDelivary") ==
+                                    "true") {
+                              return Column(
+                                children: [
+                                  cDriverOrderPassanger(),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  cDriverOrderDelivary(),
+                                ],
+                              );
+                            } else if (index == 0 &&
+                                LocalMemory.getValue(
+                                        "order_willTakePassenger") ==
+                                    "true" &&
+                                LocalMemory.getValue("doesDriverHaveOrder") ==
+                                    "true") {
+                              return cDriverOrderPassanger();
+                            } else if (index == 0 &&
+                                LocalMemory.getValue("order_takesDelivary") ==
+                                    "true" &&
+                                LocalMemory.getValue("doesDriverHaveOrder") ==
+                                    "true") {
+                              return cDriverOrderDelivary();
+                            }
                             return Container(
                               margin: EdgeInsets.only(bottom: 16),
                               padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -271,7 +337,7 @@ class _DelivaryCardState extends State<DelivaryCard> {
                                           ],
                                         ),
                                         SizedBox(
-                                          height: 15,
+                                          height: 20,
                                         ),
                                         Column(
                                           crossAxisAlignment:
@@ -328,10 +394,7 @@ class _DelivaryCardState extends State<DelivaryCard> {
                                                             10),
                                                   ),
                                                 ),
-                                                onPressed: () {
-                                                  Get.to(DeliveryOrderInfo(),
-                                                      arguments: data[index]);
-                                                },
+                                                onPressed: () {},
                                                 child: Text(
                                                   data[index].phoneNumber,
                                                   style: TextStyle(
@@ -359,6 +422,41 @@ class _DelivaryCardState extends State<DelivaryCard> {
           ),
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Container(
+        // padding: EdgeInsets.all(5.0),
+        width: MediaQuery.of(context).size.width / 2,
+        height: MediaQuery.of(context).size.height / 18,
+        decoration: BoxDecoration(
+            color: caccentColor, borderRadius: BorderRadius.circular(16.0)),
+        child: FloatingActionButton(
+          onPressed: () {
+            if (LocalMemory.getValue("doesDriverHaveOrder") == "true" ||
+                LocalMemory.getValue("doesDriverHaveOrder") == "") {
+              Get.to(() => DriverOrderScreen());
+            } else {
+              // screen of order
+              Get.to(DriverTakesFrom());
+            }
+
+            // Add your button onPressed logic here
+          },
+          child: Text(
+            textAlign: TextAlign.center,
+            LocalMemory.getValue("doesDriverHaveOrder") == "true"
+                ? "Следить за статусом своей поездки"
+                : "Начать свою поездку",
+            style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w400),
+          ),
+          backgroundColor: caccentColor,
+          foregroundColor: Colors.white,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          tooltip: 'Start Trip',
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: cmenuBackgroundColor,
         selectedItemColor: caccentColor,
@@ -369,13 +467,10 @@ class _DelivaryCardState extends State<DelivaryCard> {
           setState(() {
             _currentIndex = newIndex;
             if (newIndex == 1) {
-              Get.to(MyTrips());
-            } else if (newIndex == 0) {
-              if (doesUserWentToCardScreen == false) {
-                Get.to(ChoosePlace());
-              } else {
-                Get.to(Cards());
-              }
+              Get.to(DriversTrips());
+            } else if (newIndex == 2) {
+              //will go driver account
+              Get.to(DriverAccount());
             }
           });
         },

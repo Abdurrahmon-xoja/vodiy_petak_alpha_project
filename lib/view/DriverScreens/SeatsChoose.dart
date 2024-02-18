@@ -29,7 +29,9 @@ class _SeatsChooseState extends State<SeatsChoose> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: cDefoltAppBar(),
+      appBar: cDefoltAppBar(() {
+        Get.back();
+      }),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
@@ -38,7 +40,7 @@ class _SeatsChooseState extends State<SeatsChoose> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Какие места у вас свободны? ",
+                  "Сизда қандай ўриндиқлар бош?",
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w700,
@@ -79,7 +81,7 @@ class _SeatsChooseState extends State<SeatsChoose> {
                           );
                         });
                   },
-                  child: Text("Add a places"),
+                  child: Text("Қўшимча ўриндиқ қўшиш"),
                 ),
                 SizedBox(
                   height: 16.0,
@@ -91,14 +93,26 @@ class _SeatsChooseState extends State<SeatsChoose> {
                   height: 20,
                 ),
                 button(
-                  text: "Next",
+                  text: "Кейингиси",
                   color: caccentColor,
                   onPressed: () {
-                    LocalMemory.setPassengerPriceAndSeats(
-                        seatsBool, seatsPrice);
-                    LocalMemory.setAddPassengerPriceAndSeats(
-                        additionalSeatsBool, additionalSeatsPrice);
-                    Get.to(() => AirConditingAndFuelType());
+                    if (seatsBool.every((element) => element == false) &&
+                        additionalSeatsBool
+                            .every((element) => element == false)) {
+                      Get.snackbar(
+                        "Bittasini tanla",
+                        "Iltimos",
+                        snackPosition: SnackPosition.BOTTOM,
+                        backgroundColor: cerrorColor,
+                        colorText: cwhiteColor,
+                      );
+                    } else {
+                      LocalMemory.setPassengerPriceAndSeats(
+                          seatsBool, seatsPrice);
+                      LocalMemory.setAddPassengerPriceAndSeats(
+                          additionalSeatsBool, additionalSeatsPrice);
+                      Get.to(() => AirConditingAndFuelType());
+                    }
                   },
                 ),
                 SizedBox(
@@ -143,7 +157,6 @@ class _SeatsChooseState extends State<SeatsChoose> {
                     },
                   );
                 });
-            seatsBool[index] = !seatsBool[index];
           });
         },
         child: Container(
@@ -220,9 +233,9 @@ class _SeatsChooseState extends State<SeatsChoose> {
                   },
                 );
               });
-          setState(() {
-            additionalSeatsBool[index] = !additionalSeatsBool[index];
-          });
+          // setState(() {
+          //   additionalSeatsBool[index] = !additionalSeatsBool[index];
+          // });
         },
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),

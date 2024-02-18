@@ -18,7 +18,7 @@ class DriverGoesTo extends StatefulWidget {
 }
 
 class _DriverGoesToState extends State<DriverGoesTo> {
-  String to = " ";
+  String to = "";
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,9 @@ class _DriverGoesToState extends State<DriverGoesTo> {
       height: 300,
     );
     return Scaffold(
-      appBar: cDefoltAppBar(),
+      appBar: cDefoltAppBar(() {
+        Get.back();
+      }),
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 16),
@@ -43,7 +45,7 @@ class _DriverGoesToState extends State<DriverGoesTo> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Укажите адрес высадки",
+                      "Йўловчиларни тушириш жойини белгиланг",
                       style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w700,
@@ -52,7 +54,7 @@ class _DriverGoesToState extends State<DriverGoesTo> {
                     SizedBox(
                       height: 16,
                     ),
-                    Text("Укажите адрес отправки",
+                    Text("Тушириш манзилини белгиланг",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
@@ -72,11 +74,21 @@ class _DriverGoesToState extends State<DriverGoesTo> {
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: button(
-                    text: "Next",
+                    text: "Кейингиси",
                     color: caccentColor,
-                    onPressed: () async {
-                      await LocalMemory.saveDataString("order_to", to);
-                      Get.to(() => DriverTime());
+                    onPressed: () {
+                      if (to == "") {
+                        Get.snackbar(
+                          "toldir ohirgacha",
+                          "iltimos",
+                          snackPosition: SnackPosition.BOTTOM,
+                          backgroundColor: cerrorColor,
+                          colorText: cwhiteColor,
+                        );
+                      } else {
+                        LocalMemory.saveDataString("order_to", to);
+                        Get.to(() => DriverTime());
+                      }
                     },
                   ),
                 ),

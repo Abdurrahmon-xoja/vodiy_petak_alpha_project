@@ -24,15 +24,18 @@ class _DriverTimeState extends State<DriverTime> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: cDefoltAppBar(),
+      appBar: cDefoltAppBar(() {
+        Get.back();
+      }),
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 child: Text(
-                  "Во сколько будете выезжать?",
+                  "Соат нечада кетасиз?",
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w700,
@@ -197,7 +200,7 @@ class _DriverTimeState extends State<DriverTime> {
                   child: Align(
                 alignment: Alignment.bottomCenter,
                 child: button(
-                    text: "Далее",
+                    text: "Кейингиси",
                     color: caccentColor,
                     onPressed: () async {
                       // print(formattedTime);

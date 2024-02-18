@@ -27,6 +27,7 @@ class buttonBorder extends StatelessWidget {
         ),
         onPressed: onPressed,
         child: Text(
+          textAlign: TextAlign.center,
           text,
           style: TextStyle(
             color: caccentColor,
@@ -60,6 +61,7 @@ class button extends StatelessWidget {
         ),
         onPressed: onPressed,
         child: Text(
+          textAlign: TextAlign.center,
           text,
           style: TextStyle(
             color: cwhiteColor,
@@ -178,7 +180,7 @@ class _DropdownSearchCastomState extends State<DropdownSearchCastom> {
               width: 6,
             ),
             Text(
-              'Выберите из списка',
+              'Рўйхатдан танланг',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,

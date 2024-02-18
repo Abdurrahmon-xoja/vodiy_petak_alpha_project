@@ -13,9 +13,13 @@ class RegistrationNameAndEmail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
     final nameController = TextEditingController();
+
     return Scaffold(
-      appBar: cDefoltAppBar(),
+      appBar: cDefoltAppBar(() {
+        Get.back();
+      }),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
@@ -24,7 +28,7 @@ class RegistrationNameAndEmail extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Заполните профиль",
+                  "Профилингизни тўлдиринг",
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w700,
@@ -35,14 +39,23 @@ class RegistrationNameAndEmail extends StatelessWidget {
                   height: 16,
                 ),
                 Form(
+                  key: formKey,
                   child: Column(
                     children: [
                       TextFormField(
+                        validator: (val) {
+                          if (val!.isEmpty ||
+                              !RegExp(r'[a-z A-z]+$').hasMatch(val)) {
+                            return "Name should not contain";
+                          } else {
+                            return null;
+                          }
+                        },
                         controller: nameController,
                         decoration: InputDecoration(
                             fillColor: cinputColor,
                             filled: true,
-                            hintText: 'Как вас зовут?',
+                            hintText: 'Исмингиз нима?',
                             hintStyle: TextStyle(color: cclueColor),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -60,12 +73,13 @@ class RegistrationNameAndEmail extends StatelessWidget {
                       SizedBox(
                         height: 16,
                       ),
+                      // we he need this
                       TextFormField(
                         // controller: nameController,
                         decoration: InputDecoration(
                             fillColor: cinputColor,
                             filled: true,
-                            hintText: 'Ваш email (optional)',
+                            hintText: 'Электрон почтангиз(ихтиёрий)',
                             hintStyle: TextStyle(color: cclueColor),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -84,14 +98,16 @@ class RegistrationNameAndEmail extends StatelessWidget {
                         height: 16.0,
                       ),
                       button(
-                          text: "Далее",
+                          text: "Кейингиси",
                           color: caccentColor,
                           onPressed: () async {
                             //TODO: add validation for email ana chake for empty and aother staff
                             // saveDataString("name", nameController.text);
-                            await LocalMemory.saveDataString(
-                                "name", nameController.text);
-                            Get.to(() => RegistrationAge());
+                            if (formKey.currentState!.validate()) {
+                              LocalMemory.saveDataString(
+                                  "name", nameController.text);
+                              Get.to(() => RegistrationAge());
+                            }
                           }),
                     ],
                   ),

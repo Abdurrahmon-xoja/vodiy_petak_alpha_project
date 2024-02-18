@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -5,7 +7,10 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/methods_const.dart';
 import 'package:vodiy_petak_alpha_project/controller/LocalMemory.dart';
+import 'package:vodiy_petak_alpha_project/view/DriverScreens/DriverDelivaryCards.dart';
+import 'package:vodiy_petak_alpha_project/view/DriverScreens/DriversTrips.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/Cards_screem.dart';
+import 'package:vodiy_petak_alpha_project/view/OrderUser/DelivaryCard_screen.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/Places_screen.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/mytrips_screen.dart';
 
@@ -15,6 +20,9 @@ import '../../consts/global_varibels.dart';
 import '../../models/OrderPassengerInfo.dart';
 import '../DriverScreens/DriverCards_screem.dart';
 import 'dart:io' show Platform;
+
+import '../ProfailScreens/client_screen.dart';
+import '../ProfailScreens/driver_screen.dart';
 
 class ChoosePlace extends StatefulWidget {
   const ChoosePlace({super.key});
@@ -51,10 +59,10 @@ class _ChoosePlaceState extends State<ChoosePlace>
 
   final List<Tab> _tabs = [
     Tab(
-      text: "Поездка",
+      text: "Сафар",
     ),
     Tab(
-      text: "Доставка",
+      text: "Йетказма",
     ),
   ];
 
@@ -85,7 +93,7 @@ class _ChoosePlaceState extends State<ChoosePlace>
                           height: 50,
                         ),
                         Text(
-                          "Здравствуйте,",
+                          "Ассалому алайкум,",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: cwhiteColor,
@@ -153,6 +161,7 @@ class _ChoosePlaceState extends State<ChoosePlace>
                           controller: _tabController,
                           tabs: _tabs,
                           labelColor: caccentColor,
+                          //add colors
                           indicatorColor: caccentColor,
                           unselectedLabelColor: cworkingHintColor,
                           indicator: BoxDecoration(
@@ -185,24 +194,31 @@ class _ChoosePlaceState extends State<ChoosePlace>
         currentIndex: _currentIndex,
         onTap: (newIndex) {
           // here we can chechc a in withe screen we should navigate
-          setState(() {
-            if (newIndex == 1) {
+          if (newIndex == 1) {
+            if (LocalMemory.getValue("user") == "passenger") {
               Get.to(MyTrips());
+            } else {
+              Get.to(DriversTrips());
             }
-            _currentIndex = newIndex;
-          });
+          } else if (newIndex == 2) {
+            if (LocalMemory.getValue("user") == "passenger") {
+              Get.to(ClientAccount());
+            } else {
+              Get.to(DriverAccount());
+            }
+          }
         },
         items: const [
           BottomNavigationBarItem(
-            label: "Главная",
+            label: "Асосий",
             icon: Icon(Icons.home),
           ),
           BottomNavigationBarItem(
-            label: "Мои поездки",
+            label: "Сафарлар",
             icon: Icon(Icons.directions_car_filled),
           ),
           BottomNavigationBarItem(
-            label: "Профиль",
+            label: "Кабинет",
             icon: Icon(Icons.person),
           ),
         ],
@@ -274,7 +290,7 @@ class _OrderForPassengerState extends State<OrderForPassenger> {
                             width: 16,
                           ),
                           Text(
-                            "Откуда",
+                            "Қайердан",
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
@@ -322,7 +338,7 @@ class _OrderForPassengerState extends State<OrderForPassenger> {
                             width: 16,
                           ),
                           Text(
-                            "Куда",
+                            "Қайерга",
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
@@ -404,7 +420,7 @@ class _OrderForPassengerState extends State<OrderForPassenger> {
                   width: 10,
                 ),
                 Text(
-                  "Сегодня",
+                  "Бугун",
                   style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
@@ -472,25 +488,35 @@ class _OrderForPassengerState extends State<OrderForPassenger> {
           height: 24,
         ),
         button(
-            text: "Поиск",
+            text: "Қидириш",
             color: caccentColor,
             onPressed: () async {
-              // here we should write to memoer new order
-              // if (LocalMemory.getValue("user") == "driver") {
-              //   // will write
-              //   Get.to(() => const DriverCards());
-              // } else {
-              //   Get.to(() => const Cards());
-              // }
-              // doesUserWentToCardScreen = true;
-              Map<String, String> data = {
-                'from': fromWhere,
-                'to': toWhere,
-                'date': date,
-                'numberOfpeopel': numberOfPeople,
-              };
-
-              Get.to(Cards(), arguments: data);
+              if (fromWhere == "" || toWhere == "") {
+                Get.snackbar(
+                  "Qattan qatkacha borishin yoz ",
+                  "iltomos",
+                  snackPosition: SnackPosition.BOTTOM,
+                  colorText: cwhiteColor,
+                  backgroundColor: cerrorColor,
+                );
+              } else {
+                Map<String, String> data = {
+                  'from': fromWhere,
+                  'to': toWhere,
+                  'date': date,
+                  'numberOfpeopel': numberOfPeople,
+                };
+                LocalMemory.saveDataString("didGoToCards", "true");
+                LocalMemory.saveDataString(
+                    "passengerOrderInfo", jsonEncode(data));
+                LocalMemory.saveDataString("driverSeorchs", "passengers");
+                if (LocalMemory.getValue("user") == "passenger") {
+                  Get.to(Cards(), arguments: data);
+                } else {
+                  //driver Passenger cards
+                  Get.to(DriverCards(), arguments: data);
+                }
+              }
             }),
         SizedBox(
           height: 10,
@@ -511,7 +537,6 @@ class _OrderForDeliveryState extends State<OrderForDelivery> {
   String fromWhere = "";
   String toWhere = "";
   String date = DateTime.now().toString().split(" ")[0].replaceAll("-", "/");
-  String numberOfPeople = "1";
 
   Future<void> _selectDate() async {
     DateTime? pickedDAte = await showDatePicker(
@@ -563,7 +588,7 @@ class _OrderForDeliveryState extends State<OrderForDelivery> {
                             width: 16,
                           ),
                           Text(
-                            "Откуда",
+                            "Қайердан",
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
@@ -611,7 +636,7 @@ class _OrderForDeliveryState extends State<OrderForDelivery> {
                             width: 16,
                           ),
                           Text(
-                            "Куда",
+                            "Қайерга",
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
@@ -667,112 +692,67 @@ class _OrderForDeliveryState extends State<OrderForDelivery> {
         SizedBox(
           height: 18,
         ),
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //   children: [
-        //     Row(
-        //       children: [
-        //         Container(
-        //           margin: EdgeInsets.only(left: 10.0),
-        //           decoration: BoxDecoration(
-        //             borderRadius: BorderRadius.circular(10.0),
-        //             color: cwhiteColor,
-        //           ),
-        //           child: IconButton(
-        //             onPressed: () {
-        //               _selectDate();
-        //             },
-        //             icon: Icon(
-        //               Icons.calendar_month,
-        //               color: cclueColor,
-        //               size: 24,
-        //             ),
-        //           ),
-        //         ),
-        //         SizedBox(
-        //           width: 10,
-        //         ),
-        //         Text(
-        //           "Сегодня",
-        //           style: TextStyle(
-        //               fontSize: 16,
-        //               fontWeight: FontWeight.w700,
-        //               color: cdarkTextColor),
-        //         ),
-        //       ],
-        //     ),
-        //     Container(
-        //       // margin: EdgeInsets.only(left:0.0),
-        //       padding: EdgeInsets.symmetric(horizontal: 10),
-        //       decoration: BoxDecoration(
-        //         color: cwhiteColor,
-        //         borderRadius: BorderRadius.circular(10.0),
-        //       ),
-        //       child: Row(
-        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //         children: [
-        //           Icon(
-        //             Icons.person_outline,
-        //             size: 24,
-        //             color: cclueColor,
-        //           ),
-        //           IconButton(
-        //             onPressed: () {
-        //               int passangerNumber = int.parse(numberOfPeople);
-        //               passangerNumber += 1;
-        //               if (passangerNumber < 7) {
-        //                 setState(() {
-        //                   numberOfPeople = passangerNumber.toString();
-        //                 });
-        //               }
-        //             },
-        //             icon: Icon(
-        //               Icons.add,
-        //               color: cdarkTextColor,
-        //               size: 16,
-        //             ),
-        //           ),
-        //           Text(
-        //             numberOfPeople,
-        //             style: TextStyle(color: cdarkTextColor, fontSize: 12),
-        //           ),
-        //           IconButton(
-        //             onPressed: () {
-        //               int passangerNumber = int.parse(numberOfPeople);
-        //               passangerNumber -= 1;
-        //               if (passangerNumber > 0) {
-        //                 setState(() {
-        //                   numberOfPeople = passangerNumber.toString();
-        //                 });
-        //               }
-        //             },
-        //             icon: Icon(
-        //               Icons.remove,
-        //               color: cdarkTextColor,
-        //               size: 16,
-        //             ),
-        //           )
-        //         ],
-        //       ),
-        //     ),
-        //   ],
-        // ),
+        Row(
+          children: [
+            Container(
+              margin: EdgeInsets.only(left: 10.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: cwhiteColor,
+              ),
+              child: IconButton(
+                onPressed: () {
+                  _selectDate();
+                },
+                icon: Icon(
+                  Icons.calendar_month,
+                  color: cclueColor,
+                  size: 24,
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              "Бугун",
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: cdarkTextColor),
+            ),
+          ],
+        ),
         SizedBox(
           height: 24,
         ),
         button(
-            text: "Поиск",
+            text: "Қидириш",
             color: caccentColor,
             onPressed: () {
-              // here we should write to memoer new order
-              doesUserWentToCardScreen = true;
-              print(LocalMemory.getValue("user"));
-              if (LocalMemory.getValue("user") == "driver") {
-                print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-                // will write
-                Get.to(() => const DriverCards());
+              if (fromWhere == "" || toWhere == "") {
+                Get.snackbar(
+                  "Qattan qatkacha borishin yoz ",
+                  "iltomos",
+                  snackPosition: SnackPosition.BOTTOM,
+                  colorText: cwhiteColor,
+                  backgroundColor: cerrorColor,
+                );
               } else {
-                Get.to(() => const Cards());
+                Map<String, String> data = {
+                  'from': fromWhere,
+                  'to': toWhere,
+                  'date': date,
+                };
+                LocalMemory.saveDataString(
+                    "delivaryOrderInfo", jsonEncode(data));
+                LocalMemory.saveDataString("didGoToCards", "true");
+                LocalMemory.saveDataString("driverSeorchs", "delivarys");
+                if (LocalMemory.getValue("user") == "passenger") {
+                  Get.to(DelivaryCard(), arguments: data);
+                } else {
+                  Get.to(DriverDelivaryCard(), arguments: data);
+                }
               }
             }),
         SizedBox(

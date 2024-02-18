@@ -17,7 +17,7 @@ class DriverTakesFrom extends StatefulWidget {
 }
 
 class _DriverTakesFromState extends State<DriverTakesFrom> {
-  String from = " ";
+  String from = "";
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,9 @@ class _DriverTakesFromState extends State<DriverTakesFrom> {
       height: 300,
     );
     return Scaffold(
-      appBar: cDefoltAppBar(),
+      appBar: cDefoltAppBar(() {
+        Get.back();
+      }),
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 16),
@@ -42,7 +44,7 @@ class _DriverTakesFromState extends State<DriverTakesFrom> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Уточните место откуда заберете пассажиров",
+                      "Йўловчиларни қабул қиладиган жойни белгиланг",
                       style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w700,
@@ -51,7 +53,7 @@ class _DriverTakesFromState extends State<DriverTakesFrom> {
                     SizedBox(
                       height: 16,
                     ),
-                    Text("Укажите адрес отправки",
+                    Text("Йетказиб бериш манзилини белгиланг",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
@@ -71,11 +73,21 @@ class _DriverTakesFromState extends State<DriverTakesFrom> {
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: button(
-                    text: "Next",
+                    text: "Кейингиси",
                     color: caccentColor,
-                    onPressed: () async {
-                      await LocalMemory.saveDataString("order_from", from);
-                      Get.to(() => DriverGoesTo());
+                    onPressed: () {
+                      if (from == "") {
+                        Get.snackbar(
+                          "toldir ohirgacha",
+                          "iltimos",
+                          snackPosition: SnackPosition.BOTTOM,
+                          backgroundColor: cerrorColor,
+                          colorText: cwhiteColor,
+                        );
+                      } else {
+                        LocalMemory.saveDataString("order_from", from);
+                        Get.to(() => DriverGoesTo());
+                      }
                     },
                   ),
                 ),

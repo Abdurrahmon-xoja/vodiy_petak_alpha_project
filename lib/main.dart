@@ -1,49 +1,67 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vodiy_petak_alpha_project/view/DriverScreens/AirConditiningAndFuelType.dart';
-import 'package:vodiy_petak_alpha_project/view/DriverScreens/DRiverTime.dart';
-import 'package:vodiy_petak_alpha_project/view/DriverScreens/DriverCards_screem.dart';
 import 'package:vodiy_petak_alpha_project/view/DriverScreens/DriverOrderScreen.dart';
-import 'package:vodiy_petak_alpha_project/view/DriverScreens/DriverTakesFrom_screen.dart';
-import 'package:vodiy_petak_alpha_project/view/DriverScreens/DriversTrips.dart';
-import 'package:vodiy_petak_alpha_project/view/DriverScreens/SizeAndPrice.dart';
-import 'package:vodiy_petak_alpha_project/view/DriverScreens/SeatsChoose.dart';
-import 'package:vodiy_petak_alpha_project/view/DriverScreens/WillTakeDelivary.dart';
-import 'package:vodiy_petak_alpha_project/view/DriverScreens/WillTakePassangers.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/ChoosePlace_screen.dart';
-import 'package:vodiy_petak_alpha_project/view/OrderUser/DelivaryCard_screen.dart';
-import 'package:vodiy_petak_alpha_project/view/OrderUser/DeliveryOrderInfo_screen.dart';
-import 'package:vodiy_petak_alpha_project/view/OrderUser/mytrips_screen.dart';
-import 'package:vodiy_petak_alpha_project/view/OrderUser/PassengerOrderInfo_screen.dart';
+import 'package:vodiy_petak_alpha_project/view/OrderUser/OrderScreenDelivary.dart';
+import 'package:vodiy_petak_alpha_project/view/OrderUser/OrderScreenPassenger.dart';
 import 'package:vodiy_petak_alpha_project/view/driverOrPassenger_screen.dart';
 
-import 'package:vodiy_petak_alpha_project/view/loginOrRegistration_screen.dart';
-
 import 'controller/LocalMemory.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  //do not use land scape
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   await LocalMemory.init();
 
   runApp(const MyApp()); /**/
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    checkAccount();
+  }
+
+  checkAccount() async {
+    await LocalMemory.init();
+
+    if (LocalMemory.getValue("doesUserHaveAccount") == "true") {
+      if (LocalMemory.getValue("doesDriverHaveOrder") == "true") {
+        Get.off(() => DriverOrderScreen());
+      } else if (LocalMemory.getValue("doesUserHasOrderPassenger") == "true") {
+        if (LocalMemory.getValue("driverSeorchs") == "passengers") {
+          Get.off(() => OrderScreenPassenger());
+        } else {
+          Get.off(() => OrderScreenDelivary());
+        }
+      } else {
+        Get.off(() => ChoosePlace());
+      }
+    } else {
+      Get.off(() => DriverOrPassenger());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return const GetMaterialApp(
       title: 'Flutter Demo',
       home: Scaffold(
         body: Center(
-          child: ElevatedButton(
-            child: Text("Next Screen"),
-            onPressed: () {
-              Get.to(ChoosePlace());
-            },
-          ),
+          child: CircularProgressIndicator(),
         ),
       ),
     );

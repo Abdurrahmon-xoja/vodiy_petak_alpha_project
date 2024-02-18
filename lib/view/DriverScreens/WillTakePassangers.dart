@@ -16,7 +16,9 @@ class WillTakePassangers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: cDefoltAppBar(),
+      appBar: cDefoltAppBar(() {
+        Get.back();
+      }),
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.all(16),
@@ -41,7 +43,8 @@ class WillTakePassangers extends StatelessWidget {
                     height: 16,
                   ),
                   Text(
-                    "Вы готовы брать пасажиров ?",
+                    textAlign: TextAlign.center,
+                    "Йоловчи олишга тайёрмисиз?",
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w700,
@@ -52,7 +55,7 @@ class WillTakePassangers extends StatelessWidget {
                     height: 16,
                   ),
                   button(
-                    text: "Да я могу взять пасажиров",
+                    text: "Ҳа, мен йўловчиларни олиб кета оламан",
                     color: caccentColor,
                     onPressed: () async {
                       await LocalMemory.saveDataString(
@@ -64,15 +67,16 @@ class WillTakePassangers extends StatelessWidget {
                     height: 16,
                   ),
                   buttonBorder(
-                    "Нет я не могу",
+                    "Ёқ, мен йўловчиларни олиб кета олмайман",
                     () async {
-                      await LocalMemory.saveDataString(
+                      LocalMemory.saveDataString(
                           "order_willTakePassenger", "false");
-                      if (LocalMemory.getValue("order_willTakePassenger") ==
-                          "false") {
-                        Get.to(() => DriverCards());
-                      } else {
+                      if (LocalMemory.getValue("order_takesDelivary") ==
+                          "true") {
                         Get.to(() => AirConditingAndFuelType());
+                        // think right herer bgjhgj
+                      } else {
+                        Get.to(() => DriverCards());
                       }
                       // here you need chake
                     },

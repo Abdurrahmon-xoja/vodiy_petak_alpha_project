@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/methods_const.dart';
+import 'package:vodiy_petak_alpha_project/view/DriverScreens/DriverCards_screem.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/ChoosePlace_screen.dart';
 import 'package:vodiy_petak_alpha_project/view/RegistrationScreens/CarRegistration_screen.dart';
 import '../../Server/Api.dart';
@@ -29,7 +30,9 @@ class _RegistrationSexState extends State<RegistrationSex> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: cDefoltAppBar(),
+      appBar: cDefoltAppBar(() {
+        Get.back();
+      }),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
@@ -56,7 +59,7 @@ class _RegistrationSexState extends State<RegistrationSex> {
                       decoration: InputDecoration(
                           fillColor: maleInputColor,
                           filled: true,
-                          hintText: 'Женский',
+                          hintText: 'Аёл',
                           hintStyle: TextStyle(color: maleInputTextColor),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
@@ -106,7 +109,7 @@ class _RegistrationSexState extends State<RegistrationSex> {
                       decoration: InputDecoration(
                           fillColor: fmaleInputColor,
                           filled: true,
-                          hintText: 'Мужской',
+                          hintText: 'Еркак',
                           hintStyle: TextStyle(color: fmaleInputTextColor),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
@@ -154,61 +157,71 @@ class _RegistrationSexState extends State<RegistrationSex> {
                     button(
                         text: "Далее",
                         color: caccentColor,
-                        onPressed: () async {
-                          if (maleInputCliced) {
-                            await LocalMemory.saveDataString("sex", "male");
+                        onPressed: () {
+                          if (!maleInputCliced && !fmaleInputCliced) {
+                            Get.snackbar(
+                              "jendirini tanla",
+                              "iltimos",
+                              snackPosition: SnackPosition.BOTTOM,
+                              backgroundColor: cerrorColor,
+                              colorText: cwhiteColor,
+                            );
                           } else {
-                            await LocalMemory.saveDataString("sex", "female");
-                          }
+                            if (maleInputCliced) {
+                              LocalMemory.saveDataString("sex", "male");
+                            } else {
+                              LocalMemory.saveDataString("sex", "female");
+                            }
 
-                          if (LocalMemory.getValue("user") != "driver") {
-                            Get.defaultDialog(
-                                title: "",
-                                content: SizedBox(
-                                  // margin: EdgeInsets.symmetric(horizontal: 100),
-                                  width: MediaQuery.of(context).size.width,
-                                  // width: double.infinity,
-                                  child: Column(
-                                    children: [
-                                      SvgPicture.asset('images/ptichka.svg'),
-                                      SizedBox(
-                                        height: 24,
-                                      ),
-                                      Text(
-                                        "Поздравляем!",
-                                        style: TextStyle(
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.w700,
-                                            color: cdarkTextColor),
-                                      ),
-                                      SizedBox(
-                                        height: 8,
-                                      ),
-                                      Text(
-                                        "Вы успешно зарегистрировались",
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500,
-                                            color: cworkingHintColor),
-                                      ),
-                                      SizedBox(
-                                        height: 24,
-                                      ),
-                                      button(
-                                          text: "Продолжить",
-                                          color: caccentColor,
-                                          onPressed: () async {
-                                            Map driverInfo = await LocalMemory
-                                                .getDriverRegisterInfo();
-                                            print(driverInfo);
-                                            Api.addDriver(driverInfo);
-                                            Get.to(() => ChoosePlace());
-                                          })
-                                    ],
-                                  ),
-                                ));
-                          } else {
-                            Get.to(() => CarRegistration());
+                            if (LocalMemory.getValue("user") != "driver") {
+                              Get.defaultDialog(
+                                  title: "",
+                                  content: SizedBox(
+                                    // margin: EdgeInsets.symmetric(horizontal: 100),
+                                    width: MediaQuery.of(context).size.width,
+                                    // width: double.infinity,
+                                    child: Column(
+                                      children: [
+                                        SvgPicture.asset('images/ptichka.svg'),
+                                        SizedBox(
+                                          height: 24,
+                                        ),
+                                        Text(
+                                          "Поздравляем!",
+                                          style: TextStyle(
+                                              fontSize: 22,
+                                              fontWeight: FontWeight.w700,
+                                              color: cdarkTextColor),
+                                        ),
+                                        SizedBox(
+                                          height: 8,
+                                        ),
+                                        Text(
+                                          "Вы успешно зарегистрировались",
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500,
+                                              color: cworkingHintColor),
+                                        ),
+                                        SizedBox(
+                                          height: 24,
+                                        ),
+                                        button(
+                                            text: "Продолжить",
+                                            color: caccentColor,
+                                            onPressed: () async {
+                                              Map driverInfo = await LocalMemory
+                                                  .getUserRegistrationInfo();
+                                              print(driverInfo);
+                                              Api.addUser(driverInfo);
+                                              Get.to(() => ChoosePlace());
+                                            })
+                                      ],
+                                    ),
+                                  ));
+                            } else {
+                              Get.to(() => CarRegistration());
+                            }
                           }
                         }),
                   ],

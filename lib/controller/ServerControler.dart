@@ -7,12 +7,14 @@ class ServerController {
     if (LocalMemory.getValue("order_takesDelivary") == "true") {
       Map data = LocalMemory.getOrderDeliveryInfo();
 
+      print("inisde the Server Controller");
+      print(data);
+
       Api.addOrderForDelivery(data);
     }
 
     if (LocalMemory.getValue("order_willTakePassenger") == "true") {
       Map data = LocalMemory.getOrderPassengerInfo();
-
       Api.addOrderForPassenger(data);
     }
   }

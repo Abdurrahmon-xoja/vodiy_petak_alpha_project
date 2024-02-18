@@ -10,6 +10,7 @@ import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
 import 'package:vodiy_petak_alpha_project/consts/methods_const.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:vodiy_petak_alpha_project/controller/LocalMemory.dart';
+import 'package:vodiy_petak_alpha_project/view/DriverScreens/DriverCards_screem.dart';
 import '';
 
 import '../../Server/Api.dart';
@@ -23,8 +24,8 @@ class CarRegistration extends StatefulWidget {
 }
 
 class _CarRegistrationState extends State<CarRegistration> {
-  String carModel = " ";
-  String carColor = " ";
+  String carModel = "";
+  String carColor = "";
   TextEditingController carNumberController = TextEditingController();
 
   @override
@@ -38,7 +39,7 @@ class _CarRegistrationState extends State<CarRegistration> {
       height: 200,
     );
     DropdownSearchCastom carColorDropDown = DropdownSearchCastom(
-      items: autoChevroletOptions,
+      items: carColors,
       getValue: (val) {
         carColor = val;
       },
@@ -46,7 +47,9 @@ class _CarRegistrationState extends State<CarRegistration> {
       height: 200,
     );
     return Scaffold(
-      appBar: cDefoltAppBar(),
+      appBar: cDefoltAppBar(() {
+        Get.back();
+      }),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
@@ -55,7 +58,7 @@ class _CarRegistrationState extends State<CarRegistration> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Осталось совсем не много",
+                  "Озгина қолди",
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w700,
@@ -80,7 +83,7 @@ class _CarRegistrationState extends State<CarRegistration> {
                   height: 16,
                 ),
                 Text(
-                  "Модель авто",
+                  "Автомобил модели",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
@@ -95,7 +98,7 @@ class _CarRegistrationState extends State<CarRegistration> {
                   height: 16,
                 ),
                 Text(
-                  "Номер авто",
+                  "Давлат автомобил рақами",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
@@ -107,6 +110,7 @@ class _CarRegistrationState extends State<CarRegistration> {
                 ),
                 TextFormField(
                   controller: carNumberController,
+                  textCapitalization: TextCapitalization.characters,
                   decoration: InputDecoration(
                       fillColor: cinputColor,
                       filled: true,
@@ -132,7 +136,7 @@ class _CarRegistrationState extends State<CarRegistration> {
                   height: 16,
                 ),
                 Text(
-                  "Цвет авто",
+                  "Автомобил ранги",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
@@ -147,57 +151,95 @@ class _CarRegistrationState extends State<CarRegistration> {
                   height: 40,
                 ),
                 button(
-                  text: "hello",
+                  text: "Кейингиси",
                   color: caccentColor,
                   onPressed: () async {
-                    await LocalMemory.saveDataString("carModel", carModel);
-                    await LocalMemory.saveDataString("carColor", carColor);
-                    await LocalMemory.saveDataString(
-                        "carNumber", carNumberController.text);
-                    Get.defaultDialog(
-                        title: "",
-                        content: SizedBox(
-                          // margin: EdgeInsets.symmetric(horizontal: 100),
-                          width: MediaQuery.of(context).size.width,
-                          // width: double.infinity,
-                          child: Column(
-                            children: [
-                              SvgPicture.asset('images/ptichka.svg'),
-                              SizedBox(
-                                height: 24,
-                              ),
-                              Text(
-                                "Поздравляем!",
-                                style: TextStyle(
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w700,
-                                    color: cdarkTextColor),
-                              ),
-                              SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                "Вы успешно зарегистрировались",
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    color: cworkingHintColor),
-                              ),
-                              SizedBox(
-                                height: 24,
-                              ),
-                              button(
-                                  text: "Продолжить",
-                                  color: caccentColor,
-                                  onPressed: () async {
-                                    Map driverInfo = await LocalMemory
-                                        .getDriverRegisterInfo();
-                                    Api.addDriver(driverInfo);
-                                    Get.to(() => ChoosePlace());
-                                  })
-                            ],
-                          ),
-                        ));
+                    //car number I will waliadate it throve forloop
+                    if (carModel == "") {
+                      Get.snackbar(
+                        "Moshinani Modelini tekshiring",
+                        "iltimos",
+                        snackPosition: SnackPosition.BOTTOM,
+                        backgroundColor: cerrorColor,
+                        colorText: cwhiteColor,
+                      );
+                    } else {
+                      String carNumber = carNumberController.text;
+                      RegExp regExp =
+                          new RegExp(r'^[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{2}$');
+                      // Iterable<Match> matches = regExp.allMatches(carNumber);
+                      if (!(regExp.hasMatch(carNumber))) {
+                        Get.snackbar(
+                          "Moshinani nomeri notogri yozilgan",
+                          "iltimos",
+                          snackPosition: SnackPosition.BOTTOM,
+                          backgroundColor: cerrorColor,
+                          colorText: cwhiteColor,
+                        );
+                      } else {
+                        if (carColor == "") {
+                          Get.snackbar(
+                            "Moshiani rangini tanlang",
+                            "iltimos",
+                            snackPosition: SnackPosition.BOTTOM,
+                            backgroundColor: cerrorColor,
+                            colorText: cwhiteColor,
+                          );
+                        } else {
+                          LocalMemory.saveDataString("carModel", carModel);
+                          LocalMemory.saveDataString("carColor", carColor);
+                          LocalMemory.saveDataString(
+                              "carNumber", carNumberController.text);
+                          Get.defaultDialog(
+                              title: "",
+                              content: SizedBox(
+                                // margin: EdgeInsets.symmetric(horizontal: 100),
+                                width: MediaQuery.of(context).size.width,
+                                // width: double.infinity,
+                                child: Column(
+                                  children: [
+                                    SvgPicture.asset('images/ptichka.svg'),
+                                    SizedBox(
+                                      height: 24,
+                                    ),
+                                    Text(
+                                      "Поздравляем!",
+                                      style: TextStyle(
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.w700,
+                                          color: cdarkTextColor),
+                                    ),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    Text(
+                                      "Вы успешно зарегистрировались",
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                          color: cworkingHintColor),
+                                    ),
+                                    SizedBox(
+                                      height: 24,
+                                    ),
+                                    button(
+                                        text: "Продолжить",
+                                        color: caccentColor,
+                                        onPressed: () {
+                                          Map driverInfo = LocalMemory
+                                              .getDriverRegisterInfo();
+                                          Api.addDriver(driverInfo);
+                                          LocalMemory.saveDataString(
+                                              "doesUserHaveAccount", "true");
+
+                                          Get.offAll(ChoosePlace());
+                                        })
+                                  ],
+                                ),
+                              ));
+                        }
+                      }
+                    }
                   },
                 ),
               ],

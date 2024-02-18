@@ -7,22 +7,40 @@ import 'package:vodiy_petak_alpha_project/view/OrderUser/ChoosePlace_screen.dart
 
 import '../../Server/Api.dart';
 import '../../consts/castem_widgets_const.dart';
+import '../../consts/filtering_const.dart';
 import '../../controller/LocalMemory.dart';
 import '../driverOrPassenger_screen.dart';
-import '../loginOrRegistration_screen.dart';
 
-class ClienAccountEdit extends StatefulWidget {
-  const ClienAccountEdit({super.key});
+class DriverAccountEdit extends StatefulWidget {
+  const DriverAccountEdit({super.key});
 
   @override
-  State<ClienAccountEdit> createState() => _ClienAccountEditState();
+  State<DriverAccountEdit> createState() => _DriverAccountEditState();
 }
 
-class _ClienAccountEditState extends State<ClienAccountEdit> {
+class _DriverAccountEditState extends State<DriverAccountEdit> {
   final nameController = TextEditingController();
-
+  String carModel = " ";
+  String carColor = " ";
+  TextEditingController carNumberController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    DropdownSearchCastom carModelDropDown = DropdownSearchCastom(
+      items: autoChevroletOptions,
+      getValue: (val) {
+        carModel = val;
+      },
+      icon: Icons.directions_car_filled,
+      height: 200,
+    );
+    DropdownSearchCastom carColorDropDown = DropdownSearchCastom(
+      items: autoChevroletOptions,
+      getValue: (val) {
+        carColor = val;
+      },
+      icon: Icons.directions_car_filled,
+      height: 200,
+    );
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -51,18 +69,33 @@ class _ClienAccountEditState extends State<ClienAccountEdit> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        if (nameController.text !=
-                            LocalMemory.getValue("name")) {
-                          Api.updateUserName({
-                            "name": nameController.text,
-                            "phoneNumber": LocalMemory.getValue("phoneNumber"),
-                          });
+                        //api check if empy I will not include it to Map
+                        Map<String, String> data = {};
+                        if (nameController.text != " ") {
                           LocalMemory.saveDataString(
                               "name", nameController.text);
-                          //give number update the user API
-                          //change Local name new name
+                          data["name"] = nameController.text;
                         }
+                        if (carNumberController.text != " ") {
+                          LocalMemory.saveDataString(
+                              "carNumber", carNumberController.text);
+                          data["carNumber"] = carNumberController.text;
+                        }
+                        if (carModel != " ") {
+                          LocalMemory.saveDataString("carModel", carModel);
+                          data["carModel"] = carModel;
+                        }
+
+                        if (carColor != " ") {
+                          LocalMemory.saveDataString("carColor", carColor);
+                          data["carColor"] = carColor;
+                        }
+
+                        data["phoneNumber"] =
+                            LocalMemory.getValue("phoneNumber");
+                        Api.updateDriver(data);
                         Get.to(ChoosePlace());
+                        //then you should write them to Local memory
                       },
                       style: ElevatedButton.styleFrom(
                         primary: caccentColor,
@@ -152,7 +185,6 @@ class _ClienAccountEditState extends State<ClienAccountEdit> {
                 ),
                 TextFormField(
                   onTap: () {
-                    //widget
                     Get.defaultDialog(
                         title: "",
                         content: SizedBox(
@@ -244,6 +276,78 @@ class _ClienAccountEditState extends State<ClienAccountEdit> {
                 SizedBox(
                   height: 32,
                 ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Модель авто",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff262626),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    carModelDropDown,
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Text(
+                      "Номер авто",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff262626),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    TextFormField(
+                      controller: carNumberController,
+                      decoration: InputDecoration(
+                          fillColor: cinputColor,
+                          filled: true,
+                          hintText: '01V743JB',
+                          hintStyle: TextStyle(
+                            color: cclueColor,
+                            fontSize: 16,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: BorderSide(color: cinputColor),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: cinputColor),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          prefixIcon: Icon(
+                            Icons.directions_car,
+                            color: cclueColor,
+                          )),
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Text(
+                      "Цвет авто",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff262626),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    carColorDropDown,
+                    SizedBox(
+                      height: 40,
+                    ),
+                  ],
+                ),
                 ElevatedButton.icon(
                   onPressed: () {
                     LocalMemory.clearAll();
@@ -266,6 +370,9 @@ class _ClienAccountEditState extends State<ClienAccountEdit> {
                       fontWeight: FontWeight.w400,
                     ),
                   ),
+                ),
+                SizedBox(
+                  height: 40,
                 ),
               ],
             ),

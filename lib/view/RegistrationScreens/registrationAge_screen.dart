@@ -37,7 +37,9 @@ class _RegistrationAgeState extends State<RegistrationAge> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: cDefoltAppBar(),
+      appBar: cDefoltAppBar(() {
+        Get.back();
+      }),
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.all(20.0),
@@ -45,7 +47,7 @@ class _RegistrationAgeState extends State<RegistrationAge> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                "Когда вы родились?",
+                "Қачон туғилгансиз?",
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w700,
@@ -63,7 +65,7 @@ class _RegistrationAgeState extends State<RegistrationAge> {
                     decoration: InputDecoration(
                         fillColor: cinputColor,
                         filled: true,
-                        hintText: 'ДД/ММ/ГГГГ',
+                        hintText: 'КК/ОО/ЙЙЙЙ',
                         hintStyle: TextStyle(color: cclueColor),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -86,7 +88,7 @@ class _RegistrationAgeState extends State<RegistrationAge> {
                     height: 16,
                   ),
                   button(
-                      text: "Далее",
+                      text: "Кейингиси",
                       color: caccentColor,
                       onPressed: () async {
                         await LocalMemory.saveDataString(

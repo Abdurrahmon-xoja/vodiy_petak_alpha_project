@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:vodiy_petak_alpha_project/consts/colors_const.dart';
+import 'package:vodiy_petak_alpha_project/controller/LocalMemory.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/BottomSliderPriceAndTime.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/ChoosePlace_screen.dart';
 import 'package:vodiy_petak_alpha_project/view/OrderUser/mytrips_screen.dart';
@@ -15,6 +16,7 @@ import '../../Server/Api.dart';
 import '../../consts/filtering_const.dart';
 import '../../consts/global_varibels.dart';
 import '../../models/OrderPassengerInfo.dart';
+import '../ProfailScreens/client_screen.dart';
 import 'BottomSliderAuto.dart';
 
 class Cards extends StatefulWidget {
@@ -267,7 +269,7 @@ class _CardsState extends State<Cards> {
                                                             .start,
                                                     children: [
                                                       Text(
-                                                        "OQ ${data[index].carModel}",
+                                                        "${data[index].carColor} ${data[index].carModel}",
                                                         style: TextStyle(
                                                           color:
                                                               Color(0xFF262626),
@@ -307,7 +309,7 @@ class _CardsState extends State<Cards> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  "${data[index].airConditinar == "true" ? "❄️ Кондиционер | " : ""}${data[index].fuel == "oil" ? "⛽️ Бензин " : "⛽️ Бензин "} ",
+                                                  "${data[index].airConditinar == "true" ? "❄️ Кондиционер | " : ""}${data[index].fuel == "oil" ? "⛽️ Бензин " : "⛽️ Газ "} ",
                                                   style: TextStyle(
                                                     color: Color(0xFFB8B8B8),
                                                     fontSize: 15,
@@ -321,7 +323,7 @@ class _CardsState extends State<Cards> {
                                                 ),
                                                 Text(
                                                   // i nedd to add how many plasas avalibel for now will how many was exsisted
-                                                  "⏰ Занято мест: ?? из ${data[index].numberOfPassangers}",
+                                                  "⏰ Банд ўриндиқлар: ${data[index].numberOfPassangers} / ${data[index].orderTakenFrom.length} ",
                                                   style: TextStyle(
                                                     color: Color(0xFFB8B8B8),
                                                     fontSize: 15,
@@ -334,7 +336,7 @@ class _CardsState extends State<Cards> {
                                                 ),
                                                 Text(
                                                   // make lowest price point
-                                                  "${NumberFormat('###,###', 'en_US').format(int.parse(data[index].priceLowest)).replaceAll(",", " ")} Som Dan",
+                                                  "${NumberFormat('###,###', 'en_US').format(int.parse(data[index].priceLowest)).replaceAll(",", " ")} сўмдан бошлаб",
                                                   // data[index].priceLowest,
                                                   style: TextStyle(
                                                     color: Color(0xFF2A2A2A),
@@ -353,7 +355,7 @@ class _CardsState extends State<Cards> {
                                                   height: 10,
                                                 ),
                                                 Text(
-                                                  "Boradi: ${data[index].to} (${data[index].time})",
+                                                  "Манзил: ${data[index].to} (${data[index].time})",
                                                   style: TextStyle(
                                                     color: Color(0xFF2A2A2A),
                                                     fontSize: 16,
@@ -366,7 +368,7 @@ class _CardsState extends State<Cards> {
                                                   height: 10,
                                                 ),
                                                 Text(
-                                                  "Haydovchini ismi: ${data[index].name}",
+                                                  "Хайдовчининг исми: ${data[index].name}",
                                                   style: TextStyle(
                                                     color: Color(0xFF2A2A2A),
                                                     fontSize: 16,
@@ -464,25 +466,25 @@ class _CardsState extends State<Cards> {
             if (newIndex == 1) {
               Get.to(MyTrips());
             } else if (newIndex == 0) {
-              if (doesUserWentToCardScreen == false) {
-                Get.to(ChoosePlace());
-              } else {
-                Get.to(Cards());
+              if (LocalMemory.getValue("didGoToCards") == "true") {
+                //some
               }
+            } else if (newIndex == 2) {
+              Get.to(ClientAccount());
             }
           });
         },
         items: const [
           BottomNavigationBarItem(
-            label: "Главная",
+            label: "Асосий",
             icon: Icon(Icons.home),
           ),
           BottomNavigationBarItem(
-            label: "Мои поездки",
+            label: "Сафарлар",
             icon: Icon(Icons.directions_car_filled),
           ),
           BottomNavigationBarItem(
-            label: "Профиль",
+            label: "Кабинет",
             icon: Icon(Icons.person),
           ),
         ],

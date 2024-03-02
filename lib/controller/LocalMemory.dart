@@ -37,6 +37,7 @@ class LocalMemory {
         _preferences!.getString("order_addPassengerInfo").toString();
 
     Map data = {
+      'rating': _preferences!.getString("rating").toString(),
       'name': _preferences!.getString("name").toString(),
       'age': _preferences!.getString("dateOfBirth").toString(),
       'phoneNumber': _preferences!.getString("phoneNumber").toString(),
@@ -64,6 +65,7 @@ class LocalMemory {
         _preferences!.getString("order_deliveryInfo").toString();
 
     Map data = {
+      'rating': _preferences!.getString("rating").toString(),
       'name': _preferences!.getString("name").toString(),
       'age': _preferences!.getString("dateOfBirth").toString(),
       'sex': _preferences!.getString("sex").toString(),
@@ -94,7 +96,9 @@ class LocalMemory {
   }
 
   static Map getDriverRegisterInfo() {
+    //Add here
     Map<String, String> data = {
+      'rating': _preferences!.getString("rating").toString(),
       'name': _preferences!.getString("name").toString(),
       'password': _preferences!.getString("password").toString(),
       'age': _preferences!.getString("dateOfBirth").toString(),

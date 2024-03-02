@@ -23,7 +23,7 @@ class OrderScreenPassenger extends StatefulWidget {
 class _OrderScreenPassengerState extends State<OrderScreenPassenger>
     with WidgetsBindingObserver {
   //get map from the Local Memory
-  late bool isUsersOrderInProggres = false;
+  late bool isUsersOrderInProggres = true;
   late Map renderingData;
 
   void initRideInfo() async {
@@ -61,7 +61,7 @@ class _OrderScreenPassengerState extends State<OrderScreenPassenger>
 
   @override
   Widget build(BuildContext context) {
-    if (isUsersOrderInProggres) {
+    if (!isUsersOrderInProggres) {
       return Scaffold(
         body: Container(
           color: caccentColor,
@@ -104,7 +104,12 @@ class _OrderScreenPassengerState extends State<OrderScreenPassenger>
                     ),
                     onRatingUpdate: (rating) {
                       print(rating);
-                      Get.to(ChoosePlace());
+                      Map mapData = {
+                        'driverPhoneNumber': renderingData['phoneNumber'],
+                        'rating': rating.toString(),
+                      };
+                      Api.rateDriver(mapData);
+                      Get.to(() => ChoosePlace());
                       //from the local memory delete
                     },
                   ),
@@ -165,7 +170,9 @@ class _OrderScreenPassengerState extends State<OrderScreenPassenger>
                     color: cclueColor,
                   ),
                   Text(
-                    "4.9",
+                    renderingData['rating'] == "0"
+                        ? " "
+                        : renderingData['rating'],
                     style: TextStyle(
                       fontSize: 14,
                       color: cclueColor,
@@ -207,7 +214,7 @@ class _OrderScreenPassengerState extends State<OrderScreenPassenger>
               Row(
                 children: [
                   Text(
-                    "Водитель",
+                    "Ҳайдовчи",
                     style: TextStyle(
                         fontSize: 16,
                         color: cdarkTextColor,
@@ -250,7 +257,7 @@ class _OrderScreenPassengerState extends State<OrderScreenPassenger>
                 height: 50,
               ),
               button(
-                  text: "end the order call to driver",
+                  text: "Cаёҳатни бекор қилиб ҳайдовчига телефон қилиш",
                   color: caccentColor,
                   onPressed: () async {
                     print(renderingData['id']);
@@ -276,7 +283,7 @@ class _OrderScreenPassengerState extends State<OrderScreenPassenger>
                             children: [
                               Text(
                                 textAlign: TextAlign.center,
-                                "Driver tell qill",
+                                "Ҳайдовчига телефон қилиш",
                                 style: TextStyle(
                                     fontSize: 22,
                                     fontWeight: FontWeight.w700,
@@ -297,7 +304,7 @@ class _OrderScreenPassengerState extends State<OrderScreenPassenger>
                                 height: 24,
                               ),
                               button(
-                                text: "Pozvonit",
+                                text: "Telefon qilish",
                                 color: caccentColor,
                                 onPressed: () async {
                                   //phoneCall
@@ -319,7 +326,7 @@ class _OrderScreenPassengerState extends State<OrderScreenPassenger>
                                 height: 10,
                               ),
                               buttonBorder(
-                                "Cancel",
+                                "Бекор қилиш  ",
                                 () {
                                   // Get.to(ChoosePlace());
                                   Navigator.pop(context);

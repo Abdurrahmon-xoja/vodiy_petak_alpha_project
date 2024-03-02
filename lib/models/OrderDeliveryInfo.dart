@@ -1,5 +1,6 @@
 class OrderDeliveryInfo {
   late final String id;
+  late final String rating;
   late final String name;
   late final String phoneNumber;
   late final String sex;
@@ -17,6 +18,7 @@ class OrderDeliveryInfo {
 
   OrderDeliveryInfo(
     this.id,
+    this.rating,
     this.name,
     this.phoneNumber,
     this.sex,
@@ -35,6 +37,7 @@ class OrderDeliveryInfo {
   Map<String, String> getMapOfDelivaryOrderInfo() {
     return {
       'id': id,
+      'rating': rating,
       'name': name,
       'phoneNumber': phoneNumber,
       'sex': sex,

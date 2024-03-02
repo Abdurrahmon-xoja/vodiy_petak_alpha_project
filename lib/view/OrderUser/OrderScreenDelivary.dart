@@ -22,7 +22,7 @@ class OrderScreenDelivary extends StatefulWidget {
 
 class _OrderScreenDelivaryState extends State<OrderScreenDelivary>
     with WidgetsBindingObserver {
-  late bool isUsersOrderInProggres = false;
+  late bool isUsersOrderInProggres = true;
   late Map renderingData;
 
   void initRideInfo() async {
@@ -59,7 +59,7 @@ class _OrderScreenDelivaryState extends State<OrderScreenDelivary>
 
   @override
   Widget build(BuildContext context) {
-    if (isUsersOrderInProggres) {
+    if (!isUsersOrderInProggres) {
       return Scaffold(
         body: Container(
           color: caccentColor,
@@ -103,6 +103,12 @@ class _OrderScreenDelivaryState extends State<OrderScreenDelivary>
                     onRatingUpdate: (rating) {
                       print(rating);
                       //from the local memory delete
+                      Map mapData = {
+                        'driverPhoneNumber': renderingData['phoneNumber'],
+                        'rating': rating.toString(),
+                      };
+                      Api.rateDriver(mapData);
+                      Get.to(() => ChoosePlace());
                     },
                   ),
                 ],
@@ -162,7 +168,9 @@ class _OrderScreenDelivaryState extends State<OrderScreenDelivary>
                     color: cclueColor,
                   ),
                   Text(
-                    "4.9",
+                    renderingData['rating'] == "0"
+                        ? " "
+                        : renderingData['rendering'],
                     style: TextStyle(
                       fontSize: 14,
                       color: cclueColor,

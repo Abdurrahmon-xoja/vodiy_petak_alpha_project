@@ -41,7 +41,7 @@ class _ClienAccountEditState extends State<ClienAccountEdit> {
                         Navigator.pop(context);
                       },
                       child: const Text(
-                        "Отмена",
+                        "Бекор қилиш",
                         style: TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.w400,
@@ -65,14 +65,14 @@ class _ClienAccountEditState extends State<ClienAccountEdit> {
                         Get.to(ChoosePlace());
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: caccentColor,
+                        backgroundColor: caccentColor,
                         padding: EdgeInsets.all(10.0),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                       ),
                       child: Text(
-                        "Готово",
+                        "Тайёр",
                         style: TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.w600,
@@ -103,7 +103,7 @@ class _ClienAccountEditState extends State<ClienAccountEdit> {
                   decoration: InputDecoration(
                       fillColor: cinputColor,
                       filled: true,
-                      hintText: 'Как вас зовут?',
+                      hintText: 'Исмингиз нима?',
                       hintStyle: TextStyle(color: cclueColor),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
@@ -121,7 +121,7 @@ class _ClienAccountEditState extends State<ClienAccountEdit> {
                 SizedBox(
                   height: 24,
                 ),
-                Text("Укажите ваше настоящее Имя",
+                Text("Илтимос, ҳақиқий исмингизни киритинг",
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
@@ -136,7 +136,7 @@ class _ClienAccountEditState extends State<ClienAccountEdit> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Сменить номер телефона",
+                          "Телефон рақамини ўзгартириш",
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
@@ -166,7 +166,8 @@ class _ClienAccountEditState extends State<ClienAccountEdit> {
                                 height: 24,
                               ),
                               Text(
-                                "Nomerri ozgartirib bomidi",
+                                textAlign: TextAlign.center,
+                                "Номерри озгартириб бомиди",
                                 style: TextStyle(
                                     fontSize: 22,
                                     fontWeight: FontWeight.w700,
@@ -176,7 +177,7 @@ class _ClienAccountEditState extends State<ClienAccountEdit> {
                                 height: 8,
                               ),
                               Text(
-                                "Вы успешно зарегистрировались",
+                                "",
                                 style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
@@ -186,7 +187,7 @@ class _ClienAccountEditState extends State<ClienAccountEdit> {
                                 height: 24,
                               ),
                               button(
-                                  text: "Try new account",
+                                  text: "Янги ҳисобни синаб кўринг",
                                   color: caccentColor,
                                   onPressed: () async {
                                     LocalMemory.clearAll();
@@ -196,7 +197,7 @@ class _ClienAccountEditState extends State<ClienAccountEdit> {
                                 height: 10,
                               ),
                               buttonBorder(
-                                  "cancel",
+                                  "бекор қилиш",
                                   () => {
                                         Navigator.pop(context),
                                       })
@@ -250,7 +251,7 @@ class _ClienAccountEditState extends State<ClienAccountEdit> {
                     Get.to(DriverOrPassenger());
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: cerrorSubstrateColor,
+                    backgroundColor: cerrorSubstrateColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
@@ -260,10 +261,11 @@ class _ClienAccountEditState extends State<ClienAccountEdit> {
                     color: cwhiteColor,
                   ),
                   label: Text(
-                    "Выйти из профиля",
+                    "Профилдан чиқиш",
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
+                      color: Colors.white,
                     ),
                   ),
                 ),

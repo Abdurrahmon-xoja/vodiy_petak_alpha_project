@@ -4,9 +4,11 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:vodiy_petak_alpha_project/models/OrderDeliveryInfo.dart';
+import 'package:vodiy_petak_alpha_project/view/ProfailScreens/client_screen.dart';
 
 import '../../Server/Api.dart';
 import '../../consts/colors_const.dart';
+import '../../consts/filtering_const.dart';
 import '../../consts/global_varibels.dart';
 import '../../models/OrderPassengerInfo.dart';
 import 'BottomSliderDelivary.dart';
@@ -27,6 +29,8 @@ class DelivaryCard extends StatefulWidget {
 class _DelivaryCardState extends State<DelivaryCard> {
   late Map<String, String> dataOfRendering;
   late Future<List<OrderDeliveryInfo>> _someInfo;
+  late String from;
+  late String to;
 
   @override
   void initState() {
@@ -48,6 +52,12 @@ class _DelivaryCardState extends State<DelivaryCard> {
   ];
   @override
   Widget build(BuildContext context) {
+    from = placesOrder.indexOf(dataOfRendering['from']!) < 11
+        ? "Ташкент"
+        : "Андижон";
+    to = placesOrder.indexOf(dataOfRendering['to']!) < 11
+        ? "Ташкент"
+        : "Андижон";
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -84,7 +94,7 @@ class _DelivaryCardState extends State<DelivaryCard> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Ташкент → Андижан",
+                                  "$from → $to",
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w400,
@@ -92,7 +102,7 @@ class _DelivaryCardState extends State<DelivaryCard> {
                                   ),
                                 ),
                                 Text(
-                                  "Завтра, 1 пассажир",
+                                  dataOfRendering['date']!,
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
@@ -119,15 +129,16 @@ class _DelivaryCardState extends State<DelivaryCard> {
                                 return BottomSliderDelivary(
                                   getVale: (val) {
                                     // some kind of api request
-                                    print(val);
-                                    Api.getFilterForDelivary(val);
+                                    setState(() {
+                                      _someInfo = Api.getFilterForDelivary(val);
+                                    });
                                   },
                                 );
                               });
                         },
                         style: ElevatedButton.styleFrom(
                           elevation: 0,
-                          primary: Color(0xffE2E2E2),
+                          backgroundColor: Color(0xffE2E2E2),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -183,7 +194,7 @@ class _DelivaryCardState extends State<DelivaryCard> {
                                     height: 35,
                                   ),
                                   const Text(
-                                    "There not shuche car the you serch",
+                                    "Сиз қидираётган машина йўқ",
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w700,
@@ -198,7 +209,7 @@ class _DelivaryCardState extends State<DelivaryCard> {
                                     height: 20,
                                   ),
                                   const Text(
-                                    "Try filter it try again",
+                                    "қайта уриниб кўринг",
                                     style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500,
@@ -376,6 +387,8 @@ class _DelivaryCardState extends State<DelivaryCard> {
               } else {
                 Get.to(Cards());
               }
+            } else if (newIndex == 2) {
+              Get.to(ClientAccount());
             }
           });
         },

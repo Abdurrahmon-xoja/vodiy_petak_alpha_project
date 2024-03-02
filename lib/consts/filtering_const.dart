@@ -3,47 +3,39 @@ import 'package:flutter/material.dart';
 
 List<String> filterOptionsNames = [
   "Avto",
-  "Только на бензине",
-  "vto",
-  "Old man",
-  "Yound man",
-  "Кондиционер",
-  "Только на бензине",
-  "Lux",
-  "Old man",
-  "Yound man"
+  "фақат бензин",
+  "фақат газ",
+  "опитни ҳайдочи",
+  "эркак ҳайдовши",
 ];
 
 List<String> autoChevroletOptions = [
-  "Ravon Nexia",
-  "Chevrolet Malibu 2",
-  "Chevrolet Equinox",
-  "Chevrolet Traverse",
-  "Daewoo Tico",
-  "Chevrolet Damas",
-  "Chevrolet Lacetti",
-  "Chevrolet Captiva",
-  "Ravon Gentra",
+  "Шевроле Джентра",
+  "Шевроле Кобальт ",
+  "Шевроле Нексия 3",
+  "Шевроле Нексия",
+  "Шевроле Каптива",
+  "Шевроле Малибу",
+  "Шевроле Матиз",
+  "Шевроле Спарк",
+  "Шевроле Трекер",
 ];
 
 List<String> carColors = [
-  "Oq",
-  "Qora",
-  "Kok",
-  "Saru",
-  "Temi rang",
+  "Оқ",
+  "Қора",
+  "Кўк",
+  "Сариқ",
+  "Темир ранг",
+  "Қизил",
+  "Яшил",
+  "Кул ранг",
 ];
 
 List<String> autoOthersOptions = [
-  "Ravon Nexia",
-  "Chevrolet Malibu 2",
-  "Chevrolet Equinox",
-  "Chevrolet Traverse",
-  "Daewoo Tico",
-  "Chevrolet Damas",
-  "Chevrolet Lacetti",
-  "Chevrolet Captiva",
-  "Ravon Gentra"
+  "КИА карнивал",
+  "КИА Елантра",
+  "Дамас",
 ];
 
 List<String> timeOfGoing = [
@@ -62,10 +54,10 @@ List<String> timeOfGoName = [
 
 // will chage is it taken then show
 List<String> sitsePlcaeName = [
-  "Место спереди",
-  "Место справа",
-  "Место слева",
-  "Место посередине",
+  "Олд ўриндиқ",
+  "Ўнг ўриндиқ",
+  "Чап ўриндиқ",
+  "Ўрта ўриндиқ",
 ];
 
 // server info
@@ -81,29 +73,49 @@ List<String> reasonName = [
 ];
 
 List<String> goodsSizedName = [
-  "Малые габариты",
-  "Средние габариты",
-  "Большие габариты",
-  "Багажник",
-  "Кофр (крыша машины)",
+  "Кичик ўлчамлар",
+  "Ўртача ўлчамлар",
+  "Катта ўлчамлар",
+  "Юкхона",
+  "Кофр (автомобил томи)",
 ];
 
 List<String> goodsSizedDefinition = [
-  "не займет пасадочное место",
-  "займет одно пасадочное место",
-  "займет 1-2 пасадочных места",
-  "займет весь багажник",
-  "займет весь кофр",
+  "жой эгалламайди",
+  "бир ўринни эгаллайди",
+  "1-2 o‘rinni egallaydi",
+  "бутун юкхонани эгаллайди",
+  "бутун кофрни эгаллайди",
 ];
 
 List<String> placesOrder = [
-  "Toshkent panelni",
-  "Toshkent olmozor",
-  "Toshkent chilanzor",
-  "Toshketn chorsu",
-  "Toshkent debug",
-  "Toshkent lalla",
-  "Fergana rom",
-  "Fergana some",
-  "Fergana"
+  //Tashkent
+  "Бектемирский район",
+  "Чиланзарский район",
+  "Яшнабадский район",
+  "Мирабадский район",
+  "Мирзо-Улугбекский район",
+  "Сергелийский район",
+  "Шайхантахурский район",
+  "Алмазарский район",
+  "Учтепинский район",
+  "Яккасарайский район",
+  "Юнусабадский район"
+      // Andijon
+      "Андижан (город)",
+  "Ханабад (город)",
+  "Алтынкульский район",
+  "Андижанский район",
+  "Асакинский район",
+  "Балыкчинский район",
+  "Бустанский район",
+  "Булакбашинский район",
+  "Джалакудукский район",
+  "Избасканский район",
+  "Кургантепинский район",
+  "Мархаматский район",
+  "Пахтаабадский район",
+  "Улугнорский район",
+  "Ходжаабадский район",
+  "Шахриханский район",
 ];

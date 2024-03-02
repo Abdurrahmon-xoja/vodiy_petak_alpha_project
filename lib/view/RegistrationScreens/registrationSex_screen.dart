@@ -187,7 +187,7 @@ class _RegistrationSexState extends State<RegistrationSex> {
                                           height: 24,
                                         ),
                                         Text(
-                                          "Поздравляем!",
+                                          "Табриклаймиз!",
                                           style: TextStyle(
                                               fontSize: 22,
                                               fontWeight: FontWeight.w700,
@@ -197,7 +197,7 @@ class _RegistrationSexState extends State<RegistrationSex> {
                                           height: 8,
                                         ),
                                         Text(
-                                          "Вы успешно зарегистрировались",
+                                          "Сиз рўйхатдан ўтдингиз",
                                           style: TextStyle(
                                               fontSize: 12,
                                               fontWeight: FontWeight.w500,
@@ -207,7 +207,7 @@ class _RegistrationSexState extends State<RegistrationSex> {
                                           height: 24,
                                         ),
                                         button(
-                                            text: "Продолжить",
+                                            text: "Давом этинг",
                                             color: caccentColor,
                                             onPressed: () async {
                                               Map driverInfo = await LocalMemory

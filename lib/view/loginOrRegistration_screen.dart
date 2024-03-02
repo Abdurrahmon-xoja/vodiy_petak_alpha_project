@@ -16,7 +16,9 @@ class LoginOrRegistration extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
-          onPressed: () {},
+          onPressed: () {
+            Get.back();
+          },
         ),
         backgroundColor: caccent2Color,
         elevation: 0,

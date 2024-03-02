@@ -32,7 +32,7 @@ class _PasswordRegistrationState extends State<PasswordRegistration> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: cDefoltAppBar(() => null),
+      appBar: cDefoltAppBar(() => Get.back()),
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 16),
@@ -40,7 +40,7 @@ class _PasswordRegistrationState extends State<PasswordRegistration> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Enter the Code",
+                "Кодни киритинг",
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w700,
@@ -51,8 +51,8 @@ class _PasswordRegistrationState extends State<PasswordRegistration> {
                 height: 16.0,
               ),
               Text(LocalMemory.getValue("entariPoint") == "login"
-                  ? "Enter you 4 diget code you wrote in begining"
-                  : "Ples enter the code 4 diget code"),
+                  ? "Аввалги 4 рақамли кодни киритинг"
+                  : "4 рақамли кодни киритинг"),
 
               const SizedBox(
                 height: 16.0,
@@ -62,7 +62,7 @@ class _PasswordRegistrationState extends State<PasswordRegistration> {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   fillColor: cinputColor,
-                  hintText: "Write th code here",
+                  hintText: "Кодни шу йерга киритинг",
                   hintStyle: TextStyle(color: cnonWorkingColor),
                   filled: true,
                   enabledBorder: OutlineInputBorder(
@@ -93,7 +93,7 @@ class _PasswordRegistrationState extends State<PasswordRegistration> {
                 height: 16,
               ),
               button(
-                  text: "kengisi",
+                  text: "Кейингиси",
                   color: isButtonAvalibel ? caccentColor : cnonWorkingColor,
                   onPressed: () async {
                     if (isButtonAvalibel) {
@@ -168,6 +168,9 @@ class _PasswordRegistrationState extends State<PasswordRegistration> {
                           Map data = await Api.getDriverAccountInfoFromPhone(
                               "+998" + phoneNumber);
 
+                          print(data);
+
+                          LocalMemory.saveDataString("rating", data["rating"]);
                           LocalMemory.saveDataString("name", data["name"]);
                           LocalMemory.saveDataString(
                               "dateOfBirth", data["age"]);

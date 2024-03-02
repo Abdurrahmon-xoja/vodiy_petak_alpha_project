@@ -103,7 +103,7 @@ class _PassengerOrderInfoState extends State<PassengerOrderInfo> {
                             SizedBox(
                               width: 3,
                             ),
-                            Text("Som Gacha",
+                            Text("Сом Гача",
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w400,
@@ -146,7 +146,9 @@ class _PassengerOrderInfoState extends State<PassengerOrderInfo> {
                       color: cclueColor,
                     ),
                     Text(
-                      "4.9",
+                      _dataRendering.rating == "0"
+                          ? " "
+                          : _dataRendering.rating,
                       style: TextStyle(
                         fontSize: 14,
                         color: cclueColor,
@@ -187,7 +189,7 @@ class _PassengerOrderInfoState extends State<PassengerOrderInfo> {
                 Row(
                   children: [
                     Text(
-                      "Водитель",
+                      "Ҳайдовчи",
                       style: TextStyle(
                           fontSize: 16,
                           color: cdarkTextColor,
@@ -227,7 +229,7 @@ class _PassengerOrderInfoState extends State<PassengerOrderInfo> {
                   height: 13,
                 ),
                 Text(
-                  "Места",
+                  "Жойлар",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w700,
@@ -237,7 +239,7 @@ class _PassengerOrderInfoState extends State<PassengerOrderInfo> {
                   height: 5,
                 ),
                 Text(
-                  "selec the seat of your choise then call to driver ",
+                  "Ўзингиз хоҳлаган ўриндиқни танланг ва ҳайдовчига қўнғироқ қилинг",
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w700,
@@ -254,7 +256,7 @@ class _PassengerOrderInfoState extends State<PassengerOrderInfo> {
                   height: 13,
                 ),
                 Text(
-                  "Характеристики",
+                  "Хусусиятлар",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w700,
@@ -278,8 +280,8 @@ class _PassengerOrderInfoState extends State<PassengerOrderInfo> {
                     ),
                     child: Text(
                       _dataRendering.airConditinar == "true"
-                          ? "Konditsiyaner"
-                          : "netu kanditsiyanera",
+                          ? "Кондиционер"
+                          : "Кондиционер ёқ",
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -318,13 +320,13 @@ class _PassengerOrderInfoState extends State<PassengerOrderInfo> {
                   height: 13,
                 ),
                 button(
-                    text: "Позвонить и забронировать место",
+                    text: "Қўнғироқ қилинг ва жой банд қилинг",
                     color: caccentColor,
                     onPressed: () async {
                       bool allFalse =
                           newListBool.every((element) => element == false);
                       if (allFalse) {
-                        Get.snackbar("Bittasini tanlashkere", "Iltimos",
+                        Get.snackbar("Биттасини танлашкере", "Илтимос",
                             snackPosition: SnackPosition.BOTTOM,
                             backgroundColor: cerrorColor,
                             colorText: cwhiteColor);
@@ -362,7 +364,7 @@ class _PassengerOrderInfoState extends State<PassengerOrderInfo> {
                                   ),
                                   Text(
                                     textAlign: TextAlign.center,
-                                    "Если вы договорились о поездке нажмите подтвердить поездку если нет нажмите вернуться назад",
+                                    "Агар сафарга келишиб олган бўлсангиз, “Сафарни тасдиқлаш” тугмасини босинг, бўлмаса, “Орқага қайтиш” тугмасини босинг",
                                     style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500,
@@ -372,7 +374,7 @@ class _PassengerOrderInfoState extends State<PassengerOrderInfo> {
                                     height: 24,
                                   ),
                                   button(
-                                    text: "Продолжить",
+                                    text: "Давом этиш",
                                     color: caccentColor,
                                     onPressed: () {
                                       List<Map> oldRegistration =
@@ -450,7 +452,7 @@ class _PassengerOrderInfoState extends State<PassengerOrderInfo> {
                                     height: 10,
                                   ),
                                   buttonBorder(
-                                    "Мы не смогли договориться",
+                                    "Биз келиша олмадик",
                                     () {
                                       // Get.to(ChoosePlace());
                                       Navigator.pop(context);

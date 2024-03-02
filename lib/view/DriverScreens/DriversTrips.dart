@@ -56,7 +56,7 @@ class _DriversTripsState extends State<DriversTrips> {
                       height: 16.0,
                     ),
                     Text(
-                      "История поездок",
+                      "Сафарлар тарихи",
                       style: TextStyle(
                         fontSize: 24,
                         color: cdarkTextColor,
@@ -90,7 +90,7 @@ class _DriversTripsState extends State<DriversTrips> {
                                 height: 35,
                               ),
                               const Text(
-                                "У вас еще нет поездок",
+                                "Сизда ҳали ҳеч қандай сафар йўқ",
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w700,
@@ -105,7 +105,7 @@ class _DriversTripsState extends State<DriversTrips> {
                                 height: 20,
                               ),
                               const Text(
-                                "Все ваши поездки будут сохранены тут",
+                                "Барча саёҳатларингиз шу ерда сақланади",
                                 style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
@@ -126,17 +126,18 @@ class _DriversTripsState extends State<DriversTrips> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      '',
+                                      data[index]['date'],
                                       style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.w700,
                                           color: cdarkTextColor),
                                     ),
                                     SizedBox(
-                                      height: 15.0,
+                                      height: 5.0,
                                     ),
                                     Container(
-                                      padding: const EdgeInsets.symmetric(
+                                      margin: EdgeInsets.only(bottom: 20),
+                                      padding: EdgeInsets.symmetric(
                                           horizontal: 15.0, vertical: 10),
                                       decoration: BoxDecoration(
                                         color: cinputColor,
@@ -159,7 +160,7 @@ class _DriversTripsState extends State<DriversTrips> {
                                                     height: 5.0,
                                                   ),
                                                   Text(
-                                                    "О поездке:",
+                                                    "Саёҳат ҳақида:",
                                                     style: TextStyle(
                                                         fontSize: 16,
                                                         color: cdarkTextColor,
@@ -181,7 +182,7 @@ class _DriversTripsState extends State<DriversTrips> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                "Пассажиры",
+                                                "Йўловчилар",
                                                 style: TextStyle(
                                                     fontSize: 16,
                                                     color: cdarkTextColor,
@@ -210,15 +211,17 @@ class _DriversTripsState extends State<DriversTrips> {
                                                         FontWeight.bold),
                                               ),
                                               Column(
-                                                children: delivarys(passangers(
-                                                    data[index]
-                                                        ["delivaryNumbers"])),
+                                                children: delivarys(data[index]
+                                                    ["delivaryNumbers"]),
                                               )
                                             ],
                                           ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           RichText(
                                             text: TextSpan(
-                                              text: 'From: ',
+                                              text: 'Қаердан:  ',
                                               style: TextStyle(
                                                   fontSize: 16,
                                                   color: cdarkTextColor,
@@ -240,7 +243,7 @@ class _DriversTripsState extends State<DriversTrips> {
                                           ),
                                           RichText(
                                             text: TextSpan(
-                                                text: "To: ",
+                                                text: "Қаерга: ",
                                                 style: TextStyle(
                                                     fontSize: 16,
                                                     color: cdarkTextColor,
@@ -325,6 +328,14 @@ class _DriversTripsState extends State<DriversTrips> {
   }
 
   List<Widget> passangers(List data) {
+    if (data.length == 0) {
+      return [
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 6),
+          child: Text("йўловчилар олинмаган"),
+        ),
+      ];
+    }
     List<Widget> result = List.generate(
         data.length,
         (index) => Container(
@@ -352,7 +363,7 @@ class _DriversTripsState extends State<DriversTrips> {
       return [
         Container(
           margin: EdgeInsets.symmetric(vertical: 6),
-          child: Text("not delivarys"),
+          child: Text("етказма олинмаган"),
         ),
       ];
     }

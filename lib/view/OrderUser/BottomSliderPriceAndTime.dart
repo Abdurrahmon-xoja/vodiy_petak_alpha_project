@@ -6,6 +6,7 @@ import 'package:vodiy_petak_alpha_project/consts/castem_widgets_const.dart';
 
 import '../../consts/colors_const.dart';
 import '../../consts/filtering_const.dart';
+import '../../controller/LocalMemory.dart';
 
 class BottomSliderPriceAndTime extends StatefulWidget {
   final Function(Map) getVale;
@@ -63,7 +64,7 @@ class _BottomSliderPriceAndTimeState extends State<BottomSliderPriceAndTime> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Фильтры",
+                    "Филтр",
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
@@ -92,7 +93,7 @@ class _BottomSliderPriceAndTimeState extends State<BottomSliderPriceAndTime> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Диапазон цен",
+                    "Нарх оралиғи",
                     style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
@@ -215,7 +216,7 @@ class _BottomSliderPriceAndTimeState extends State<BottomSliderPriceAndTime> {
                     height: 16,
                   ),
                   Text(
-                    "Примерное время отбытия",
+                    "Тахминан жўнаш вақти",
                     style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
@@ -228,7 +229,7 @@ class _BottomSliderPriceAndTimeState extends State<BottomSliderPriceAndTime> {
                     children: timeOfGo(),
                   ),
                   button(
-                      text: "hello",
+                      text: "Қўллаш",
                       color: caccentColor,
                       onPressed: () {
                         // here we going to ask backen for cars
@@ -251,8 +252,8 @@ class _BottomSliderPriceAndTimeState extends State<BottomSliderPriceAndTime> {
                         }
 
                         Map<String, String> dataSend = {
-                          // should add from to
-                          //TO:DO
+                          'from': LocalMemory.getValue("from"),
+                          'to': LocalMemory.getValue("to"),
                           'priceFrom': startPrice.toInt().toString(),
                           'priceTo': endPrice.toInt().toString(),
                           'timeArray': jsonEncode(timeData),

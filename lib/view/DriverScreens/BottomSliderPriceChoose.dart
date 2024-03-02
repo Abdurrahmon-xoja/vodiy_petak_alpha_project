@@ -52,7 +52,7 @@ class _BottomSliderPriceChooserState extends State<BottomSliderPriceChooser> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Укажыте Цену",
+                      "Нархни белгиланг",
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
@@ -130,7 +130,7 @@ class _BottomSliderPriceChooserState extends State<BottomSliderPriceChooser> {
               height: 40,
             ),
             button(
-              text: "Appley",
+              text: "Қўллаш",
               color: caccentColor,
               onPressed: () {
                 widget.getValue(price);
@@ -140,7 +140,7 @@ class _BottomSliderPriceChooserState extends State<BottomSliderPriceChooser> {
             SizedBox(
               height: 16,
             ),
-            buttonBorder("cancel", () {
+            buttonBorder("Бекор қилиш", () {
               price = 0;
               widget.getValue(price);
               Navigator.pop(context);

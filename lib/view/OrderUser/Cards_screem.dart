@@ -30,6 +30,8 @@ class _CardsState extends State<Cards> {
   // late Stream<List<OrderPassengerInfo>> _dataStream;
   late Map<String, String> dataOfRight;
   late Future<List<OrderPassengerInfo>> _someInfo;
+  late String from;
+  late String to;
   // StreamController<List<OrderPassengerInfo>> _controller =
   //     StreamController<List<OrderPassengerInfo>>.broadcast();
   // late Future<List<OrderPassengerInfo>> _myFuture;
@@ -40,6 +42,9 @@ class _CardsState extends State<Cards> {
   void initState() {
     super.initState();
     dataOfRight = Get.arguments;
+
+    print(dataOfRight['from']);
+    print(dataOfRight['to']);
     _someInfo = getData(dataOfRight);
   }
 
@@ -59,6 +64,9 @@ class _CardsState extends State<Cards> {
 
   @override
   Widget build(BuildContext context) {
+    from =
+        placesOrder.indexOf(dataOfRight['from']!) < 11 ? "Ташкент" : "Андижон";
+    to = placesOrder.indexOf(dataOfRight['to']!) < 11 ? "Ташкент" : "Андижон";
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -95,7 +103,7 @@ class _CardsState extends State<Cards> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Ташкент → Андижан",
+                                  "$from → $to",
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w400,
@@ -103,7 +111,7 @@ class _CardsState extends State<Cards> {
                                   ),
                                 ),
                                 Text(
-                                  "Завтра, 1 пассажир",
+                                  dataOfRight['date']!,
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
@@ -139,7 +147,7 @@ class _CardsState extends State<Cards> {
                           },
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
-                            primary: Color(0xffE2E2E2),
+                            backgroundColor: Color(0xffE2E2E2),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -211,7 +219,7 @@ class _CardsState extends State<Cards> {
                                     height: 35,
                                   ),
                                   const Text(
-                                    "There not shuche car the you serch",
+                                    "Сиз қидираётган машина йўқ",
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w700,
@@ -226,7 +234,7 @@ class _CardsState extends State<Cards> {
                                     height: 20,
                                   ),
                                   const Text(
-                                    "Try filter it try again",
+                                    "қайта уриниб кўринг",
                                     style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500,

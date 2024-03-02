@@ -34,6 +34,8 @@ class DriverCards extends StatefulWidget {
 class _DriverCardsState extends State<DriverCards> {
   late Map<String, String> dataOfRight;
   late Future<List<OrderPassengerInfo>> _someInfo;
+  late String from;
+  late String to;
 
   @override
   void initState() {
@@ -60,6 +62,9 @@ class _DriverCardsState extends State<DriverCards> {
 
   @override
   Widget build(BuildContext context) {
+    from =
+        placesOrder.indexOf(dataOfRight['from']!) < 11 ? "Ташкент" : "Андижон";
+    to = placesOrder.indexOf(dataOfRight['to']!) < 11 ? "Ташкент" : "Андижон";
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -96,7 +101,7 @@ class _DriverCardsState extends State<DriverCards> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Ташкент → Андижан",
+                                  "$from → $to",
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w400,
@@ -104,7 +109,7 @@ class _DriverCardsState extends State<DriverCards> {
                                   ),
                                 ),
                                 Text(
-                                  "Завтра, 1 пассажир",
+                                  dataOfRight['date']!,
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
@@ -140,7 +145,7 @@ class _DriverCardsState extends State<DriverCards> {
                           },
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
-                            primary: Color(0xffE2E2E2),
+                            backgroundColor: Color(0xffE2E2E2),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -240,7 +245,7 @@ class _DriverCardsState extends State<DriverCards> {
                                     height: 35,
                                   ),
                                   const Text(
-                                    "There not shuche car the you serch",
+                                    "Сиз қидираётган машина йўқ",
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w700,
@@ -255,7 +260,7 @@ class _DriverCardsState extends State<DriverCards> {
                                     height: 20,
                                   ),
                                   const Text(
-                                    "Try filter it try again",
+                                    "қайта уриниб кўринг",
                                     style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500,

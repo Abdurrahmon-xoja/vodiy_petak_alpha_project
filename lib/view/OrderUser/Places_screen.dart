@@ -32,14 +32,14 @@ class Places extends StatelessWidget {
             ListTile(
               title: Text(
                 plcaeName[index],
-                style: const TextStyle(
+                style: TextStyle(
                   color: cworkingHintColor,
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              subtitle: const Text(
-                "Узбекистан",
+              subtitle: Text(
+                index < 11 ? "Ташкент" : "Андижон",
                 style: TextStyle(
                   color: cworkingHintColor,
                   fontSize: 12,

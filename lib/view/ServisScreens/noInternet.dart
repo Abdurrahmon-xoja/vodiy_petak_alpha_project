@@ -45,7 +45,7 @@ class NoInternet extends StatelessWidget {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: caccentColor,
+                backgroundColor: caccentColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),

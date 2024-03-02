@@ -51,7 +51,7 @@ class _MyTripsState extends State<MyTrips> {
                       height: 16.0,
                     ),
                     Text(
-                      "История поездок",
+                      "Сафарлар тарихи",
                       style: TextStyle(
                         fontSize: 24,
                         color: cdarkTextColor,
@@ -85,7 +85,7 @@ class _MyTripsState extends State<MyTrips> {
                                 height: 35,
                               ),
                               const Text(
-                                "У вас еще нет поездок",
+                                "Сизда ҳали ҳеч қандай сафар йўқ",
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w700,
@@ -100,7 +100,7 @@ class _MyTripsState extends State<MyTrips> {
                                 height: 20,
                               ),
                               const Text(
-                                "Все ваши поездки будут сохранены тут",
+                                "Барча саёҳатларингиз шу ерда сақланади",
                                 style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
@@ -127,9 +127,10 @@ class _MyTripsState extends State<MyTrips> {
                                           color: cdarkTextColor),
                                     ),
                                     SizedBox(
-                                      height: 15.0,
+                                      height: 5.0,
                                     ),
                                     Container(
+                                      margin: EdgeInsets.only(bottom: 20),
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 15.0, vertical: 10),
                                       decoration: BoxDecoration(
@@ -150,7 +151,7 @@ class _MyTripsState extends State<MyTrips> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    "в ${data[index]['time']}",
+                                                    "Cоат ${data[index]['time']}",
                                                     style: TextStyle(
                                                         fontSize: 16,
                                                         color: cdarkTextColor,
@@ -161,7 +162,7 @@ class _MyTripsState extends State<MyTrips> {
                                                     height: 5.0,
                                                   ),
                                                   Text(
-                                                    "О поездке:",
+                                                    "Саёҳат ҳақида:",
                                                     style: TextStyle(
                                                         fontSize: 16,
                                                         color: cdarkTextColor,
@@ -195,7 +196,7 @@ class _MyTripsState extends State<MyTrips> {
                                           Row(
                                             children: [
                                               Text(
-                                                "Водитель",
+                                                "Ҳайдовчи",
                                                 style: TextStyle(
                                                     fontSize: 16,
                                                     color: cdarkTextColor,
@@ -228,7 +229,7 @@ class _MyTripsState extends State<MyTrips> {
                                             height: 7.0,
                                           ),
                                           Text(
-                                            "",
+                                            data[index]['name'],
                                             style: TextStyle(
                                               fontSize: 16,
                                               color: cworkingHintColor,
@@ -239,7 +240,7 @@ class _MyTripsState extends State<MyTrips> {
                                           ),
                                           RichText(
                                             text: TextSpan(
-                                              text: 'Адрес отправки:',
+                                              text: '📍 Қаердан:',
                                               style: TextStyle(
                                                   fontSize: 16,
                                                   color: cdarkTextColor,
@@ -270,7 +271,7 @@ class _MyTripsState extends State<MyTrips> {
                                           ),
                                           RichText(
                                             text: TextSpan(
-                                                text: "Прибытие:",
+                                                text: "📍 Қаерга:",
                                                 style: TextStyle(
                                                     fontSize: 16,
                                                     color: cdarkTextColor,

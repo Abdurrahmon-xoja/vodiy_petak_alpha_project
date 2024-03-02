@@ -168,6 +168,7 @@ class _ChoosePlaceState extends State<ChoosePlace>
                             borderRadius: BorderRadius.circular(8.0),
                             color: caccentBackingColor,
                           ),
+                          indicatorSize: TabBarIndicatorSize.tab,
                         ),
                       ),
                       SizedBox(
@@ -271,7 +272,7 @@ class _OrderForPassengerState extends State<OrderForPassenger> {
                   children: [
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: ccover3,
+                        backgroundColor: ccover3,
                         elevation: 0,
                       ),
                       onPressed: () async {
@@ -319,7 +320,7 @@ class _OrderForPassengerState extends State<OrderForPassenger> {
                   children: [
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: ccover3,
+                        backgroundColor: ccover3,
                         elevation: 0,
                       ),
                       onPressed: () async {
@@ -365,30 +366,30 @@ class _OrderForPassengerState extends State<OrderForPassenger> {
                 ),
               ],
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 15.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    color: cwhiteColor,
-                  ),
-                  child: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          String middleVaribel = fromWhere;
-                          fromWhere = toWhere;
-                          toWhere = middleVaribel;
-                        });
-                      },
-                      icon: Icon(
-                        Icons.swap_vert,
-                        color: cdarkTextColor,
-                      )),
-                )
-              ],
-            )
+            // Column(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     Container(
+            //       margin: EdgeInsets.only(left: 15.0),
+            //       decoration: BoxDecoration(
+            //         borderRadius: BorderRadius.circular(10.0),
+            //         color: cwhiteColor,
+            //       ),
+            //       child: IconButton(
+            //           onPressed: () {
+            //             setState(() {
+            //               String middleVaribel = fromWhere;
+            //               fromWhere = toWhere;
+            //               toWhere = middleVaribel;
+            //             });
+            //           },
+            //           icon: Icon(
+            //             Icons.swap_vert,
+            //             color: cdarkTextColor,
+            //           )),
+            //     )
+            //   ],
+            // )
           ],
         ),
         SizedBox(
@@ -506,6 +507,8 @@ class _OrderForPassengerState extends State<OrderForPassenger> {
                   'date': date,
                   'numberOfpeopel': numberOfPeople,
                 };
+                LocalMemory.saveDataString('from', fromWhere);
+                LocalMemory.saveDataString('to', toWhere);
                 LocalMemory.saveDataString("didGoToCards", "true");
                 LocalMemory.saveDataString(
                     "passengerOrderInfo", jsonEncode(data));
@@ -569,7 +572,7 @@ class _OrderForDeliveryState extends State<OrderForDelivery> {
                   children: [
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: ccover3,
+                        backgroundColor: ccover3,
                         elevation: 0,
                       ),
                       onPressed: () async {
@@ -617,7 +620,7 @@ class _OrderForDeliveryState extends State<OrderForDelivery> {
                   children: [
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: ccover3,
+                        backgroundColor: ccover3,
                         elevation: 0,
                       ),
                       onPressed: () async {
@@ -663,30 +666,30 @@ class _OrderForDeliveryState extends State<OrderForDelivery> {
                 ),
               ],
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 15.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    color: cwhiteColor,
-                  ),
-                  child: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          String middleVaribel = fromWhere;
-                          fromWhere = toWhere;
-                          toWhere = middleVaribel;
-                        });
-                      },
-                      icon: Icon(
-                        Icons.swap_vert,
-                        color: cdarkTextColor,
-                      )),
-                )
-              ],
-            )
+            // Column(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     Container(
+            //       margin: EdgeInsets.only(left: 15.0),
+            //       decoration: BoxDecoration(
+            //         borderRadius: BorderRadius.circular(10.0),
+            //         color: cwhiteColor,
+            //       ),
+            //       child: IconButton(
+            //           onPressed: () {
+            //             setState(() {
+            //               String middleVaribel = fromWhere;
+            //               fromWhere = toWhere;
+            //               toWhere = middleVaribel;
+            //             });
+            //           },
+            //           icon: Icon(
+            //             Icons.swap_vert,
+            //             color: cdarkTextColor,
+            //           )),
+            //     )
+            //   ],
+            // )
           ],
         ),
         SizedBox(
@@ -744,6 +747,8 @@ class _OrderForDeliveryState extends State<OrderForDelivery> {
                   'to': toWhere,
                   'date': date,
                 };
+                LocalMemory.saveDataString('from', fromWhere);
+                LocalMemory.saveDataString('to', toWhere);
                 LocalMemory.saveDataString(
                     "delivaryOrderInfo", jsonEncode(data));
                 LocalMemory.saveDataString("didGoToCards", "true");

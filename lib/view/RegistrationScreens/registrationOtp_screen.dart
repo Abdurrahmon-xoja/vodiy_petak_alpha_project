@@ -141,6 +141,11 @@ class _RegistrationOtpState extends State<RegistrationOtp> {
                         Map data = await Api.getDriverAccountInfoFromPhone(
                             "+998" + phoneNumber);
 
+                        print(data);
+                        print("-----------");
+                        print(data['rating']);
+
+                        LocalMemory.saveDataString("rating", data["rating"]);
                         LocalMemory.saveDataString("name", data["name"]);
                         LocalMemory.saveDataString("dateOfBirth", data["age"]);
                         LocalMemory.saveDataString(

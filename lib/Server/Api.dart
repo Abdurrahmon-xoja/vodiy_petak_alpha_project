@@ -8,7 +8,8 @@ import '../controller/LocalMemory.dart';
 import '../models/OrderPassengerInfo.dart';
 
 class Api {
-  static const url = "http://192.168.100.25/api/";
+  //
+  static const url = "https://vodipetak.onrender.com/api/";
 
   static addDriver(Map pdata) async {
     try {
@@ -332,9 +333,10 @@ class Api {
         var data = jsonDecode(res.body);
 
         print(data['products']);
-        print(data['products']['name']);
+        print(data['products']['rating']);
 
         Map<String, String> dataSend = {
+          "rating": data['products']['rating'],
           "name": data['products']['name'],
           "age": data['products']['age'],
           "phoneNumber": data['products']['phoneNumber'],
@@ -343,6 +345,8 @@ class Api {
           "carColor": data['products']['carColor'],
           "carNumber": data['products']['carNumber'],
         };
+
+        print(dataSend);
 
         return dataSend;
       }
@@ -492,6 +496,14 @@ class Api {
     return false;
   }
 
+  static rateDriver(Map data) async {
+    try {
+      final res = await http.post(Uri.parse(url + "rateDriver"), body: data);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
   static List<OrderDeliveryInfo> transformDataToObjectsDelivary(Map data) {
     List<OrderDeliveryInfo> list = [];
     for (int i = 0; i < data['products'].length; i++) {
@@ -519,6 +531,7 @@ class Api {
 
       list.add(OrderDeliveryInfo(
         data['products'][i]['_id'],
+        data['products'][i]['rating'],
         data['products'][i]['name'],
         data['products'][i]['phoneNumber'],
         data['products'][i]['sex'],
@@ -567,6 +580,7 @@ class Api {
       list.add(
         OrderPassengerInfo(
           data['products'][i]['_id'],
+          data['products'][i]['rating'],
           data['products'][i]['name'],
           data['products'][i]['age'],
           data['products'][i]['phoneNumber'],

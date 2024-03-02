@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 class OrderPassengerInfo {
   late final String id;
+  late final String rating;
   late final String name;
   late final String age;
   late final String phoneNumber;
@@ -24,6 +25,7 @@ class OrderPassengerInfo {
 
   OrderPassengerInfo(
     this.id,
+    this.rating,
     this.name,
     this.age,
     this.phoneNumber,
@@ -48,6 +50,7 @@ class OrderPassengerInfo {
   Map<String, String> getMapOfPassengerOrderInfo() {
     return {
       'id': id,
+      'rating': rating,
       'name': name,
       'age': age,
       'phoneNumber': phoneNumber,

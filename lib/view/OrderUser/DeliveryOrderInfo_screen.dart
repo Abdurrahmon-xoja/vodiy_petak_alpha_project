@@ -144,7 +144,9 @@ class _DeliveryOrderInfoState extends State<DeliveryOrderInfo> {
                       color: cclueColor,
                     ),
                     Text(
-                      "4.9",
+                      _dataRendering.rating == "0"
+                          ? " "
+                          : _dataRendering.rating,
                       style: TextStyle(
                         fontSize: 14,
                         color: cclueColor,

@@ -31,7 +31,7 @@ class _CarRegistrationState extends State<CarRegistration> {
   @override
   Widget build(BuildContext context) {
     DropdownSearchCastom carModelDropDown = DropdownSearchCastom(
-      items: autoChevroletOptions,
+      items: [...autoChevroletOptions, ...autoOthersOptions],
       getValue: (val) {
         carModel = val;
       },
@@ -203,7 +203,7 @@ class _CarRegistrationState extends State<CarRegistration> {
                                       height: 24,
                                     ),
                                     Text(
-                                      "Поздравляем!",
+                                      "Табриклаймиз!",
                                       style: TextStyle(
                                           fontSize: 22,
                                           fontWeight: FontWeight.w700,
@@ -213,7 +213,7 @@ class _CarRegistrationState extends State<CarRegistration> {
                                       height: 8,
                                     ),
                                     Text(
-                                      "Вы успешно зарегистрировались",
+                                      "Сиз рўйхатдан ўтдингиз",
                                       style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w500,
@@ -223,11 +223,16 @@ class _CarRegistrationState extends State<CarRegistration> {
                                       height: 24,
                                     ),
                                     button(
-                                        text: "Продолжить",
+                                        text: "Давом этиш",
                                         color: caccentColor,
                                         onPressed: () {
+                                          //Saving the rating of driver
+                                          LocalMemory.saveDataString(
+                                              "rating", "0");
                                           Map driverInfo = LocalMemory
                                               .getDriverRegisterInfo();
+                                          print(driverInfo);
+
                                           Api.addDriver(driverInfo);
                                           LocalMemory.saveDataString(
                                               "doesUserHaveAccount", "true");

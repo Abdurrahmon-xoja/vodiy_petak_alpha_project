@@ -157,7 +157,7 @@ class _RegistrationPhoneState extends State<RegistrationPhone> {
                                             height: 24,
                                           ),
                                           Text(
-                                            "Hato bu nomer yoq dbda!",
+                                            "Бу номрда акаунтк ёқ!",
                                             style: TextStyle(
                                                 fontSize: 22,
                                                 fontWeight: FontWeight.w700,
@@ -167,7 +167,7 @@ class _RegistrationPhoneState extends State<RegistrationPhone> {
                                             height: 8,
                                           ),
                                           Text(
-                                            "Вы успешно зарегистрировались",
+                                            "",
                                             style: TextStyle(
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.w500,
@@ -177,7 +177,7 @@ class _RegistrationPhoneState extends State<RegistrationPhone> {
                                             height: 24,
                                           ),
                                           button(
-                                              text: "Try agina",
+                                              text: "Қайта уриниб кўринг",
                                               color: caccentColor,
                                               onPressed: () async {
                                                 Navigator.pop(context);
@@ -186,7 +186,7 @@ class _RegistrationPhoneState extends State<RegistrationPhone> {
                                             height: 10,
                                           ),
                                           buttonBorder(
-                                              "Register",
+                                              "Рўйхатдан ўтиш",
                                               () => {
                                                     Get.to(
                                                         LoginOrRegistration())

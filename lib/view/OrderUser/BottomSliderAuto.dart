@@ -52,7 +52,7 @@ class _BottomSliderAutoState extends State<BottomSliderAuto> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Фильтры",
+                    "Филтр",
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
@@ -81,7 +81,7 @@ class _BottomSliderAutoState extends State<BottomSliderAuto> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Выбор Авто",
+                    "Машинани танланг",
                     style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
@@ -121,7 +121,7 @@ class _BottomSliderAutoState extends State<BottomSliderAuto> {
                     height: 20,
                   ),
                   button(
-                      text: "hello",
+                      text: "Қўллаш",
                       color: caccentColor,
                       onPressed: () {
                         // here we going to ask backen for cars

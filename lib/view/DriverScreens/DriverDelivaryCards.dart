@@ -10,6 +10,7 @@ import 'package:vodiy_petak_alpha_project/view/DriverScreens/DriversTrips.dart';
 
 import '../../Server/Api.dart';
 import '../../consts/colors_const.dart';
+import '../../consts/filtering_const.dart';
 import '../../consts/global_varibels.dart';
 import '../../consts/methods_const.dart';
 import '../../controller/LocalMemory.dart';
@@ -32,6 +33,8 @@ class DriverDelivaryCard extends StatefulWidget {
 class _DriverDelivaryCardState extends State<DriverDelivaryCard> {
   late Map<String, String> dataOfRendering;
   late Future<List<OrderDeliveryInfo>> _someInfo;
+  late String from;
+  late String to;
 
   @override
   void initState() {
@@ -53,6 +56,12 @@ class _DriverDelivaryCardState extends State<DriverDelivaryCard> {
   ];
   @override
   Widget build(BuildContext context) {
+    from = placesOrder.indexOf(dataOfRendering['from']!) < 11
+        ? "Ташкент"
+        : "Андижон";
+    to = placesOrder.indexOf(dataOfRendering['to']!) < 11
+        ? "Ташкент"
+        : "Андижон";
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -89,7 +98,7 @@ class _DriverDelivaryCardState extends State<DriverDelivaryCard> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Ташкент → Андижан",
+                                  "$from → $to",
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w400,
@@ -97,7 +106,7 @@ class _DriverDelivaryCardState extends State<DriverDelivaryCard> {
                                   ),
                                 ),
                                 Text(
-                                  "Завтра, 1 пассажир",
+                                  dataOfRendering['date']!,
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
@@ -124,7 +133,6 @@ class _DriverDelivaryCardState extends State<DriverDelivaryCard> {
                                 return BottomSliderDelivary(
                                   getVale: (val) {
                                     // some kind of api request
-                                    print(val);
                                     setState(() {
                                       _someInfo = Api.getFilterForDelivary(val);
                                     });
@@ -134,7 +142,7 @@ class _DriverDelivaryCardState extends State<DriverDelivaryCard> {
                         },
                         style: ElevatedButton.styleFrom(
                           elevation: 0,
-                          primary: Color(0xffE2E2E2),
+                          backgroundColor: Color(0xffE2E2E2),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -218,7 +226,7 @@ class _DriverDelivaryCardState extends State<DriverDelivaryCard> {
                                     height: 35,
                                   ),
                                   const Text(
-                                    "There not shuche car the you serch",
+                                    "Сиз қидираётган машина йўқ",
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w700,
@@ -233,7 +241,7 @@ class _DriverDelivaryCardState extends State<DriverDelivaryCard> {
                                     height: 20,
                                   ),
                                   const Text(
-                                    "Try filter it try again",
+                                    "қайта уриниб кўринг",
                                     style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500,

@@ -75,7 +75,9 @@ class _DriverAccountState extends State<DriverAccount> {
                           color: cclueColor,
                         ),
                         Text(
-                          "4.9",
+                          LocalMemory.getValue("rating") == "0"
+                              ? " "
+                              : LocalMemory.getValue("rating"),
                           style: TextStyle(
                             fontSize: 14,
                             color: cclueColor,
@@ -96,7 +98,7 @@ class _DriverAccountState extends State<DriverAccount> {
                           ),
                         ),
                         Text(
-                          "Редактировать профиль",
+                          "Профилни таҳрирлаш",
                           style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.w500,
@@ -113,7 +115,7 @@ class _DriverAccountState extends State<DriverAccount> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Номер телефона",
+                    Text("Телефон рақами",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
@@ -149,7 +151,7 @@ class _DriverAccountState extends State<DriverAccount> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Car Model",
+                    Text("Автомобил модели",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
@@ -185,7 +187,7 @@ class _DriverAccountState extends State<DriverAccount> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Car number",
+                    Text("Автомобил рақами",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
@@ -221,7 +223,7 @@ class _DriverAccountState extends State<DriverAccount> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Car Color",
+                    Text("Автомобил ранги",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
@@ -255,7 +257,7 @@ class _DriverAccountState extends State<DriverAccount> {
                   height: 70,
                 ),
                 button(
-                    text: "💺 Стать пассажиром",
+                    text: "💺 Йўловчига айланинг",
                     color: caccentColor,
                     onPressed: () {
                       LocalMemory.clearAll();

@@ -53,7 +53,7 @@ class _BottomSliderNumberOfSeatsState extends State<BottomSliderNumberOfSeats> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Укажыте Places",
+                      "Ўриндиқларни сонини белгиланг",
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
@@ -127,7 +127,7 @@ class _BottomSliderNumberOfSeatsState extends State<BottomSliderNumberOfSeats> {
               height: 40,
             ),
             button(
-              text: "Appley",
+              text: "Қўллаш",
               color: caccentColor,
               onPressed: () {
                 widget.getValue(seatsNumber);
@@ -137,7 +137,7 @@ class _BottomSliderNumberOfSeatsState extends State<BottomSliderNumberOfSeats> {
             SizedBox(
               height: 16,
             ),
-            buttonBorder("cancel", () {
+            buttonBorder("Бекор қилиш", () {
               seatsNumber = 0;
               widget.getValue(seatsNumber);
               Navigator.pop(context);

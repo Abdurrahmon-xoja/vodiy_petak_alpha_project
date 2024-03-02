@@ -82,7 +82,7 @@ class _ClientAccountState extends State<ClientAccount> {
                         ),
                       ),
                       Text(
-                        "Редактировать профиль",
+                        "Профилни ўзгартириш",
                         style: TextStyle(
                           fontSize: 10,
                           fontWeight: FontWeight.w500,
@@ -99,7 +99,7 @@ class _ClientAccountState extends State<ClientAccount> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Номер телефона",
+                  Text("Телефон рақами",
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
@@ -133,7 +133,7 @@ class _ClientAccountState extends State<ClientAccount> {
                 height: 71,
               ),
               button(
-                  text: "🚕  Стать водителем",
+                  text: "🚕   Ҳайдовчи бўлиш",
                   color: caccentColor,
                   onPressed: () {
                     LocalMemory.clearAll();

@@ -73,7 +73,7 @@ class _DriverOrderScreenState extends State<DriverOrderScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Ваша поездка",
+              Text("Сизнинг буюртмаларингиз",
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w700,
@@ -119,7 +119,7 @@ class _DriverOrderScreenState extends State<DriverOrderScreen> {
                               height: 12,
                             ),
                             Text(
-                              "Ваши места:",
+                              "Жойларингиз:",
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w700,
@@ -152,7 +152,7 @@ class _DriverOrderScreenState extends State<DriverOrderScreen> {
                     }
                   }),
               Text(
-                "Ваши доставки:",
+                "Сизнинг етказмаларингиз",
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w700,
@@ -214,7 +214,7 @@ class _DriverOrderScreenState extends State<DriverOrderScreen> {
                 height: 10,
               ),
               buttonBorder(
-                "Завершить поездку",
+                "Сафарни якунланг",
                 () {
                   showModalBottomSheet(
                       isScrollControlled: true,
@@ -248,7 +248,7 @@ class _DriverOrderScreenState extends State<DriverOrderScreen> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("Завершить поездку",
+                                  Text("Сафарни якунланг",
                                       style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.w700,
@@ -258,12 +258,13 @@ class _DriverOrderScreenState extends State<DriverOrderScreen> {
                                   ),
                                   Row(
                                     children: [
-                                      Text("Куда:  ",
+                                      Text("Қайерга:  ",
                                           style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w700,
                                             color: Color(0xff262626),
                                           )),
+                                      //TODO: make automatik
                                       Text(
                                         "Ташкент",
                                         style: TextStyle(
@@ -277,7 +278,7 @@ class _DriverOrderScreenState extends State<DriverOrderScreen> {
                                     height: 8,
                                   ),
                                   Text(
-                                    "У вас ${howManyDelivary} доставка",
+                                    "Сизда ${howManyDelivary} етказма(лар) бор",
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w700,
@@ -288,7 +289,7 @@ class _DriverOrderScreenState extends State<DriverOrderScreen> {
                                     height: 8,
                                   ),
                                   Text(
-                                    "У вас ${howManyPassengers} пассажир",
+                                    "Сизда ${howManyPassengers} Йўловчи(лар) бор",
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w700,
@@ -302,7 +303,7 @@ class _DriverOrderScreenState extends State<DriverOrderScreen> {
                               ),
                               Text(
                                 textAlign: TextAlign.center,
-                                "Внимание! Не завершайте поездку пока не отвезете всех пассажиров и не отдадите все доставки!",
+                                "Диққат! Барча йўловчиларни ташиш ва барча этказиб беришларни етказиб бермагунингизча саёҳатни тугатманг!",
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w500,
@@ -313,7 +314,7 @@ class _DriverOrderScreenState extends State<DriverOrderScreen> {
                                 height: 16,
                               ),
                               button(
-                                text: "Завершить поездку",
+                                text: "Cафарни тугатиш",
                                 color: caccentColor,
                                 onPressed: () {
                                   //delete from LocalMemory
@@ -427,7 +428,7 @@ class _DriverOrderScreenState extends State<DriverOrderScreen> {
               ),
             ),
             Text(
-              "Свободно",
+              "Бўш",
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
@@ -610,7 +611,7 @@ class _DriverOrderScreenState extends State<DriverOrderScreen> {
                     ),
                   ),
                   Text(
-                    "Свободно",
+                    "Бўш",
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
